@@ -1,8 +1,11 @@
 import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
-import style from './style';
+const style = require('./style');
 
-export default class Header extends Component {
+interface ComponentProps {
+}
+
+export default class Header extends Component<ComponentProps, any> {
 	render() {
 		return (
 			<header class={style.header}>

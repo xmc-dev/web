@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
-import style from './style';
+const style = require('./style');
 
-export default class Home extends Component {
+export default class Home extends Component<any, any> {
 	render() {
 		return (
 			<div class={style.home}>
