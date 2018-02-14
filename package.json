@@ -25,6 +25,8 @@
   "dependencies": {
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
-    "preact-router": "^2.5.7"
+    "preact-router": "^2.5.7",
+    "semantic-ui": "^2.2.14",
+    "semantic-ui-react": "^0.78.2"
   }
 }
