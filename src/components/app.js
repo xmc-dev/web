@@ -7,18 +7,13 @@ import Profile from '../routes/profile';
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 
-interface AppProps {
-	currentUrl: string,
-}
-
-export default class App extends Component<AppProps, any> {
-
+export default class App extends Component {
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
 	 *	@param {string} event.url	The newly routed URL
 	 */
 	handleRoute = e => {
-		this.props.currentUrl = e.url;
+		this.currentUrl = e.url;
 	};
 
 	render() {

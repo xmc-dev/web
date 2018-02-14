@@ -1,13 +1,11 @@
 import { h, Component } from 'preact';
-const style = require('./style');
+import style from './style';
 
-export default class Profile extends Component<any, any> {
+export default class Profile extends Component {
 	state = {
 		time: Date.now(),
 		count: 10
 	};
-
-	timer: NodeJS.Timer;
 
 	// gets called when this route is navigated to
 	componentDidMount() {
