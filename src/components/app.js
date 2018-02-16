@@ -3,9 +3,13 @@ import { Router } from 'preact-router';
 
 import Header from './header';
 import Home from '../routes/home';
-import Profile from '../routes/profile';
+import Monitor from '../routes/monitor';
+import Submission from '../routes/submission';
+
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
+// import Monitor from 'async!../routes/monitor';
+// import Submission from 'async!../routes/submission';
 
 export default class App extends Component {
 	/** Gets fired when the route changes.
@@ -22,8 +26,8 @@ export default class App extends Component {
 				<Header />
 				<Router onChange={this.handleRoute}>
 					<Home path="/" />
-					<Profile path="/profile/" user="me" />
-					<Profile path="/profile/:user" />
+					<Monitor path="/submissions" />
+					<Submission path="/submissions/:id" />
 				</Router>
 			</div>
 		);
