@@ -30,7 +30,7 @@ export class SubmissionMonitor extends Component {
             return <ErrorMessage error={this.state.error.message} />
         }
         return (
-            <Table celled>
+            <Table celled striped selectable>
                 <Table.Header>
                     <SubmissionMonitorHeaderRow />
                 </Table.Header>

@@ -17,16 +17,19 @@
     "build/*"
   ],
   "devDependencies": {
+    "copy-webpack-plugin": "^4.4.1",
     "eslint": "^4.9.0",
     "eslint-config-synacor": "^2.0.2",
     "if-env": "^1.0.0",
     "preact-cli": "^2.0.1"
   },
   "dependencies": {
+    "monaco-editor": "^0.10.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",
     "preact-helmet": "^4.0.0-alpha-3",
     "preact-router": "^2.5.7",
+    "react-monaco-editor": "^0.13.0",
     "semantic-ui": "^2.2.14",
     "semantic-ui-react": "^0.78.2"
   }

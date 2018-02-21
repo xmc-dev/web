@@ -2,18 +2,16 @@ import { h, Component } from 'preact';
 import { Table } from 'semantic-ui-react';
 import { Link } from 'preact-router/match';
 import { getShortStatus } from '../../lib/submission';
+import { stringDate } from '../../lib/date';
 
 export function SubmissionMonitorRow(props) {
-    let sub = props.sub;
+    const sub = props.sub;
     let score = 0;
     if (sub.result) {
         score = sub.result.score;
     }
-    let createdAt = new Date(sub.createdAt).toLocaleString();
-    let finishedAt = "-";
-    if (sub.state == "DONE") {
-        finishedAt = new Date(sub.finishedAt).toLocaleString();
-    }
+    const createdAt = stringDate(sub.createdAt);
+    const finishedAt = stringDate(sub.finishedAt);
     return (
         <Table.Row>
             <Table.Cell><Link href={`/submissions/${sub.id}`}>{sub.id}</Link></Table.Cell>
