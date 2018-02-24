@@ -11,14 +11,16 @@ html, body {
 	-moz-osx-font-smoothing: grayscale;
 }
 
-body {
-	padding-top: 80px !important;
-}
-
 * {
 	box-sizing: border-box;
 }
 
 #app {
 	height: 100%;
+}
+
+#container {
+	margin-left: 6em;
+	height: 100%;
+	padding-top: 4em;
 }

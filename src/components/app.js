@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { Router } from 'preact-router';
 import Helmet from 'preact-helmet';
 
-import Header from './header';
+import Navigation from './navigation';
 import Home from '../routes/home';
 import Monitor from '../routes/monitor';
 import Submission from '../routes/submission';
@@ -25,13 +25,15 @@ export default class App extends Component {
 	render() {
 		return (
 			<div id="app">
-				<Header />
-				<Router onChange={this.handleRoute}>
-					<Home path="/" />
-					<Archive path="/archive" />
-					<Monitor path="/submissions" />
-					<Submission path="/submissions/:id" />
-				</Router>
+				<Navigation />
+				<div id="container">
+					<Router onChange={this.handleRoute}>
+						<Home path="/" />
+						<Archive path="/archive" />
+						<Monitor path="/submissions" />
+						<Submission path="/submissions/:id" />
+					</Router>
+				</div>
 			</div>
 		);
 	}

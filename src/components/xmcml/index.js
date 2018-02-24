@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import JsxParser from 'react-jsx-parser';
 import MarkdownIt from 'markdown-it';
 
-export class XMCMD extends Component {
+export class XMCML extends Component {
     md;
 
     constructor(props) {

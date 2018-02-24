@@ -1,0 +1,42 @@
+.navigation {
+	height: 100%;
+	width: 6em;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	left: 0;
+	background-color: #333;
+	text-align: center;
+}
+
+.navigation .logo {
+	margin: 2em 0 8em 0;
+}
+
+.navigation a {
+	display: block;
+	width: 6em;
+	height: 6em;
+	color: white;
+	transition: all 0.1s;
+	padding: 1.125em;
+}
+.navigation a:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: white;
+}
+.navigation a span {
+	display: block;
+	font-size: 0.75em;
+}
+
+.navigation a.active {
+	background: #239572;
+	width: 6.5em;
+	transition: all 0.2s;
+}
+
+#bottom {
+	position: absolute;
+	bottom: 0;
+}
