@@ -1,8 +1,1 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="32" height="32" version="1.1" viewBox="0 0 8.5 8.5" xmlns="http://www.w3.org/2000/svg">
- <g transform="translate(0 -289)">
-  <g transform="matrix(1 0 0 1 -.001 .032)" fill="#fff" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal" aria-label="x">
-   <path d="m8.5 297h-3.8v-1.6h0.71l-1.1-1.7-1.1 1.7h0.66v1.6h-3.8v-1.6h1.2l1.8-2.5-1.7-2.4h-1.1v-1.6h3.7v1.6h-0.57l0.98 1.6 1-1.6h-0.64v-1.6h3.7v1.6h-1.1l-1.7 2.4 1.8 2.5h1.2z" fill="#fff" stroke-width=".45" style="font-feature-settings:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal"/>
-  </g>
- </g>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 8.467 8.467"><g style="line-height:1.25;-inkscape-font-specification:'Anonymous Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start"><path d="M8.467 8.284H4.625V6.667h.712L4.233 4.972 3.147 6.667h.66v1.617H0V6.667h1.174L2.99 4.172 1.26 1.808H.174V.183h3.65v1.625h-.573l.982 1.565 1-1.565H4.59V.183h3.685v1.625H7.224l-1.73 2.364L7.31 6.667h1.156z" style="-inkscape-font-specification:'Anonymous Pro, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-feature-settings:normal;text-align:start" aria-label="x" font-weight="700" font-size="17.815" font-family="Anonymous Pro" letter-spacing="0" word-spacing="0" fill="#fff"/></g></svg>

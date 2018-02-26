@@ -3,7 +3,10 @@ import { Link } from 'preact-router/match';
 import style from './style';
 import logo from './logo.svg';
 import Icon from 'react-icons-kit';
-import { basic_home, basic_archive_full, arrows_hamburger1, basic_gear } from 'react-icons-kit/linea';
+import { basic_home } from 'react-icons-kit/linea/basic_home';
+import { basic_archive_full } from 'react-icons-kit/linea/basic_archive_full';
+import { arrows_hamburger1 } from 'react-icons-kit/linea/arrows_hamburger1';
+import { basic_gear } from 'react-icons-kit/linea/basic_gear';
 
 export default class Navigation extends Component {
 	render() {
