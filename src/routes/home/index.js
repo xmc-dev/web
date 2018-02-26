@@ -8,7 +8,7 @@ export default class Home extends Component {
 		return (
 			<Container className={style.home}>
 				<Helmet title="XMC" />
-				<Header as='h1'>Home</Header>
+				<Header as="h1">Home</Header>
 				<p>This is the Home component.</p>
 			</Container>
 		);

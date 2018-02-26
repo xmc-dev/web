@@ -5,12 +5,12 @@ import Helmet from 'preact-helmet';
 import { ErrorMessage } from '../../components/error-message';
 
 export default class Submission extends Component {
-    render() {
-        return (
-            <Container>
-                <Helmet title='Monitorul de evaluare' />
-                <CSubmission id={this.props.id} />
-            </Container>
-        );
-    }
+	render() {
+		return (
+			<Container>
+				<Helmet title="Monitorul de evaluare" />
+				<CSubmission id={this.props.id} />
+			</Container>
+		);
+	}
 }

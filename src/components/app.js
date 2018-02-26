@@ -8,19 +8,25 @@ import Monitor from '../routes/monitor';
 import Submission from '../routes/submission';
 import Archive from '../routes/archive';
 
-// import Home from 'async!../routes/home';
+// Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 // import Monitor from 'async!../routes/monitor';
 // import Submission from 'async!../routes/submission';
 
 export default class App extends Component {
+	constructor(props) {
+		super(props);
+		this.currentUrl = {};
+		this.handleRoute = this.handleRoute.bind(this);
+	}
+
 	/** Gets fired when the route changes.
 	 *	@param {Object} event		"change" event from [preact-router](http://git.io/preact-router)
 	 *	@param {string} event.url	The newly routed URL
 	 */
-	handleRoute = e => {
+	handleRoute(e) {
 		this.currentUrl = e.url;
-	};
+	}
 
 	render() {
 		return (

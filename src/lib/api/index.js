@@ -7,12 +7,12 @@ import { API_URL } from '../../config';
  * @returns {Promise} Returned promise from fetch()
  */
 export function rawApi(endpoint, options) {
-    console.log('fetching from', API_URL+endpoint);
+	console.log('fetching from', API_URL + endpoint);
 
-    const opts = options || {};
-    opts.headers = new Headers();
-    opts.headers.append('Origin', window.location.origin);
-    return fetch(API_URL + endpoint, opts);
+	const opts = options || {};
+	opts.headers = new Headers();
+	opts.headers.append('Origin', window.location.origin);
+	return fetch(API_URL + endpoint, opts);
 }
 
 /**
@@ -22,11 +22,10 @@ export function rawApi(endpoint, options) {
  * @returns {Promise} Returned promise from fetch() that has a de-JSON'd response object as its first parameter.
  */
 export function api(endpoint, options) {
-    return rawApi(endpoint, arguments)
-    .then(response => {
-        if (!response.ok) {
-            throw Error(response.statusText);
-        }
-        return response.json();
-    });
+	return rawApi(endpoint, arguments).then(response => {
+		if (!response.ok) {
+			throw new Error(response.statusText);
+		}
+		return response.json();
+	});
 }

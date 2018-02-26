@@ -1,6 +1,6 @@
 export function stringDate(date) {
-    if (!date) {
-        return '-';
-    }
-    return new Date(date).toLocaleString()
+	if (!date) {
+		return '-';
+	}
+	return new Date(date).toLocaleString();
 }

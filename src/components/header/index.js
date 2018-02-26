@@ -8,9 +8,15 @@ export default class Header extends Component {
 			<header class={style.header}>
 				<h1>Add logo pls</h1>
 				<nav>
-					<Link activeClassName={style.active} href="/">Home</Link>
-					<Link activeClassName={style.active} href="/archive">Archive</Link>
-					<Link activeClassName={style.active} href="/submissions">Monitor</Link>
+					<Link activeClassName={style.active} href="/">
+						Home
+					</Link>
+					<Link activeClassName={style.active} href="/archive">
+						Archive
+					</Link>
+					<Link activeClassName={style.active} href="/submissions">
+						Monitor
+					</Link>
 				</nav>
 			</header>
 		);
