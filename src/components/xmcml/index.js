@@ -10,6 +10,6 @@ export class XMCML extends Component {
 
 	render() {
 		const r = this.md.render(this.props.md);
-		return <JsxParser components={this.props.bindings} jsx={r} />;
+		return <JsxParser components={this.props.components} jsx={r} />;
 	}
 }
