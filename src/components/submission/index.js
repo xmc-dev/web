@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { getShortStatus } from '../../lib/submission';
-import { api, rawApi } from '../../lib/api';
+import { api, getAttachmentContent } from '../../lib/api';
 import { ErrorMessage } from '../error-message';
 import { InfoTable } from './info-table';
 import { Container, Tab, Header } from 'semantic-ui-react';
@@ -20,15 +20,7 @@ export class Submission extends Component {
 		};
 	}
 
-	getAttachment(sub) {
-		api('/attachments/' + sub.attachmentId)
-			.then(data => {
-				this.setState({ attachment: data.attachment });
-			})
-			.catch(error => {
-				throw error;
-			});
-
+	getTask(sub) {
 		api('/tasks/' + sub.taskId)
 			.then(data => {
 				this.setState({ task: data.task });
@@ -38,23 +30,20 @@ export class Submission extends Component {
 			});
 	}
 
-	getSourceCodeFile(sub) {
-		api('/attachments/' + sub.attachmentId + '/file')
+	getAttachment(sub) {
+		api('/attachments/' + sub.attachmentId)
 			.then(data => {
-				this.setState({ codeUrl: data.url });
-				fetch(data.url, { headers: { Origin: window.location.origin } })
-					.then(data => {
-						if (!data.ok) {
-							throw new Error(data.statusText);
-						}
-						return data.text();
-					})
-					.then(code => {
-						this.setState({ sourceCode: code });
-					})
-					.catch(error => {
-						throw error;
-					});
+				this.setState({ attachment: data.attachment });
+			})
+			.catch(error => {
+				throw error;
+			});
+	}
+
+	getSourceCodeFile(sub) {
+		getAttachmentContent(sub.attachmentId)
+			.then(att => {
+				this.setState({ codeUrl: att.url, sourceCode: att.data });
 			})
 			.catch(error => {
 				throw error;
@@ -68,6 +57,7 @@ export class Submission extends Component {
 				return data.submission;
 			})
 			.then(sub => {
+				this.getTask(sub);
 				this.getAttachment(sub);
 				this.getSourceCodeFile(sub);
 			})

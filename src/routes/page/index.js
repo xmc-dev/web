@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
 import { Container } from 'semantic-ui-react';
 import { XMCML } from '../../components/xmcml';
-import { api, rawApi } from '../../lib/api';
+import { api, rawApi, getAttachmentContent } from '../../lib/api';
 
 export class TestComponent extends Component {
 	render() {
@@ -11,87 +11,49 @@ export class TestComponent extends Component {
 }
 
 export default class Page extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			page: {},
 			url: '',
 			content: ''
 		};
+		this.getContent = this.getContent.bind(this);
 	}
 
-	componentWillMount() {
+	getContent() {
 		api('/pages' + this.props.url)
 			.then(data => {
 				this.setState({ page: data.page });
 				return data.page.version;
 			})
 			.then(data => {
-				api('/attachments/' + data.attachmentId + '/file')
-					.then(data => {
-						this.setState({ url: data.url });
-						fetch(data.url, { headers: { Origin: window.location.origin } })
-							.then(data => {
-								if (!data.ok) {
-									throw new Error(data.statusText);
-								}
-								return data.text();
-							})
-							.then(content => {
-								this.setState({ content: content });
-							})
-							.catch(error => {
-								throw error;
-							})
+				getAttachmentContent(data.attachmentId)
+					.then(att => {
+						this.setState({ url: att.url, content: att.data });
 					})
 					.catch(error => {
 						throw error;
-					})
+					});
 			})
 			.catch(error => {
 				throw error;
 			});
 	}
 
+	componentWillMount() {
+		this.getContent();
+	}
+
 	componentWillReceiveProps(update) {
-		console.log(update.url);
-		api('/pages' + update.url)
-			.then(data => {
-				this.setState({ page: data.page });
-				return data.page.version;
-			})
-			.then(data => {
-				api('/attachments/' + data.attachmentId + '/file')
-					.then(data => {
-						this.setState({ url: data.url });
-						fetch(data.url, { headers: { Origin: window.location.origin } })
-							.then(data => {
-								if (!data.ok) {
-									throw new Error(data.statusText);
-								}
-								return data.text();
-							})
-							.then(content => {
-								this.setState({ content: content });
-							})
-							.catch(error => {
-								throw error;
-							})
-					})
-					.catch(error => {
-						throw error;
-					})
-			})
-			.catch(error => {
-				throw error;
-			});
+		this.getContent();
 	}
 
 	render() {
 		return (
 			<Container>
 				<Helmet title="AAAA" />
-				<XMCML md={this.state.content} components={{TestComponent}} />
+				<XMCML md={this.state.content} components={{ TestComponent }} />
 			</Container>
 		);
 	}

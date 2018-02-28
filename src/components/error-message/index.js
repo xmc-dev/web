@@ -7,6 +7,7 @@ import { Container, Header } from 'semantic-ui-react';
  * @param {string} props.error Error message to be displayed.
  */
 export function ErrorMessage({ error, detail }) {
+	console.error(error, detail);
 	return (
 		<Container>
 			<Header as="h1">Error: {error}</Header>
