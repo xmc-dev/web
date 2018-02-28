@@ -1,8 +1,10 @@
 import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
 import { Container } from 'semantic-ui-react';
+import { Link } from 'preact-router';
 import { XMCML } from '../../components/xmcml';
 import { api, rawApi, getAttachmentContent } from '../../lib/api';
+import JsxParser from 'react-jsx-parser';
 
 export class TestComponent extends Component {
 	render() {
@@ -14,7 +16,7 @@ export default class Page extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			page: {},
+			page: { version: {} },
 			url: '',
 			content: ''
 		};
@@ -41,7 +43,7 @@ export default class Page extends Component {
 			});
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		this.getContent();
 	}
 
@@ -52,7 +54,7 @@ export default class Page extends Component {
 	render() {
 		return (
 			<Container>
-				<Helmet title="AAAA" />
+				<Helmet title={this.state.page.version.title} />
 				<XMCML md={this.state.content} components={{ TestComponent }} />
 			</Container>
 		);
