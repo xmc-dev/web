@@ -5,6 +5,7 @@ import { Link } from 'preact-router';
 import { XMCML } from '../../components/xmcml';
 import { api, rawApi, getAttachmentContent } from '../../lib/api';
 import JsxParser from 'react-jsx-parser';
+import { ErrorMessage } from '../../components/error-message';
 
 export class TestComponent extends Component {
 	render() {
@@ -17,14 +18,19 @@ export default class Page extends Component {
 		super(props);
 		this.state = {
 			page: { version: {} },
-			url: '',
+			error: null,
+			url: props.url,
 			content: ''
 		};
 		this.getContent = this.getContent.bind(this);
 	}
 
 	getContent() {
-		api('/pages' + this.props.url)
+		let url = this.state.url;
+		if (url == '/') {
+			url = '<root>';
+		}
+		api('/pages/' + url)
 			.then(data => {
 				this.setState({ page: data.page });
 				return data.page.version;
@@ -39,7 +45,7 @@ export default class Page extends Component {
 					});
 			})
 			.catch(error => {
-				throw error;
+				this.setState({ error });
 			});
 	}
 
@@ -48,10 +54,15 @@ export default class Page extends Component {
 	}
 
 	componentWillReceiveProps(update) {
+		this.setState({ url: update.url });
+		console.log(update);
 		this.getContent();
 	}
 
 	render() {
+		if (this.state.error) {
+			return <ErrorMessage error={this.state.error.message} />;
+		}
 		return (
 			<Container>
 				<Helmet title={this.state.page.version.title} />
