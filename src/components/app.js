@@ -6,7 +6,9 @@ import Navigation from './navigation';
 import Monitor from '../routes/monitor';
 import Submission from '../routes/submission';
 import Archive from '../routes/archive';
+import Login from '../routes/login';
 import Page from '../routes/page';
+import { auth } from '../lib/auth';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -18,6 +20,7 @@ export default class App extends Component {
 		super(props);
 		this.currentUrl = {};
 		this.handleRoute = this.handleRoute.bind(this);
+		auth({scope: "xd lol lmao"});
 	}
 
 	/** Gets fired when the route changes.
@@ -37,6 +40,7 @@ export default class App extends Component {
 						<Archive path="/archive" />
 						<Monitor path="/submissions" />
 						<Submission path="/submissions/:id" />
+						<Login path="/login" />
 						<Page url={this.currentUrl} default />
 					</Router>
 				</div>
