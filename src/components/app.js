@@ -20,7 +20,9 @@ export default class App extends Component {
 		super(props);
 		this.currentUrl = {};
 		this.handleRoute = this.handleRoute.bind(this);
-		auth({scope: "xd lol lmao"});
+
+		// TODO: remove this
+		auth({ scope: 'xd lol lmao' });
 	}
 
 	/** Gets fired when the route changes.
