@@ -5,12 +5,22 @@
 	z-index: 1;
 	top: 0;
 	left: 0;
+
 	background-color: #333;
 	text-align: center;
-}
 
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+}
 .navigation .logo {
 	margin: 2em 0 8em 0;
+}
+.navigation .section {
+	width: 6em;
+}
+.navigation .section#bottom {
+	margin-top: auto;
 }
 
 .navigation a {
@@ -29,14 +39,8 @@
 	display: block;
 	font-size: 0.75em;
 }
-
 .navigation a.active {
 	background: #239572;
 	width: 6.5em;
 	transition: all 0.2s;
-}
-
-#bottom {
-	position: absolute;
-	bottom: 0;
 }

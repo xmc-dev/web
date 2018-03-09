@@ -4,12 +4,7 @@ import { h, Component } from 'preact';
 import { Link } from 'preact-router/match';
 import style from './style';
 import logo from './logo.svg';
-import Icon from 'react-icons-kit';
-import { basic_home } from 'react-icons-kit/linea/basic_home';
-import { basic_archive_full } from 'react-icons-kit/linea/basic_archive_full';
-import { arrows_hamburger1 } from 'react-icons-kit/linea/arrows_hamburger1';
-import { basic_gear } from 'react-icons-kit/linea/basic_gear';
-import { userOutline as user_outline } from 'react-icons-kit/typicons/userOutline';
+import Ionicon from 'react-ionicons'
 
 function NavLink({ href, icon, text, bottom }) {
 	let id = '';
@@ -19,7 +14,7 @@ function NavLink({ href, icon, text, bottom }) {
 
 	return (
 		<Link activeClassName={style.active} href={href} id={id}>
-			<Icon icon={icon} size={32} />
+			<Ionicon icon={icon} fontSize={32} color="white"/>
 			<span>{text}</span>
 		</Link>
 	);
@@ -30,12 +25,16 @@ export default class Navigation extends Component {
 		return (
 			<nav class={style.navigation}>
 				<img src={logo} class={style.logo} />
-				<NavLink href="/" icon={basic_home} text="HOME" />
-				<NavLink href="/archive" icon={basic_archive_full} text="ARCHIVE" />
-				<NavLink href="/submissions" icon={arrows_hamburger1} text="MONITOR" />
+				<div class={style.section} id={style.middle}>
+					<NavLink href="/" icon="ios-home-outline" text="HOME" />
+					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE" />
+					<NavLink href="/submissions" icon="ios-list-box-outline" text="MONITOR" />
+				</div>
 
-				<NavLink href="/login" icon={user_outline} text="LOGIN" />
-				<NavLink href="/settings" icon={basic_gear} bottom text="SETTINGS" />
+				<div class={style.section} id={style.bottom}>
+					<NavLink href="/login" icon="ios-person-outline" text="LOGIN" />
+					<NavLink href="/settings" icon="ios-settings-outline" bottom text="SETTINGS" />
+				</div>
 			</nav>
 		);
 	}
