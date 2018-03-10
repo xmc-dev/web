@@ -1,4 +1,5 @@
 import { API_URL } from '../../config';
+import { getTokenString } from '../auth';
 
 /**
  * Makes an API call.
@@ -10,8 +11,12 @@ export function rawApi(endpoint, options) {
 	console.log('fetching from', API_URL + endpoint);
 
 	const opts = options || {};
+	const tok = getTokenString();
 	opts.headers = new Headers();
 	opts.headers.append('Origin', window.location.origin);
+	if (tok) {
+		opts.headers.append('Authorization', 'Bearer ' + tok);
+	}
 	return fetch(API_URL + endpoint, opts);
 }
 
