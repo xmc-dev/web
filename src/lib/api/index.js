@@ -6,7 +6,6 @@ export function rawCall(url, options) {
 
 	const opts = options || {};
 	opts.headers = opts.headers || new Headers();
-	console.log(opts.headers);
 	opts.headers.append('Origin', window.location.origin);
 
 	return fetch(url, opts);
@@ -71,7 +70,7 @@ export function getAttachmentContent(attachmentId, options) {
 	return getAttachmentUrl(attachmentId, options).then(url => {
 		const parser = document.createElement('a');
 		parser.href = url;
-		const newUrl = url.replace(new RegExp("^"+parser.origin), FILES_PROXY);
+		const newUrl = url.replace(new RegExp('^' + parser.origin), FILES_PROXY);
 		return rawCall(newUrl)
 			.then(data => {
 				if (!data.ok) {
