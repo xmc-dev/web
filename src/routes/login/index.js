@@ -39,7 +39,7 @@ The authentification process didn't return the correct values. Please contact th
 		}
 
 		const url = authorize({ scope: 'xd lol lmao' });
-		window.location.replace(url);
+		window.location.href = url;
 	}
 
 	checkParams(params) {
