@@ -1,7 +1,7 @@
 // This is to make eslint shut up about the icons
 /* eslint-disable camelcase */
 import { h, Component } from 'preact';
-import { Link } from 'preact-router/match';
+import { NavLink as StyledLink } from 'react-router-dom';
 import style from './style';
 import logo from './logo.svg';
 import Ionicon from 'react-ionicons';
@@ -13,10 +13,10 @@ function NavLink({ href, icon, text, bottom }) {
 	}
 
 	return (
-		<Link activeClassName={style.active} href={href} id={id}>
+		<StyledLink exact activeClassName={style.active} to={href} id={id}>
 			<Ionicon icon={icon} fontSize="32px" color="white" />
 			<span>{text}</span>
-		</Link>
+		</StyledLink>
 	);
 }
 

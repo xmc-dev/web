@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { Router } from 'preact-router';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Helmet from 'preact-helmet';
 
 import Navigation from './navigation';
@@ -32,18 +32,21 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<div id="app">
-				<Navigation />
-				<div id="container">
-					<Router onChange={this.handleRoute}>
-						<Archive path="/archive" />
-						<Monitor path="/submissions" />
-						<Submission path="/submissions/:id" />
-						<Login path="/login" />
-						<Page url={this.currentUrl} default />
-					</Router>
+			<Router onChange={this.handleRoute}>
+				<div id="app">
+					<Navigation />
+					<div id="container">
+						<Switch>
+							<Route path="/" exact component={Page} />
+							<Route path="/archive" exact component={Archive} />
+							<Route path="/submissions" exact component={Monitor} />
+							<Route path="/submissions/:id" exact component={Submission} />
+							<Route path="/login" exact component={Login} />
+							<Route component={Page} />
+						</Switch>
+					</div>
 				</div>
-			</div>
+			</Router>
 		);
 	}
 }

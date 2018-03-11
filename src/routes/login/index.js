@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import { Header, Container } from 'semantic-ui-react';
-import { route } from 'preact-router';
+import { Redirect } from 'react-router-dom';
 import { authorize, token } from '../../lib/auth';
 import { paramsToObject } from '../../lib/query-params';
 
 export default class Login extends Component {
 	constructor() {
 		super();
-		this.state = { error: {} };
+		this.state = { error: {}, redirect: false };
 	}
 
 	componentWillMount() {
@@ -30,7 +30,7 @@ The authentification process didn't return the correct values. Please contact th
 
 			token(params.code, params.state)
 				.then(() => {
-					route('/', true);
+					this.setState({ redirect: true });
 				})
 				.catch(error => {
 					this.setState({ error });
@@ -47,6 +47,9 @@ The authentification process didn't return the correct values. Please contact th
 	}
 
 	render() {
+		if (this.state.redirect) {
+			return <Redirect to="/" />;
+		}
 		if ('error' in this.state.error) {
 			return (
 				<Container>

@@ -19,7 +19,7 @@ export default class Page extends Component {
 		this.state = {
 			page: { version: {} },
 			error: null,
-			url: props.url,
+			url: props.location.pathname,
 			content: ''
 		};
 		this.getContent = this.getContent.bind(this);
@@ -54,8 +54,7 @@ export default class Page extends Component {
 	}
 
 	componentWillReceiveProps(update) {
-		this.setState({ url: update.url });
-		console.log(update);
+		this.setState({ url: update.location.pathname });
 		this.getContent();
 	}
 
