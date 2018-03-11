@@ -1,5 +1,16 @@
-import { API_URL } from '../../config';
+import { API_URL, FILES_PROXY } from '../../config';
 import { getTokenString } from '../auth';
+
+export function rawCall(url, options) {
+	console.log('fetching from', url);
+
+	const opts = options || {};
+	opts.headers = opts.headers || new Headers();
+	console.log(opts.headers);
+	opts.headers.append('Origin', window.location.origin);
+
+	return fetch(url, opts);
+}
 
 /**
  * Makes an API call.
@@ -8,16 +19,14 @@ import { getTokenString } from '../auth';
  * @returns {Promise} Returned promise from fetch()
  */
 export function rawApi(endpoint, options) {
-	console.log('fetching from', API_URL + endpoint);
-
-	const opts = options || {};
 	const tok = getTokenString();
-	opts.headers = new Headers();
-	opts.headers.append('Origin', window.location.origin);
+	const opts = options || {};
+	opts.headers = opts.headers || new Headers();
 	if (tok) {
 		opts.headers.append('Authorization', 'Bearer ' + tok);
 	}
-	return fetch(API_URL + endpoint, opts);
+
+	return rawCall(API_URL + endpoint, opts);
 }
 
 /**
@@ -60,7 +69,10 @@ export function getAttachmentUrl(attachmentId, options) {
  */
 export function getAttachmentContent(attachmentId, options) {
 	return getAttachmentUrl(attachmentId, options).then(url => {
-		return fetch(url, { headers: { Origin: window.location.origin } })
+		const parser = document.createElement('a');
+		parser.href = url;
+		const newUrl = url.replace(new RegExp("^"+parser.origin), FILES_PROXY);
+		return rawCall(newUrl)
 			.then(data => {
 				if (!data.ok) {
 					throw new Error(data.statusText);
@@ -68,7 +80,7 @@ export function getAttachmentContent(attachmentId, options) {
 				return data.text();
 			})
 			.then(textData => {
-				return { url: url, data: textData };
+				return { url: newUrl, data: textData };
 			});
 	});
 }

@@ -4,3 +4,4 @@ export const OAUTH2 = {
 	clientId: 'acfadfljkasdl',
 	redirectUri: 'https://xmc/login'
 };
+export const FILES_PROXY = 'http://localhost:9000';
