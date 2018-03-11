@@ -1,0 +1,6 @@
+export const API_URL = 'https://xmc/api';
+export const OAUTH2 = {
+	url: 'https://xmc/oauth2',
+	clientId: 'acfadfljkasdl',
+	redirectUri: 'https://xmc/login'
+};
