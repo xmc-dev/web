@@ -66,6 +66,8 @@ export function authorize({ scope }) {
 export function token(code, state) {
 	const storedState = sessionStorage.getItem('authState');
 	const verifier = sessionStorage.getItem('authVerifier');
+	sessionStorage.removeItem('authState');
+	sessionStorage.removeItem('authVerifier');
 
 	if (state !== storedState) {
 		throw new Error('State doesn\'t match');
