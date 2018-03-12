@@ -1,4 +1,5 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin';
+import preactCliSwPrecachePlugin from 'preact-cli-sw-precache';
 
 export default config => {
 	config.plugins.push(
@@ -9,4 +10,13 @@ export default config => {
 			}
 		])
 	);
+
+	const precacheConfig = {
+		runtimeCaching: [{
+			urlPattern: /\/oauth2\//,
+			handler: 'networkFirst'
+		}]
+	};
+
+	return preactCliSwPrecachePlugin(config, precacheConfig);
 };
