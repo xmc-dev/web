@@ -16,7 +16,7 @@ function randomBase64(len) {
 	return base64URLEncode(btoa(String.fromCharCode.apply(null, arr)));
 }
 
-var navUpdater = function() {};
+var navUpdater = function () {};
 
 export function setNavUpdater(func) {
 	navUpdater = func;

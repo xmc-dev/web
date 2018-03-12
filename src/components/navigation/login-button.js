@@ -1,5 +1,5 @@
-import { Component } from "preact";
-import { getTokenString, setNavUpdater } from "../../lib/auth";
+import { Component } from 'preact';
+import { getTokenString, setNavUpdater } from '../../lib/auth';
 import { NavLink } from './nav';
 import { api } from '../../lib/api';
 
@@ -13,10 +13,9 @@ export class LoginButton extends Component {
 
 	getAccount() {
 		if (getTokenString()) {
-			api('/accounts/')
-			.then((data) => {
+			api('/accounts/').then(data => {
 				this.setState({ account: data });
-			})
+			});
 		}
 	}
 
@@ -31,6 +30,6 @@ export class LoginButton extends Component {
 			text = this.state.account.name;
 			href = '/user';
 		}
-		return <NavLink href={href} icon="ios-person-outline" text={text} />
+		return <NavLink href={href} icon="ios-person-outline" text={text} />;
 	}
 }
