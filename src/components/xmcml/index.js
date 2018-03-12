@@ -1,5 +1,5 @@
 import { h, Component } from 'preact';
-import { Link } from 'preact-router';
+import { Link } from 'react-router-dom';
 import JsxParser from 'react-jsx-parser';
 import MarkdownIt from 'markdown-it';
 

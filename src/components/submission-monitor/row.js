@@ -1,6 +1,6 @@
 import { h, Component } from 'preact';
 import { Table } from 'semantic-ui-react';
-import { Link } from 'preact-router/match';
+import { Link } from 'react-router-dom';
 import { getShortStatus } from '../../lib/submission';
 import { stringDate } from '../../lib/date';
 
@@ -15,7 +15,7 @@ export function SubmissionMonitorRow(props) {
 	return (
 		<Table.Row>
 			<Table.Cell>
-				<Link href={`/submissions/${sub.id}`}>{sub.id}</Link>
+				<Link to={`/submissions/${sub.id}`}>{sub.id}</Link>
 			</Table.Cell>
 			<Table.Cell>{createdAt}</Table.Cell>
 			<Table.Cell>{finishedAt}</Table.Cell>

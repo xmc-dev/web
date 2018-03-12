@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import { Item } from 'semantic-ui-react';
-// Import { Link } from 'preact-router/match';
 
 export function TaskListItem(props) {
 	return (
