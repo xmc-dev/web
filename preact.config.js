@@ -15,7 +15,8 @@ export default config => {
 		runtimeCaching: [{
 			urlPattern: /\/oauth2\//,
 			handler: 'networkFirst'
-		}]
+		}],
+		handleFetch: false
 	};
 
 	return preactCliSwPrecachePlugin(config, precacheConfig);
