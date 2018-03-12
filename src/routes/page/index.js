@@ -25,8 +25,7 @@ export default class Page extends Component {
 		this.getContent = this.getContent.bind(this);
 	}
 
-	getContent() {
-		let url = this.state.url;
+	getContent(url) {
 		if (url == '/') {
 			url = '<root>';
 		}
@@ -49,13 +48,13 @@ export default class Page extends Component {
 			});
 	}
 
-	componentDidMount() {
-		this.getContent();
+	componentWillMount() {
+		this.getContent(this.props.location.pathname);
 	}
 
 	componentWillReceiveProps(update) {
-		this.setState({ url: update.location.pathname });
-		this.getContent();
+		this.setState({ error: null, url: update.location.pathname });
+		this.getContent(update.location.pathname);
 	}
 
 	render() {
@@ -65,7 +64,10 @@ export default class Page extends Component {
 		return (
 			<Container>
 				<Helmet title={this.state.page.version.title} />
-				<XMCML md={this.state.content} components={{ TestComponent }} />
+				<XMCML
+					md={this.state.content || '# Loading...'}
+					components={{ TestComponent }}
+				/>
 			</Container>
 		);
 	}

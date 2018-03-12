@@ -14,7 +14,7 @@ function NavLink({ href, icon, text, bottom }) {
 
 	return (
 		<StyledLink exact activeClassName={style.active} to={href} id={id}>
-			<Ionicon icon={icon} fontSize="32px" color="white" />
+			<Ionicon icon={icon} fontSize="2em" color="white" />
 			<span>{text}</span>
 		</StyledLink>
 	);
