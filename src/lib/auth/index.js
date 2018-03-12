@@ -16,6 +16,12 @@ function randomBase64(len) {
 	return base64URLEncode(btoa(String.fromCharCode.apply(null, arr)));
 }
 
+var navUpdater = function() {};
+
+export function setNavUpdater(func) {
+	navUpdater = func;
+}
+
 /**
  * Initializes the authorization procedure using
  * the OAuth2 Authorization Code PKCE flow.
@@ -101,6 +107,7 @@ export function token(code, state) {
 		})
 		.then(data => {
 			localStorage.setItem('authToken', data);
+			navUpdater();
 		});
 }
 
@@ -115,5 +122,5 @@ export function getTokenString() {
 	if (tok) {
 		return tok.access_token;
 	}
-	return tok;
+	return '';
 }
