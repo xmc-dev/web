@@ -9,6 +9,8 @@ import Archive from '../routes/archive';
 import Login from '../routes/login';
 import Page from '../routes/page';
 import { auth } from '../lib/auth';
+import { PopupDisplay } from './popup-display';
+import { Container } from 'semantic-ui-react';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -36,6 +38,9 @@ export default class App extends Component {
 				<div id="app">
 					<Navigation />
 					<div id="container">
+						<Container>
+							<PopupDisplay />
+						</Container>
 						<Switch>
 							<Route path="/" exact component={Page} />
 							<Route path="/archive" exact component={Archive} />

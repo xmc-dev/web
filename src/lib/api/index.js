@@ -62,8 +62,8 @@ export function getAttachmentUrl(attachmentId, options) {
 
 /**
  * Download an attachment by its id.
- * @param {*} attachmentId The attachment id.
- * @param {*} options Options to pass to fetch().
+ * @param {string} attachmentId The attachment id.
+ * @param {Object} options Options to pass to fetch().
  * @returns {Promise<DownloadedAttachment>}
  */
 export function getAttachmentContent(attachmentId, options) {

@@ -3,10 +3,23 @@ import { Header, Container } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
 import { authorize, token } from '../../lib/auth';
 import { paramsToObject } from '../../lib/query-params';
+import { connect } from 'preact-redux';
+import { showPopupWithTimeout } from '../../actions/popup';
 
-export default class Login extends Component {
-	constructor() {
-		super();
+const mapDispatchToProps = dispatch => ({
+	onRedirect: () => {
+		dispatch(
+			showPopupWithTimeout({
+				title: 'Login successful',
+				body: 'Welcome to XMC'
+			})
+		);
+	}
+});
+
+class ConnectedLogin extends Component {
+	constructor(props) {
+		super(props);
 		this.state = { error: {}, redirect: false };
 	}
 
@@ -48,6 +61,7 @@ The authentification process didn't return the correct values. Please contact th
 
 	render() {
 		if (this.state.redirect) {
+			this.props.onRedirect();
 			return <Redirect to="/" />;
 		}
 		if ('error' in this.state.error) {
@@ -61,3 +75,6 @@ The authentification process didn't return the correct values. Please contact th
 		}
 	}
 }
+
+const Login = connect(() => ({}), mapDispatchToProps)(ConnectedLogin);
+export default Login;
