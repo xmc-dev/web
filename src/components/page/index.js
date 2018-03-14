@@ -52,7 +52,7 @@ export class Page extends Component {
 	}
 
 	componentWillReceiveProps(update) {
-		this.setState({ error: null, url: update.url });
+		this.setState({ error: null, url: update.url, content: '' });
 		this.getContent(update.url);
 	}
 
