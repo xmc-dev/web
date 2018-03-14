@@ -1,13 +1,13 @@
 import { h, Component } from 'preact';
 import { Item } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export function TaskListItem(props) {
 	return (
 		<Item>
 			<Item.Content>
-				<Item.Header as="a">{props.task.name}</Item.Header>
-				<Item.Meta>Description</Item.Meta>
-				<Item.Description>{props.task.description}</Item.Description>
+				<Item.Header><Link to={`/archive/${props.task.name}`}>{props.task.title}</Link></Item.Header>
+				<Item.Meta>{props.task.name}</Item.Meta>
 			</Item.Content>
 		</Item>
 	);
