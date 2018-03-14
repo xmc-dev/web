@@ -31,6 +31,7 @@ class ConnectedLogin extends Component {
 				return;
 			}
 			if (!this.checkParams(params)) {
+				/* eslint-disable camelcase */
 				this.setState({
 					error: {
 						error: 'misc_error',
@@ -38,6 +39,7 @@ class ConnectedLogin extends Component {
 The authentification process didn't return the correct values. Please contact the administrator of the instance.`
 					}
 				});
+				/* eslint-enable camelcase */
 				return;
 			}
 

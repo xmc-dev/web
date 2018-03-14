@@ -11,9 +11,9 @@ export default function popupReducer(state = initialState, action) {
 				...state,
 				popups: [...state.popups, { id: action.id, popup: action.popup }]
 			};
-		case HIDE_POPUP:
-			const index = state.popups.findIndex(el => el.id == action.id);
-			if (index == -1) {
+		case HIDE_POPUP: {
+			const index = state.popups.findIndex(el => el.id === action.id);
+			if (index === -1) {
 				return state;
 			}
 
@@ -24,6 +24,7 @@ export default function popupReducer(state = initialState, action) {
 					...state.popups.slice(index + 1)
 				]
 			};
+		}
 		default:
 			return state;
 	}

@@ -25,7 +25,7 @@ export class Page extends Component {
 	}
 
 	getContent(url) {
-		if (url == '/') {
+		if (url === '/') {
 			url = '<root>';
 		}
 		api('/pages/' + url)

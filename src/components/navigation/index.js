@@ -1,5 +1,3 @@
-// This is to make eslint shut up about the icons
-/* eslint-disable camelcase */
 import { h, Component } from 'preact';
 import { NavLink, NavGroup } from './nav';
 import Hamburger from './hamburger';

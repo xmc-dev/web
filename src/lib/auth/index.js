@@ -1,12 +1,16 @@
+// This is to make eslint shut up about the oauth2 params
+/* eslint-disable camelcase */
 import shajs from 'sha.js';
 import { OAUTH2 } from '../../config';
 import { objectToParams } from '../query-params';
 
 function base64URLEncode(str) {
+	/* eslint-disable no-div-regex */
 	return str
 		.replace(/\+/g, '-')
 		.replace(/\//g, '_')
 		.replace(/=/g, '');
+	/* eslint-enable no-div-regex */
 }
 
 function randomBase64(len) {
