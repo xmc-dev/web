@@ -25,7 +25,7 @@ export default class Navigation extends Component {
 					<img src={logo} />
 				</div>
 				<NavGroup hidden={this.state.hidden}>
-					<NavLink href="/" icon="ios-home-outline" text="HOME" />
+					<NavLink exact href="/" icon="ios-home-outline" text="HOME" />
 					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE" />
 					<NavLink
 						href="/submissions"
@@ -37,6 +37,7 @@ export default class Navigation extends Component {
 				<NavGroup bottom>
 					<LoginButton />
 					<NavLink
+						exact
 						href="/settings"
 						icon="ios-settings-outline"
 						bottom
