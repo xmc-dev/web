@@ -11,80 +11,140 @@
 
 	display: flex;
 	flex-direction: column;
-	justify-content: flex-start;
+	justify-content: space-between;
+}
+.navigation .hamburger {
+	display: none;
+	flex: 0 0 33.3333%;
+
+	order: 1;
 }
 .navigation .logo {
+	padding: 2em 2em 8em 2em;
+
+	order: 2;
+}
+.navigation .logo img {
 	width: 2em;
-	margin: 2em 2em 8em 2em;
 }
 .navigation .section {
 	width: 6em;
+	display: flex;
+	flex-basis: 100%;
+	flex-direction: column;
+
+	order: 3;
 }
 .navigation .section#bottom {
 	margin-top: auto;
+	flex: 0 0 33.3333%;
+	justify-content: flex-end;
+
+	order: 4;
 }
 
-.navigation a {
+.navigation .section a {
 	display: block;
+
 	width: 6em;
 	height: 6em;
+	padding: 1.125em;
+
 	color: white;
 	transition: all 0.1s;
-	padding: 1.125em;
 }
-.navigation a:hover {
+.navigation .section a:hover {
 	background: rgba(255, 255, 255, 0.1);
 	color: white;
 }
-.navigation a span {
+.navigation .section a span {
 	display: block;
 	font-size: 0.75em;
 }
-.navigation a.active {
+.navigation .section a.active {
 	background: #239572;
 	width: 6.5em;
 	transition: all 0.2s;
+	box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.15), 0px 16px 16px -16px rgba(45, 190, 146, 0.75);
 }
 
 @media only screen and (max-device-width : 640px) , (max-device-height : 640px) {
 	.navigation {
 		width: 100%;
+		height: 10em;
 		z-index: 100;
-		text-align: left;
 		-webkit-tap-highlight-color: rgba(34, 148, 114, 0.2);
+		flex-direction: row;
+		flex-wrap: wrap;
+		overflow-x: scroll;
+		overflow-y: hidden;
+	}
+	.navigation .hamburger {
+		display: block;
+		text-align: left;
+		height: 4em;
+
+		order: 1;
 	}
 	.navigation .logo {
-		display: none;
+		padding: 1em;
+		height: 4em;
+
+		order: 2;
 	}
 	.navigation .section {
 		width: 100%;
+		flex-direction: row;
+		flex-basis: 100%;
+
+		order: 4;
+	}
+	.navigation .section#bottom {
+		width: initial;
+		flex-basis: auto;
+		height: 4em;
+		order: 3;
 	}
 
-	.navigation a {
-		width: 100% !important;
-		padding: 2em;
+	.navigation .section a {
 		transition: all 0.2s;
 	}
-	.navigation a.active {
-		padding-left: 3em;
+	.navigation .section a.active {
+		width: 6em;
 		transition: all 0.3s;
 	}
-	.navigation a span {
-		display: inline-block;
-		width: auto;
-		font-size: 1em;
-		margin: 0 0.25em;
+
+	.navigation .section#bottom a {
+		width: 4em;
+		height: 4em;
+		padding: 1em;
 	}
-	.navigation svg {
-		display: inline-block;
-		vertical-align: middle;
-		margin: 0 0.25em;
+	.navigation .section#bottom a.active {
+		width: 4em;
+	}
+	.navigation .section#bottom a span {
+		display: none;
+	}
+
+	.navigation .hamburger a {
+		display: block;
+
+		width: 4em;
+		height: 4em;
+		padding: 1em;
+
+		color: white;
+		transition: all 0.1s;
+	}
+	.navigation .hamburger a:hover {
+		background: rgba(255, 255, 255, 0.1);
+		color: white;
 	}
 }
 
-@media only screen and (max-device-height : 515px) {
+/*@media only screen and (max-device-height : 515px) {
 	.navigation a {
 		height: 4em;
 		padding: 1em;
 	}
-}
+}*/

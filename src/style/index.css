@@ -24,3 +24,9 @@ html, body {
 	height: 100%;
 	padding-top: 4em;
 }
+
+@media only screen and (max-device-width : 640px) , (max-device-height : 640px) {
+	#container {
+		margin-left: 0;
+	}
+}
