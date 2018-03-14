@@ -9,7 +9,7 @@ import { LoginButton } from './login-button';
 export default class Navigation extends Component {
 	constructor() {
 		super();
-		this.state = { hidden: false };
+		this.state = { hidden: true };
 		this.hideNav = this.hideNav.bind(this);
 	}
 
@@ -20,7 +20,7 @@ export default class Navigation extends Component {
 	render() {
 		return (
 			<nav id={style.navigation}>
-				<Hamburger hideNav={this.hideNav} />
+				<Hamburger hideNav={this.hideNav} hidden={this.state.hidden} />
 				<div id={style.logo}>
 					<img src={logo} />
 				</div>
