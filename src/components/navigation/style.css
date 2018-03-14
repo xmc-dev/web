@@ -1,4 +1,4 @@
-.navigation {
+#navigation {
 	height: 100%;
 	width: 6em;
 	position: fixed;
@@ -13,21 +13,21 @@
 	flex-direction: column;
 	justify-content: space-between;
 }
-.navigation .hamburger {
+#navigation #hamburger {
 	display: none;
 	flex: 0 0 33.3333%;
 
 	order: 1;
 }
-.navigation .logo {
+#navigation #logo {
 	padding: 2em 2em 8em 2em;
 
 	order: 2;
 }
-.navigation .logo img {
+#navigation #logo img {
 	width: 2em;
 }
-.navigation .section {
+#navigation .section {
 	width: 6em;
 	display: flex;
 	flex-basis: 100%;
@@ -35,7 +35,7 @@
 
 	order: 3;
 }
-.navigation .section#bottom {
+#navigation .section#bottom {
 	margin-top: auto;
 	flex: 0 0 33.3333%;
 	justify-content: flex-end;
@@ -43,7 +43,7 @@
 	order: 4;
 }
 
-.navigation .section a {
+#navigation .section a {
 	display: block;
 
 	width: 6em;
@@ -53,15 +53,15 @@
 	color: white;
 	transition: all 0.1s;
 }
-.navigation .section a:hover {
+#navigation .section a:hover {
 	background: rgba(255, 255, 255, 0.1);
 	color: white;
 }
-.navigation .section a span {
+#navigation .section a span {
 	display: block;
 	font-size: 0.75em;
 }
-.navigation .section a.active {
+#navigation .section a.active {
 	background: #239572;
 	width: 6.5em;
 	transition: all 0.2s;
@@ -69,7 +69,7 @@
 }
 
 @media only screen and (max-device-width : 640px) , (max-device-height : 640px) {
-	.navigation {
+	#navigation {
 		width: 100%;
 		height: 10em;
 		z-index: 100;
@@ -79,54 +79,57 @@
 		overflow-x: scroll;
 		overflow-y: hidden;
 	}
-	.navigation .hamburger {
+	#navigation #hamburger {
 		display: block;
 		text-align: left;
 		height: 4em;
 
 		order: 1;
 	}
-	.navigation .logo {
+	#navigation #logo {
 		padding: 1em;
 		height: 4em;
 
 		order: 2;
 	}
-	.navigation .section {
+	#navigation .section {
 		width: 100%;
 		flex-direction: row;
 		flex-basis: 100%;
 
 		order: 4;
 	}
-	.navigation .section#bottom {
+	#navigation .section.hidden {
+		display: none;
+	}
+	#navigation .section#bottom {
 		width: initial;
 		flex-basis: auto;
 		height: 4em;
 		order: 3;
 	}
 
-	.navigation .section a {
+	#navigation .section a {
 		transition: all 0.2s;
 	}
-	.navigation .section a.active {
+	#navigation .section a.active {
 		width: 6em;
 		transition: all 0.3s;
 	}
 
-	.navigation .section#bottom a {
+	#navigation .section#bottom a {
 		width: 4em;
 		height: 4em;
 		padding: 1em;
 	}
-	.navigation .section#bottom a.active {
+	#navigation .section#bottom a.active {
 		width: 4em;
 	}
-	.navigation .section#bottom a span {
+	#navigation .section#bottom a span {
 		display: none;
 	}
 
-	.navigation .hamburger a {
+	#navigation #hamburger a {
 		display: block;
 
 		width: 4em;
@@ -136,14 +139,14 @@
 		color: white;
 		transition: all 0.1s;
 	}
-	.navigation .hamburger a:hover {
+	#navigation #hamburger a:hover {
 		background: rgba(255, 255, 255, 0.1);
 		color: white;
 	}
 }
 
 /*@media only screen and (max-device-height : 515px) {
-	.navigation a {
+	#navigation a {
 		height: 4em;
 		padding: 1em;
 	}

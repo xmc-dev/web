@@ -8,32 +8,44 @@ import style from './style';
 import logo from './logo.svg';
 import { LoginButton } from './login-button';
 
-export default function Navigation() {
-	return (
-		<nav class={style.navigation}>
-			<Hamburger />
-			<div class={style.logo}>
-				<img src={logo} />
-			</div>
-			<NavGroup>
-				<NavLink href="/" icon="ios-home-outline" text="HOME" />
-				<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE" />
-				<NavLink
-					href="/submissions"
-					icon="ios-list-box-outline"
-					text="MONITOR"
-				/>
-			</NavGroup>
+export default class Navigation extends Component {
+	constructor() {
+		super();
+		this.state = { hidden: false };
+		this.hideNav = this.hideNav.bind(this);
+	}
 
-			<NavGroup bottom>
-				<LoginButton />
-				<NavLink
-					href="/settings"
-					icon="ios-settings-outline"
-					bottom
-					text="SETTINGS"
-				/>
-			</NavGroup>
-		</nav>
-	);
+	hideNav() {
+		this.setState({ hidden: !this.state.hidden });
+	}
+
+	render() {
+		return (
+			<nav id={style.navigation}>
+				<Hamburger hideNav={this.hideNav} />
+				<div id={style.logo}>
+					<img src={logo} />
+				</div>
+				<NavGroup hidden={this.state.hidden}>
+					<NavLink href="/" icon="ios-home-outline" text="HOME" />
+					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE" />
+					<NavLink
+						href="/submissions"
+						icon="ios-list-box-outline"
+						text="MONITOR"
+					/>
+				</NavGroup>
+
+				<NavGroup bottom>
+					<LoginButton />
+					<NavLink
+						href="/settings"
+						icon="ios-settings-outline"
+						bottom
+						text="SETTINGS"
+					/>
+				</NavGroup>
+			</nav>
+		);
+	}
 }

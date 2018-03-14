@@ -23,14 +23,15 @@ export function NavLink({ href, icon, text, bottom, children }) {
 	);
 }
 
-export function NavGroup({ children, bottom }) {
-	let id = style.middle;
+export function NavGroup({ children, bottom, hidden }) {
+	let id = '';
 	if (bottom) {
 		id = style.bottom;
 	}
+	const hi = hidden ? style.hidden : '';
 
 	return (
-		<div class={style.section} id={id}>
+		<div class={style.section + ' ' + hi} id={id}>
 			{children}
 		</div>
 	);
