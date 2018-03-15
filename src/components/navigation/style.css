@@ -15,7 +15,6 @@
 }
 #navigation #hamburger {
 	display: none;
-	flex: 0 0 33.3333%;
 	z-index: 10;
 
 	order: 1;
@@ -41,7 +40,6 @@
 }
 #navigation .section#bottom {
 	margin-top: auto;
-	flex: 0 0 33.3333%;
 	justify-content: flex-end;
 	z-index: 10;
 
@@ -81,8 +79,7 @@
 		-webkit-tap-highlight-color: rgba(34, 148, 114, 0.2);
 		flex-direction: row;
 		flex-wrap: wrap;
-		overflow-x: scroll;
-		overflow-y: hidden;
+		overflow: hidden;
 	}
 	#navigation #hamburger {
 		display: block;
@@ -101,9 +98,10 @@
 	#navigation .section {
 		width: 100%;
 		flex-direction: row;
-		flex-basis: 100%;
+		flex: 0 0 100%;
 		transition: 0.2s all;
 		transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
+		overflow-x: auto;
 
 		order: 4;
 	}
@@ -120,6 +118,7 @@
 
 	#navigation .section a {
 		transition: all 0.2s;
+		flex: 0 0 6em;
 	}
 	#navigation .section a.active {
 		width: 6em;
