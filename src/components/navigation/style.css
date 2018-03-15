@@ -127,6 +127,7 @@
 
 	#navigation .section#bottom a {
 		width: 4em;
+		flex: 0 0 4em;
 		height: 4em;
 		padding: 1em;
 	}
