@@ -6,6 +6,7 @@ import { InfoTable } from './info-table';
 import { Container, Tab, Header } from 'semantic-ui-react';
 import { Code, CodeView } from '../code';
 import { MonacoEditor } from 'react-monaco-editor';
+import { TestResultsTable } from './test-results-table';
 
 export class Submission extends Component {
 	constructor(props) {
@@ -26,7 +27,8 @@ export class Submission extends Component {
 				this.setState({ task: data.task });
 			})
 			.catch(error => {
-				throw error;
+				// fallback
+				this.setState({ task: {name: ""} });
 			});
 	}
 
@@ -51,7 +53,7 @@ export class Submission extends Component {
 	}
 
 	componentDidMount() {
-		api('/submissions/' + this.props.id + '?includeResult=true')
+		api('/submissions/' + this.props.id + '?includeResult=true&includeTestResults=true')
 			.then(data => {
 				this.setState({ submission: data.submission });
 				return data.submission;
@@ -73,11 +75,18 @@ export class Submission extends Component {
 		const panes = [
 			{
 				menuItem: 'Evaluare',
-				render: () => (
-					<Tab.Pane>
-						<p>{getShortStatus(this.state.submission)}</p>
-					</Tab.Pane>
-				)
+				render: () => {
+					let table;
+					if (this.state.submission.result) {
+						table = <TestResultsTable testResults={this.state.submission.result.testResults} />
+					}
+					return (
+						<Tab.Pane>
+							<p>{getShortStatus(this.state.submission)}</p>
+							{table}
+						</Tab.Pane>
+					);
+				}
 			},
 			{
 				menuItem: 'Compilare',
