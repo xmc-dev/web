@@ -20,8 +20,7 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 		['Data trimiterii', stringDate(sub.createdAt)],
 		['Data evaluarii', stringDate(sub.finishedAt)],
 		['Marime', <a href={codeUrl}>{byteSizeToString(attachment.size)}</a>],
-		['Problema', task.name],
-		['Scor', result.score]
+		['Problema', task.name]
 	];
 	const rows = [];
 	for (let i = 0; i < toShow.length; i += 2) {
@@ -43,6 +42,12 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 			);
 		}
 	}
+	rows.push(
+		<Table.Row>
+			<Table.Cell colSpan="3">Scor</Table.Cell>
+			<Table.Cell>{result.score}</Table.Cell>
+		</Table.Row>
+	);
 	return (
 		<Table celled>
 			<Table.Body>{rows}</Table.Body>

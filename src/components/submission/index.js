@@ -78,7 +78,8 @@ export class Submission extends Component {
 				render: () => {
 					let table;
 					if (this.state.submission.result) {
-						table = <TestResultsTable testResults={this.state.submission.result.testResults} />
+						table = <TestResultsTable testResults={this.state.submission.result.testResults}
+							finalScore={this.state.submission.result.score} />
 					}
 					return (
 						<Tab.Pane>

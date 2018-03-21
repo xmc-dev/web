@@ -1,7 +1,7 @@
 import { h, Component } from 'preact';
 import { Table } from 'semantic-ui-react';
 
-export function TestResultsTable({ testResults }) {
+export function TestResultsTable({ testResults, finalScore }) {
 	if (!testResults || testResults.length == 0) {
 		return;
 	}
@@ -31,12 +31,19 @@ export function TestResultsTable({ testResults }) {
 	}
 
 	return (
-		<Table celled striped>
+		<Table celled selectable>
 			{header}
 
 			<Table.Body>
 				{rows}
 			</Table.Body>
+
+			<Table.Footer>
+				<Table.Row>
+					<Table.HeaderCell colSpan="4">Scor final</Table.HeaderCell>
+					<Table.HeaderCell>{finalScore}</Table.HeaderCell>
+				</Table.Row>
+			</Table.Footer>
 		</Table>
 	);
 }
