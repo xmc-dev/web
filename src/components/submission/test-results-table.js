@@ -34,9 +34,7 @@ export function TestResultsTable({ testResults, finalScore }) {
 		<Table celled selectable>
 			{header}
 
-			<Table.Body>
-				{rows}
-			</Table.Body>
+			<Table.Body>{rows}</Table.Body>
 
 			<Table.Footer>
 				<Table.Row>

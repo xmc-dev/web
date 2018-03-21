@@ -10,15 +10,13 @@ export function SubmissionMonitorRow(props) {
 	if (sub.result) {
 		score = sub.result.score;
 	}
-	const createdAt = stringDate(sub.createdAt);
-	const finishedAt = stringDate(sub.finishedAt);
 	return (
 		<Table.Row>
 			<Table.Cell>
 				<Link to={`/submissions/${sub.id}`}>{sub.id}</Link>
 			</Table.Cell>
-			<Table.Cell>{createdAt}</Table.Cell>
-			<Table.Cell>{finishedAt}</Table.Cell>
+			<Table.Cell>{sub.createdAt}</Table.Cell>
+			<Table.Cell>{sub.finishedAt}</Table.Cell>
 			<Table.Cell>{getShortStatus(sub)}</Table.Cell>
 		</Table.Row>
 	);

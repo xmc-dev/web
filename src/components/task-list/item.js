@@ -6,7 +6,9 @@ export function TaskListItem(props) {
 	return (
 		<Item>
 			<Item.Content>
-				<Item.Header><Link to={`/archive/${props.task.name}`}>{props.task.title}</Link></Item.Header>
+				<Item.Header>
+					<Link to={`/archive/${props.task.name}`}>{props.task.title}</Link>
+				</Item.Header>
 				<Item.Meta>{props.task.name}</Item.Meta>
 			</Item.Content>
 		</Item>

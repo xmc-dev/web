@@ -2,7 +2,8 @@ import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
 import { Container } from 'semantic-ui-react';
 import { XMCML } from '../../components/xmcml';
-import { api, rawApi, getAttachmentContent } from '../../lib/api';
+import { api, rawApi } from '../../lib/api';
+import { getAttachmentContent } from '../../lib/api/attachment';
 import JsxParser from 'react-jsx-parser';
 import { ErrorMessage } from '../../components/error-message';
 

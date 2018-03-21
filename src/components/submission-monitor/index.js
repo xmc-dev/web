@@ -3,6 +3,7 @@ import { Table } from 'semantic-ui-react';
 import { ErrorMessage } from '../error-message';
 import { SubmissionMonitorRow, SubmissionMonitorHeaderRow } from './row';
 import { api } from '../../lib/api';
+import { getSubmissions } from '../../lib/api/submission';
 
 export class SubmissionMonitor extends Component {
 	constructor() {
@@ -14,9 +15,9 @@ export class SubmissionMonitor extends Component {
 	}
 
 	componentDidMount() {
-		api('/submissions/?includeResult=true')
-			.then(data => {
-				const submissions = data.submissions.map(sub => {
+		getSubmissions({ includeResult: true })
+			.then(subs => {
+				const submissions = subs.map(sub => {
 					return <SubmissionMonitorRow sub={sub} />;
 				});
 				this.setState({ submissions });

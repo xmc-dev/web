@@ -7,6 +7,7 @@ export class XMCML extends Component {
 	constructor(props) {
 		super(props);
 		this.props.components = this.props.components || {};
+		this.props.bindings = this.props.bindings || {};
 		this.state.components = {
 			...this.props.components,
 			Link
@@ -17,7 +18,12 @@ export class XMCML extends Component {
 	render() {
 		const r = this.md.render(this.props.md);
 		return (
-			<JsxParser showWarnings components={this.state.components} jsx={r} />
+			<JsxParser
+				bindings={this.props.bindings}
+				showWarnings
+				components={this.state.components}
+				jsx={r}
+			/>
 		);
 	}
 }

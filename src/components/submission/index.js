@@ -1,12 +1,14 @@
 import { h, Component } from 'preact';
 import { getShortStatus } from '../../lib/submission';
-import { api, getAttachmentContent } from '../../lib/api';
+import { api } from '../../lib/api';
+import { getAttachmentContent, getAttachment } from '../../lib/api/attachment';
 import { ErrorMessage } from '../error-message';
 import { InfoTable } from './info-table';
 import { Container, Tab, Header } from 'semantic-ui-react';
 import { Code, CodeView } from '../code';
 import { MonacoEditor } from 'react-monaco-editor';
 import { TestResultsTable } from './test-results-table';
+import { getSubmission } from '../../lib/api/submission';
 
 export class Submission extends Component {
 	constructor(props) {
@@ -27,18 +29,18 @@ export class Submission extends Component {
 				this.setState({ task: data.task });
 			})
 			.catch(error => {
-				// fallback
-				this.setState({ task: {name: ""} });
+				// Fallback
+				this.setState({ task: { name: '' } });
 			});
 	}
 
 	getAttachment(sub) {
-		api('/attachments/' + sub.attachmentId)
-			.then(data => {
-				this.setState({ attachment: data.attachment });
+		getAttachment(sub.attachmentId)
+			.then(att => {
+				this.setState({ attachment: att });
 			})
-			.catch(error => {
-				throw error;
+			.catch(err => {
+				throw err;
 			});
 	}
 
@@ -53,10 +55,13 @@ export class Submission extends Component {
 	}
 
 	componentDidMount() {
-		api('/submissions/' + this.props.id + '?includeResult=true&includeTestResults=true')
-			.then(data => {
-				this.setState({ submission: data.submission });
-				return data.submission;
+		getSubmission(this.props.id, {
+			includeResult: true,
+			includeTestResults: true
+		})
+			.then(sub => {
+				this.setState({ submission: sub });
+				return sub;
 			})
 			.then(sub => {
 				this.getTask(sub);
@@ -78,8 +83,12 @@ export class Submission extends Component {
 				render: () => {
 					let table;
 					if (this.state.submission.result) {
-						table = <TestResultsTable testResults={this.state.submission.result.testResults}
-							finalScore={this.state.submission.result.score} />
+						table = (
+							<TestResultsTable
+								testResults={this.state.submission.result.testResults}
+								finalScore={this.state.submission.result.score}
+							/>
+						);
 					}
 					return (
 						<Tab.Pane>
