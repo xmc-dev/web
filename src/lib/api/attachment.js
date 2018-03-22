@@ -1,11 +1,11 @@
-import { api, rawCall } from '../api';
+import { api, rawCall, rfc3339ToDate } from '../api';
 import { FILES_PROXY } from '../../config';
 import { stringDate } from '../date';
 
 function processAttachment(raw) {
 	const dates = {
-		createdAt: stringDate(raw.createdAt),
-		updatedAt: stringDate(raw.updatedAt)
+		createdAt: rfc3339ToDate(raw.createdAt),
+		updatedAt: rfc3339ToDate(raw.updatedAt)
 	};
 	return Object.assign({}, raw, dates);
 }
@@ -17,7 +17,7 @@ function processAttachment(raw) {
  * @returns {Promise<object>}
  */
 export function getAttachment(attachmentId, options) {
-	return api('/attachments/' + attachmentId).then(raw =>
+	return api('/attachments/' + attachmentId, options).then(raw =>
 		processAttachment(raw.attachment)
 	);
 }
@@ -28,7 +28,7 @@ export function getAttachment(attachmentId, options) {
  * @param {object} options Options to pass to fetch().
  */
 export function getAttachmentUrl(attachmentId, options) {
-	return api('/attachments/' + attachmentId + '/file').then(data => {
+	return api('/attachments/' + attachmentId + '/file', options).then(data => {
 		return data.url;
 	});
 }
@@ -50,7 +50,7 @@ export function getAttachmentContent(attachmentId, options) {
 		const parser = document.createElement('a');
 		parser.href = url;
 		const newUrl = url.replace(new RegExp('^' + parser.origin), FILES_PROXY);
-		return rawCall(newUrl)
+		return rawCall(newUrl, options)
 			.then(data => {
 				if (!data.ok) {
 					throw new Error(data.statusText);

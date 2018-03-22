@@ -1,6 +1,14 @@
 import { API_URL } from '../../config';
 import { getTokenString } from '../auth';
 
+export function rfc3339ToDate(date) {
+	const d = new Date(date);
+	if (isNaN(d.getTime())) {
+		return null;
+	}
+	return d;
+}
+
 export function rawCall(url, options) {
 	console.log('fetching from', url);
 

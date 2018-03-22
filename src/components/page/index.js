@@ -6,6 +6,7 @@ import { api, rawApi } from '../../lib/api';
 import { getAttachmentContent } from '../../lib/api/attachment';
 import JsxParser from 'react-jsx-parser';
 import { ErrorMessage } from '../../components/error-message';
+import { getPage } from '../../lib/api/page';
 
 export class TestComponent extends Component {
 	render() {
@@ -29,13 +30,13 @@ export class Page extends Component {
 		if (url === '/') {
 			url = '<root>';
 		}
-		api('/pages/' + url)
-			.then(data => {
-				this.setState({ page: data.page });
-				return data.page.version;
+		getPage(url)
+			.then(page => {
+				this.setState({ page });
+				return page.version;
 			})
-			.then(data => {
-				getAttachmentContent(data.attachmentId)
+			.then(ver => {
+				getAttachmentContent(ver.attachmentId)
 					.then(att => {
 						this.setState({ url: att.url, content: att.data });
 					})

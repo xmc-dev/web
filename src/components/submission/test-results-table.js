@@ -2,7 +2,7 @@ import { h, Component } from 'preact';
 import { Table } from 'semantic-ui-react';
 
 export function TestResultsTable({ testResults, finalScore }) {
-	if (!testResults || testResults.length == 0) {
+	if (!testResults || testResults.length === 0) {
 		return;
 	}
 	const header = (

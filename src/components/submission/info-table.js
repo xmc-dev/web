@@ -17,8 +17,8 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 	const toShow = [
 		['Stare', sub.state],
 		['Compilator', sub.language],
-		['Data trimiterii', sub.createdAt],
-		['Data evaluarii', sub.finishedAt],
+		['Data trimiterii', stringDate(sub.createdAt)],
+		['Data evaluarii', stringDate(sub.finishedAt)],
 		['Marime', <a href={codeUrl}>{byteSizeToString(attachment.size)}</a>],
 		['Problema', task.name]
 	];

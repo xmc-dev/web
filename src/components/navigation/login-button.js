@@ -2,6 +2,7 @@ import { Component } from 'preact';
 import { getTokenString, setNavUpdater } from '../../lib/auth';
 import { NavLink } from './nav';
 import { api } from '../../lib/api';
+import { getAccount } from '../../lib/api/account';
 
 export class LoginButton extends Component {
 	constructor() {
@@ -13,8 +14,8 @@ export class LoginButton extends Component {
 
 	getAccount() {
 		if (getTokenString()) {
-			api('/accounts/').then(data => {
-				this.setState({ account: data });
+			getAccount().then(account => {
+				this.setState({ account });
 			});
 		}
 	}

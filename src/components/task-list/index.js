@@ -3,6 +3,7 @@ import { Item } from 'semantic-ui-react';
 import { TaskListItem } from './item';
 import { ErrorMessage } from '../error-message';
 import { api } from '../../lib/api';
+import { getTasks } from '../../lib/api/task';
 
 export class TaskList extends Component {
 	constructor() {
@@ -14,9 +15,9 @@ export class TaskList extends Component {
 	}
 
 	componentDidMount() {
-		api('/tasks/?includeResult=true')
+		getTasks()
 			.then(data => {
-				const tasks = data.tasks.map(task => {
+				const tasks = data.map(task => {
 					return <TaskListItem task={task} />;
 				});
 				this.setState({ tasks });

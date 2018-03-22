@@ -9,6 +9,7 @@ import { Code, CodeView } from '../code';
 import { MonacoEditor } from 'react-monaco-editor';
 import { TestResultsTable } from './test-results-table';
 import { getSubmission } from '../../lib/api/submission';
+import { getTask } from '../../lib/api/task';
 
 export class Submission extends Component {
 	constructor(props) {
@@ -24,9 +25,9 @@ export class Submission extends Component {
 	}
 
 	getTask(sub) {
-		api('/tasks/' + sub.taskId)
-			.then(data => {
-				this.setState({ task: data.task });
+		getTask(sub.taskId)
+			.then(task => {
+				this.setState({ task });
 			})
 			.catch(error => {
 				// Fallback

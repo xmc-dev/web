@@ -1,6 +1,5 @@
-import { api } from '../api';
+import { api, rfc3339ToDate } from '../api';
 import { objectToParams } from '../query-params';
-import { stringDate } from '../date';
 
 function processTestResult(raw) {
 	return Object.assign({}, raw, { score: parseFloat(raw.score) });
@@ -25,8 +24,8 @@ function processResult(raw) {
 
 function processSubmission(raw) {
 	const dates = {
-		createdAt: stringDate(raw.createdAt),
-		finishedAt: stringDate(raw.finishedAt)
+		createdAt: rfc3339ToDate(raw.createdAt),
+		finishedAt: rfc3339ToDate(raw.finishedAt)
 	};
 	return Object.assign({}, raw, {
 		...dates,
@@ -43,7 +42,7 @@ function processSubmission(raw) {
  */
 export function getSubmission(
 	submissionId,
-	{ includeResult, includeTestResults },
+	{ includeResult, includeTestResults } = {},
 	options
 ) {
 	return api(
@@ -53,7 +52,7 @@ export function getSubmission(
 			objectToParams({
 				includeResult,
 				includeTestResults
-			})
+			}, options)
 	).then(raw => processSubmission(raw.submission));
 }
 
