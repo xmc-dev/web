@@ -49,10 +49,13 @@ export function getSubmission(
 		'/submissions/' +
 			submissionId +
 			'?' +
-			objectToParams({
-				includeResult,
-				includeTestResults
-			}, options)
+			objectToParams(
+				{
+					includeResult,
+					includeTestResults
+				},
+				options
+			)
 	).then(raw => processSubmission(raw.submission));
 }
 

@@ -1,4 +1,4 @@
-import { api } from ".";
+import { api } from '.';
 
 function processAccount(raw) {
 	return Object.assign({}, raw, {
@@ -8,7 +8,6 @@ function processAccount(raw) {
 }
 
 export function getAccount(id, options) {
-	const i = id || "";
-	return api('/accounts/'+i)
-	.then(raw => processAccount(raw));
+	const i = id || '';
+	return api('/accounts/' + i).then(raw => processAccount(raw));
 }

@@ -9,18 +9,20 @@ import { getTaskList, getTaskListUrl } from '../../lib/api/task-list';
 export class SubmissionMonitorRow extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { task: { name: "" }, taskListUrl: "" };
+		this.state = { task: { name: '' }, taskListUrl: '' };
 	}
 
 	componentDidMount() {
-		getTask(this.props.sub.taskId).then(t => {
-			this.setState({ task: t });
-			if (t) {
-				getTaskList(t.taskListId).then(tl => {
-					this.setState({ taskListUrl: getTaskListUrl(tl)});
-				})
-			}
-		}).catch(err => {});
+		getTask(this.props.sub.taskId)
+			.then(t => {
+				this.setState({ task: t });
+				if (t) {
+					getTaskList(t.taskListId).then(tl => {
+						this.setState({ taskListUrl: getTaskListUrl(tl) });
+					});
+				}
+			})
+			.catch(err => {});
 	}
 
 	render() {
@@ -30,9 +32,15 @@ export class SubmissionMonitorRow extends Component {
 			score = sub.result.score;
 		}
 
-		let taskCell = <Table.Cell>{this.state.task.title}</Table.Cell>
+		let taskCell = <Table.Cell>{this.state.task.title}</Table.Cell>;
 		if (this.state.taskListUrl) {
-			taskCell = <Table.Cell><Link to={this.state.taskListUrl+'/'+this.state.task.name}>{this.state.task.title}</Link></Table.Cell>;
+			taskCell = (
+				<Table.Cell>
+					<Link to={this.state.taskListUrl + '/' + this.state.task.name}>
+						{this.state.task.title}
+					</Link>
+				</Table.Cell>
+			);
 		}
 
 		return (

@@ -1,4 +1,4 @@
-import { objectToParams } from "../query-params";
+import { objectToParams } from '../query-params';
 import { api, rfc3339ToDate } from '.';
 
 function processVersion(raw) {
@@ -14,7 +14,7 @@ function processPage(raw) {
 	});
 }
 
-export function getPage(id, {timestamp} = {}, options) {
+export function getPage(id, { timestamp } = {}, options) {
 	if (id === '/') {
 		id = '<root>';
 	}
@@ -23,6 +23,7 @@ export function getPage(id, {timestamp} = {}, options) {
 	if (timestamp) {
 		params.timestamp = timestamp.toISOString();
 	}
-	return api('/pages/'+id+'?'+objectToParams(params), options)
-	.then(raw => processPage(raw.page));
+	return api('/pages/' + id + '?' + objectToParams(params), options).then(raw =>
+		processPage(raw.page)
+	);
 }

@@ -1,4 +1,4 @@
-import { rfc3339ToDate, api } from ".";
+import { rfc3339ToDate, api } from '.';
 
 function processTask(raw) {
 	return Object.assign({}, raw, {});

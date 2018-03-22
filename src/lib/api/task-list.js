@@ -1,7 +1,7 @@
 import { api, rfc3339ToDate } from '.';
 
 function dateOrNull(d) {
-	if (d == null) {
+	if (d === null) {
 		return null;
 	}
 	return rfc3339ToDate(d);
@@ -21,5 +21,5 @@ export function getTaskListUrl(tl) {
 }
 
 export function getTaskList(id, options) {
-	return api('/tasklists/'+id).then(raw => processTaskList(raw.taskList));
+	return api('/tasklists/' + id).then(raw => processTaskList(raw.taskList));
 }
