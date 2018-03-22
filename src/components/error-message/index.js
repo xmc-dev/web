@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { Container, Header } from 'semantic-ui-react';
+import { Container, Header, Message } from 'semantic-ui-react';
 
 /**
  *
@@ -9,9 +9,9 @@ import { Container, Header } from 'semantic-ui-react';
 export function ErrorMessage({ error, detail }) {
 	console.error(error, detail);
 	return (
-		<Container>
-			<Header as="h1">Error: {error}</Header>
-			<Header as="h2">{detail}</Header>
-		</Container>
+		<Message negative>
+			<Message.Header>Error: {error}</Message.Header>
+			<p>{detail}</p>
+		</Message>
 	);
 }

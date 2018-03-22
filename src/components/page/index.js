@@ -7,6 +7,7 @@ import { getAttachmentContent } from '../../lib/api/attachment';
 import JsxParser from 'react-jsx-parser';
 import { ErrorMessage } from '../../components/error-message';
 import { getPage } from '../../lib/api/page';
+import { TaskHeader } from './components/task-header';
 
 export class TestComponent extends Component {
 	render() {
@@ -60,14 +61,21 @@ export class Page extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message} />;
+			return (
+				<Container>
+					<ErrorMessage error={this.state.error.message} />
+				</Container>
+			);
 		}
 		return (
 			<Container>
 				<Helmet title={this.state.page.version.title} />
 				<XMCML
 					md={this.state.content || '# Loading...'}
-					components={{ TestComponent }}
+					components={{
+						TestComponent,
+						TaskHeader
+					}}
 				/>
 			</Container>
 		);
