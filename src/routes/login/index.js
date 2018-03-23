@@ -11,7 +11,8 @@ const mapDispatchToProps = dispatch => ({
 		dispatch(
 			showPopupWithTimeout({
 				title: 'Login successful',
-				body: 'Welcome to XMC'
+				body: 'Welcome to XMC',
+				state: 'success'
 			})
 		);
 	}
