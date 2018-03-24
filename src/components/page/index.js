@@ -8,6 +8,7 @@ import JsxParser from 'react-jsx-parser';
 import { ErrorMessage } from '../../components/error-message';
 import { getPage } from '../../lib/api/page';
 import { TaskHeader } from './components/task-header';
+import { TaskFooter } from './components/task-footer';
 
 export class TestComponent extends Component {
 	render() {
@@ -74,7 +75,8 @@ export class Page extends Component {
 					md={this.state.content || '# Loading...'}
 					components={{
 						TestComponent,
-						TaskHeader
+						TaskHeader,
+						TaskFooter
 					}}
 				/>
 			</Container>
