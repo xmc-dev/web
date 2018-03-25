@@ -3,13 +3,20 @@ import { getTokenString, setNavUpdater } from '../../lib/auth';
 import { NavLink } from './nav';
 import { api } from '../../lib/api';
 import { getAccount } from '../../lib/api/account';
+import { connect } from 'preact-redux';
 
-export class LoginButton extends Component {
-	constructor() {
-		super();
+class ConnectedLoginButton extends Component {
+	constructor(props) {
+		super(props);
 		this.state = { account: null };
 		this.getAccount = this.getAccount.bind(this);
-		setNavUpdater(this.getAccount);
+	}
+
+	componentWillReceiveProps(props) {
+		if (props.token != this.props.token) {
+			console.log(props.token);
+			this.getAccount();
+		}
 	}
 
 	getAccount() {
@@ -34,3 +41,9 @@ export class LoginButton extends Component {
 		return <NavLink href={href} icon="ios-person-outline" text={text} />;
 	}
 }
+
+export const LoginButton = connect(state => {
+	return {
+		token: state.auth.token.access_token
+	}
+})(ConnectedLoginButton);

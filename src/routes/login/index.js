@@ -1,10 +1,10 @@
 import { h, Component } from 'preact';
 import { Header, Container } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
-import { authorize, token } from '../../lib/auth';
 import { paramsToObject } from '../../lib/query-params';
 import { connect } from 'preact-redux';
 import { showPopupWithTimeout } from '../../actions/popup';
+import { makeAuthorize, getToken } from '../../actions/auth';
 
 const mapDispatchToProps = dispatch => ({
 	onRedirect: () => {
@@ -15,8 +15,28 @@ const mapDispatchToProps = dispatch => ({
 				state: 'success'
 			})
 		);
-	}
+	},
+	token: (code, state) => dispatch(getToken(code, state))
 });
+
+function ConnectedAuthorize({ scope, doAuthorize, url }) {
+	if (url) {
+		window.location.replace(url);
+	} else {
+		doAuthorize(scope.join(' '));
+	}
+	return null;
+}
+
+const Authorize = connect(state => ({
+	url: state.auth.url
+}), dispatch => ({
+	doAuthorize: (scope) => dispatch(makeAuthorize(scope)),
+}))(ConnectedAuthorize);
+
+function checkParams(params) {
+	return 'code' in params && 'state' in params;
+}
 
 class ConnectedLogin extends Component {
 	constructor(props) {
@@ -31,7 +51,7 @@ class ConnectedLogin extends Component {
 				this.setState({ error: params });
 				return;
 			}
-			if (!this.checkParams(params)) {
+			if (!checkParams(params)) {
 				/* eslint-disable camelcase */
 				this.setState({
 					error: {
@@ -44,7 +64,7 @@ The authentification process didn't return the correct values. Please contact th
 				return;
 			}
 
-			token(params.code, params.state)
+			this.props.token(params.code, params.state)
 				.then(() => {
 					this.setState({ redirect: true });
 				})
@@ -53,17 +73,12 @@ The authentification process didn't return the correct values. Please contact th
 				});
 			return;
 		}
-
-		const scope = ['xmc.core/submission'];
-		const url = authorize({ scope: scope.join(' ') });
-		window.location.replace(url);
-	}
-
-	checkParams(params) {
-		return 'code' in params && 'state' in params;
 	}
 
 	render() {
+		if (!window.location.search) {
+			return <Authorize scope={['xmc.core/aubmission']}/>;
+		}
 		if (this.state.redirect) {
 			this.props.onRedirect();
 			return <Redirect to="/" />;

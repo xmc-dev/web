@@ -3,6 +3,7 @@
 import shajs from 'sha.js';
 import { OAUTH2 } from '../../config';
 import { objectToParams } from '../query-params';
+import store from '../../store';
 
 function base64URLEncode(str) {
 	/* eslint-disable no-div-regex */
@@ -20,23 +21,21 @@ function randomBase64(len) {
 	return base64URLEncode(btoa(String.fromCharCode.apply(null, arr)));
 }
 
-var navUpdater = function () {};
-
-export function setNavUpdater(func) {
-	navUpdater = func;
-}
+/**
+ * @typedef {Object} AuthorizeData
+ * @property {string} state
+ * @property {string} verifier
+ * @property {string} url
+ */
 
 /**
  * Initializes the authorization procedure using
  * the OAuth2 Authorization Code PKCE flow.
  *
- * The random state is saved in sessionStorage with the key 'authState'.
- * The PKCE code verifier is saved in sessionStorage with the key 'authVerifier'.
- *
  * @param {Object} opts Options for the authorization procedure.
  * @param {string} opts.scope OAuth2 scope to request.
  *
- * @returns {string} Authorization url where the user should be redirected.
+ * @returns {AuthorizeData} Authorization url where the user should be redirected.
  */
 export function authorize({ scope }) {
 	const verifier = randomBase64(43);
@@ -58,27 +57,25 @@ export function authorize({ scope }) {
 		code_challenge_method: 'S256',
 		redirect_uri: encodeURI(OAUTH2.redirectUri)
 	};
-	sessionStorage.setItem('authState', state);
-	sessionStorage.setItem('authVerifier', verifier);
 
-	return OAUTH2.url + '/authorize?' + objectToParams(reqOpts);
+	const ret = {
+		state,
+		verifier,
+		url: OAUTH2.url + '/authorize?' + objectToParams(reqOpts)
+	};
+
+	return ret;
 }
 
 /**
  * Completes the OAuth2 autorization code PKCE flow.
  *
- * The access token is saved into localStorage with the key 'authToken' as a stringified JSON.
- *
  * @param {string} code Authorization code.
  * @param {string} state State to be checked with the saved one.
- * @returns {Promise}
+ * @returns {Promise<Object>} Promise that holds the final token
  */
-export function token(code, state) {
-	const storedState = sessionStorage.getItem('authState');
-	const verifier = sessionStorage.getItem('authVerifier');
-	sessionStorage.removeItem('authState');
-	sessionStorage.removeItem('authVerifier');
-
+export function token(code, state, storedState, verifier) {
+	console.log(storedState, verifier);
 	if (state !== storedState) {
 		throw new Error('State doesn\'t match');
 	}
@@ -95,7 +92,6 @@ export function token(code, state) {
 
 	const url = OAUTH2.url + '/token?' + objectToParams(reqOpts);
 
-	// Save into localStorage
 	return fetch(url)
 		.then(data => {
 			if (!data.ok) {
@@ -109,10 +105,6 @@ export function token(code, state) {
 			}
 			return JSON.stringify(data);
 		})
-		.then(data => {
-			localStorage.setItem('authToken', data);
-			navUpdater();
-		});
 }
 
 /**
@@ -121,10 +113,10 @@ export function token(code, state) {
  * @returns {string} JWT token.
  */
 export function getTokenString() {
-	const tok = JSON.parse(localStorage.getItem('authToken'));
-
+	const tok = store.getState().auth.token;
 	if (tok) {
 		return tok.access_token;
 	}
 	return '';
 }
+/* eslint-enable camelcase */
