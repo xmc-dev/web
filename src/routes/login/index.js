@@ -54,7 +54,8 @@ The authentification process didn't return the correct values. Please contact th
 			return;
 		}
 
-		const url = authorize({ scope: 'xd lol lmao' });
+		const scope = ['xmc.core/submission'];
+		const url = authorize({ scope: scope.join(' ') });
 		window.location.replace(url);
 	}
 
