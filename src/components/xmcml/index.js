@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { Link } from 'react-router-dom';
 import JsxParser from 'react-jsx-parser';
 import MarkdownIt from 'markdown-it';
+import MarkdownItLatex from 'markdown-it-latex'
 
 export class XMCML extends Component {
 	constructor(props) {
@@ -13,6 +14,7 @@ export class XMCML extends Component {
 			Link
 		};
 		this.md = new MarkdownIt({ html: true });
+		this.md.use(MarkdownItLatex);
 	}
 
 	render() {

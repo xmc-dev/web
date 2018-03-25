@@ -1,9 +1,8 @@
 html, body {
-	height: 100%;
 	width: 100%;
+	height: auto !important;
 	padding: 0;
 	margin: 0;
-	background: #FAFAFA;
 	font-family: 'Helvetica Neue', arial, sans-serif;
 	font-weight: 400;
 	color: #444;
@@ -15,13 +14,8 @@ html, body {
 	box-sizing: border-box;
 }
 
-#app {
-	height: 100%;
-}
-
 #container {
 	margin-left: 6em;
-	height: 100%;
 	padding-top: 4em;
 }
 
