@@ -8,6 +8,7 @@ import Submission from '../routes/submission';
 import Archive from '../routes/archive';
 import Login from '../routes/login';
 import Page from '../routes/page';
+import Admin from '../routes/admin';
 import { auth } from '../lib/auth';
 import { PopupDisplay } from './popup-display';
 import { Container } from 'semantic-ui-react';
@@ -47,6 +48,7 @@ export default class App extends Component {
 							<Route path="/submissions" exact component={Monitor} />
 							<Route path="/submissions/:id" exact component={Submission} />
 							<Route path="/login" exact component={Login} />
+							<Route path="/admin" component={Admin} />
 							<Route component={Page} />
 						</Switch>
 					</div>
