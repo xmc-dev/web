@@ -1,10 +1,10 @@
 import { SET_TOKEN, MAKE_AUTHORIZE } from '../../actions/auth';
 
 const initialState = {
-	state: "",
-	verifier: "",
-	url: "",
-	token: {},
+	state: '',
+	verifier: '',
+	url: '',
+	token: {}
 };
 
 export default function authReducer(state = initialState, action) {

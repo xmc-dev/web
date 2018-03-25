@@ -28,11 +28,14 @@ function ConnectedAuthorize({ scope, doAuthorize, url }) {
 	return null;
 }
 
-const Authorize = connect(state => ({
-	url: state.auth.url
-}), dispatch => ({
-	doAuthorize: (scope) => dispatch(makeAuthorize(scope)),
-}))(ConnectedAuthorize);
+const Authorize = connect(
+	state => ({
+		url: state.auth.url
+	}),
+	dispatch => ({
+		doAuthorize: scope => dispatch(makeAuthorize(scope))
+	})
+)(ConnectedAuthorize);
 
 function checkParams(params) {
 	return 'code' in params && 'state' in params;
@@ -64,20 +67,20 @@ The authentification process didn't return the correct values. Please contact th
 				return;
 			}
 
-			this.props.token(params.code, params.state)
+			this.props
+				.token(params.code, params.state)
 				.then(() => {
 					this.setState({ redirect: true });
 				})
 				.catch(error => {
 					this.setState({ error });
 				});
-			return;
 		}
 	}
 
 	render() {
 		if (!window.location.search) {
-			return <Authorize scope={['xmc.core/aubmission']}/>;
+			return <Authorize scope={['xmc.core/aubmission']} />;
 		}
 		if (this.state.redirect) {
 			this.props.onRedirect();

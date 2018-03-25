@@ -45,5 +45,5 @@ class ConnectedLoginButton extends Component {
 export const LoginButton = connect(state => {
 	return {
 		token: state.auth.token.access_token
-	}
+	};
 })(ConnectedLoginButton);

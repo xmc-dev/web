@@ -1,5 +1,1 @@
-
-
-export default class Editor extends Component {
-	
-}
+export default class Editor extends Component {}

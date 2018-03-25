@@ -104,7 +104,7 @@ export function token(code, state, storedState, verifier) {
 				throw data;
 			}
 			return JSON.stringify(data);
-		})
+		});
 }
 
 /**

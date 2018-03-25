@@ -5,16 +5,16 @@ import authReducer from '../reducers/auth';
 import { showPopup, showPopupWithTimeout } from '../actions/popup';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const savedState = localStorage.getItem('reduxState') ? JSON.parse(localStorage.getItem('reduxState')) : {};
+const savedState = localStorage.getItem('reduxState') ?
+	JSON.parse(localStorage.getItem('reduxState')) :
+	{};
 const store = createStore(
 	combineReducers({
 		popup: popupReducer,
-		auth: authReducer,
+		auth: authReducer
 	}),
 	savedState,
-	composeEnhancers(
-		applyMiddleware(thunk),
-	)
+	composeEnhancers(applyMiddleware(thunk))
 );
 store.subscribe(() => {
 	localStorage.setItem('reduxState', JSON.stringify(store.getState()));
