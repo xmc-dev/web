@@ -4,6 +4,7 @@ import { NavLink } from './nav';
 import { api } from '../../lib/api';
 import { getAccount } from '../../lib/api/account';
 import { connect } from 'preact-redux';
+import { withRouter } from 'react-router-dom';
 
 class ConnectedLoginButton extends Component {
 	constructor(props) {
@@ -13,8 +14,7 @@ class ConnectedLoginButton extends Component {
 	}
 
 	componentWillReceiveProps(props) {
-		if (props.token != this.props.token) {
-			console.log(props.token);
+		if (props.token !== this.props.token) {
 			this.getAccount();
 		}
 	}
@@ -32,18 +32,26 @@ class ConnectedLoginButton extends Component {
 	}
 
 	render() {
-		let text = 'LOGIN';
-		let href = '/login';
 		if (this.state.account) {
-			text = this.state.account.name;
-			href = '/user';
+			return (
+				<NavLink
+					exact
+					href="/user"
+					icon="ios-person-outline"
+					text={this.state.account.name}
+				/>
+			);
 		}
-		return <NavLink href={href} icon="ios-person-outline" text={text} />;
+		return (
+			<NavLink exact href="/login" icon="ios-person-outline" text="LOGIN" />
+		);
 	}
 }
 
-export const LoginButton = connect(state => {
-	return {
-		token: state.auth.token.access_token
-	};
-})(ConnectedLoginButton);
+export const LoginButton = withRouter(
+	connect(state => {
+		return {
+			token: state.auth.token.access_token
+		};
+	})(ConnectedLoginButton)
+);

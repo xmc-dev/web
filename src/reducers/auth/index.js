@@ -1,4 +1,4 @@
-import { SET_TOKEN, MAKE_AUTHORIZE } from '../../actions/auth';
+import { SET_TOKEN, MAKE_AUTHORIZE, LOGOUT } from '../../actions/auth';
 
 const initialState = {
 	state: '',
@@ -13,6 +13,8 @@ export default function authReducer(state = initialState, action) {
 			return { ...state, ...action.data };
 		case SET_TOKEN:
 			return { token: action.token };
+		case LOGOUT:
+			return { ...initialState };
 		default:
 			return state;
 	}

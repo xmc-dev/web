@@ -75,7 +75,6 @@ export function authorize({ scope }) {
  * @returns {Promise<Object>} Promise that holds the final token
  */
 export function token(code, state, storedState, verifier) {
-	console.log(storedState, verifier);
 	if (state !== storedState) {
 		throw new Error('State doesn\'t match');
 	}

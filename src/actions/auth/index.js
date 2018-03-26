@@ -2,6 +2,7 @@ import { token, authorize } from '../../lib/auth';
 
 export const MAKE_AUTHORIZE = 'MAKE_AUTHORIZE';
 export const SET_TOKEN = 'SET_TOKEN';
+export const LOGOUT = 'LOGOUT';
 
 /**
  * Initiates the auth flow.
@@ -26,7 +27,6 @@ export function makeAuthorize(scope) {
  */
 export function getToken(code, state) {
 	return (dispatch, getState) => {
-		console.log(getState());
 		return token(
 			code,
 			state,
@@ -35,3 +35,5 @@ export function getToken(code, state) {
 		).then(data => dispatch({ type: SET_TOKEN, token: JSON.parse(data) }));
 	};
 }
+
+export const logout = () => ({ type: LOGOUT });

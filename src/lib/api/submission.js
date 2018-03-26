@@ -73,5 +73,5 @@ export function createSubmission(params, { taskId, code, language }, options) {
 			code,
 			language
 		})
-	}).then(respone => response.json);
+	}).then(response => response.json);
 }

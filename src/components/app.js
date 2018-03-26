@@ -12,6 +12,8 @@ import Admin from '../routes/admin';
 import { auth } from '../lib/auth';
 import { PopupDisplay } from './popup-display';
 import { Container } from 'semantic-ui-react';
+import User from '../routes/user';
+import Logout from '../routes/logout';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -48,6 +50,8 @@ export default class App extends Component {
 							<Route path="/submissions" exact component={Monitor} />
 							<Route path="/submissions/:id" exact component={Submission} />
 							<Route path="/login" exact component={Login} />
+							<Route path="/logout" exact component={Logout} />
+							<Route path="/user" exact component={User} />
 							<Route path="/admin" component={Admin} />
 							<Route component={Page} />
 						</Switch>
