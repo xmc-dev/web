@@ -60,9 +60,10 @@ export function getSubmission(
 }
 
 export function getSubmissions(params, options) {
-	return api('/submissions/?' + objectToParams(params)).then(raws =>
-		raws.submissions.map(processSubmission)
-	);
+	return api('/submissions/?' + objectToParams(params)).then(raws => ({
+		meta: raws.meta,
+		submissions: raws.submissions.map(processSubmission)
+	}));
 }
 
 export function createSubmission({ taskId, code, language }, options) {

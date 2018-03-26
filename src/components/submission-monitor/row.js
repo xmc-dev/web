@@ -24,10 +24,9 @@ export class SubmissionMonitorRow extends Component {
 				}
 			})
 			.catch(err => {});
-		getAccount(this.props.sub.userId)
-		.then(acc => {
-			this.setState({ account: acc })
-		})
+		getAccount(this.props.sub.userId).then(acc => {
+			this.setState({ account: acc });
+		});
 	}
 
 	render() {
@@ -53,7 +52,9 @@ export class SubmissionMonitorRow extends Component {
 				<Table.Cell>
 					<Link to={`/submissions/${sub.id}`}>{sub.id}</Link>
 				</Table.Cell>
-				<Table.Cell>{`${this.state.account.name} (${this.state.account.clientId})`}</Table.Cell>
+				<Table.Cell>{`${this.state.account.name} (${
+					this.state.account.clientId
+				})`}</Table.Cell>
 				{taskCell}
 				<Table.Cell>{stringDate(sub.createdAt)}</Table.Cell>
 				<Table.Cell>{stringDate(sub.finishedAt)}</Table.Cell>
