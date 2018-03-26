@@ -6,8 +6,8 @@ import { api } from '../../lib/api';
 import { getSubmissions } from '../../lib/api/submission';
 
 export class SubmissionMonitor extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			submissions: [],
 			error: null
@@ -15,7 +15,7 @@ export class SubmissionMonitor extends Component {
 	}
 
 	componentDidMount() {
-		getSubmissions({ includeResult: true })
+		getSubmissions({ includeResult: true, taskId: this.props.taskId || '' })
 			.then(subs => {
 				const submissions = subs.map(sub => {
 					return <SubmissionMonitorRow sub={sub} />;

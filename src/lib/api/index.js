@@ -15,7 +15,6 @@ export function rawCall(url, options) {
 	const opts = options || {};
 	opts.headers = opts.headers || new Headers();
 	opts.headers.append('Origin', window.location.origin);
-
 	return fetch(url, opts);
 }
 

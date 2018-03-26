@@ -65,8 +65,8 @@ export function getSubmissions(params, options) {
 	);
 }
 
-export function createSubmission(params, { taskId, code, language }, options) {
-	return api('/submisions/', {
+export function createSubmission({ taskId, code, language }, options) {
+	return api('/submissions/', {
 		method: 'POST',
 		body: JSON.stringify({
 			taskId,
