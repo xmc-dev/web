@@ -45,7 +45,7 @@ export function rawApi(endpoint, options) {
 export function api(endpoint, options) {
 	return rawApi(endpoint, options).then(response => {
 		if (!response.ok) {
-			let s = respone.statusText;
+			let s = response.statusText;
 			if (!s) {
 				s = statuses[response.status];
 			}
