@@ -35,16 +35,10 @@ export class Page extends Component {
 		getPage(url)
 			.then(page => {
 				this.setState({ page });
-				return page.version;
+				return getAttachmentContent(page.version.attachmentId);
 			})
-			.then(ver => {
-				getAttachmentContent(ver.attachmentId)
-					.then(att => {
-						this.setState({ url: att.url, content: att.data });
-					})
-					.catch(error => {
-						throw error;
-					});
+			.then(att => {
+				this.setState({ url: att.url, content: att.data });
 			})
 			.catch(error => {
 				this.setState({ error });

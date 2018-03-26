@@ -1,5 +1,6 @@
 import { API_URL } from '../../config';
 import { getTokenString } from '../auth';
+import { statuses } from './statuses';
 
 export function rfc3339ToDate(date) {
 	const d = new Date(date);
@@ -44,6 +45,9 @@ export function rawApi(endpoint, options) {
 export function api(endpoint, options) {
 	return rawApi(endpoint, options).then(response => {
 		if (!response.ok) {
+			if (!response.statusText) {
+				response.statusText = statuses[response.status];
+			}
 			throw new Error(response.statusText);
 		}
 		return response.json();
