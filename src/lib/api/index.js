@@ -45,10 +45,11 @@ export function rawApi(endpoint, options) {
 export function api(endpoint, options) {
 	return rawApi(endpoint, options).then(response => {
 		if (!response.ok) {
-			if (!response.statusText) {
-				response.statusText = statuses[response.status];
+			let s = respone.statusText;
+			if (!s) {
+				s = statuses[response.status];
 			}
-			throw new Error(response.statusText);
+			throw new Error(s);
 		}
 		return response.json();
 	});
