@@ -149,7 +149,9 @@ export class TaskFooter extends Component {
 					</Form>
 				</Segment>
 				<Segment attached="bottom">
-					<Link to="/submissions">Vezi solutii trimise</Link>
+					<Link to={'/submissions?taskId=' + this.props.taskId}>
+						Vezi solutii trimise
+					</Link>
 				</Segment>
 			</div>
 		);
