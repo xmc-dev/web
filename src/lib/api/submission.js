@@ -47,15 +47,15 @@ export function getSubmission(
 ) {
 	return api(
 		'/submissions/' +
-		submissionId +
-		'?' +
-		objectToParams(
-			{
-				includeResult,
-				includeTestResults
-			},
-			options
-		)
+			submissionId +
+			'?' +
+			objectToParams(
+				{
+					includeResult,
+					includeTestResults
+				},
+				options
+			)
 	).then(raw => processSubmission(raw.submission));
 }
 
@@ -67,8 +67,11 @@ export function getSubmissions(params, options) {
 
 export function createSubmission(params, { taskId, code, language }, options) {
 	return api('/submisions/', {
-		method: 'POST', body: JSON.stringify({
-			taskId, code, language
+		method: 'POST',
+		body: JSON.stringify({
+			taskId,
+			code,
+			language
 		})
 	}).then(respone => response.json);
 }
