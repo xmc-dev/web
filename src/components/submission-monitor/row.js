@@ -10,23 +10,61 @@ import { getAccount } from '../../lib/api/account';
 export class SubmissionMonitorRow extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { task: { name: '' }, taskListUrl: '', account: {} };
+		this.state = {
+			task: { name: '' },
+			taskListUrl: '',
+			account: {},
+			taskErr: '',
+			taskListErr: '',
+			accountErr: ''
+		};
+		this.updateStuff = this.updateStuff.bind(this);
 	}
 
 	componentDidMount() {
-		getTask(this.props.sub.taskId)
+		this.updateStuff(this.props.sub);
+	}
+
+	updateStuff(sub) {
+		getTask(sub.taskId)
 			.then(t => {
-				this.setState({ task: t });
+				this.setState({ task: t, taskErr: '' });
 				if (t) {
-					getTaskList(t.taskListId).then(tl => {
-						this.setState({ taskListUrl: getTaskListUrl(tl) });
-					});
+					getTaskList(t.taskListId)
+						.then(tl => {
+							this.setState({
+								taskListUrl: getTaskListUrl(tl),
+								taskListErr: ''
+							});
+						})
+						.catch(error => this.setState({ taskListErr: error.message }));
 				}
 			})
-			.catch(err => {});
-		getAccount(this.props.sub.userId).then(acc => {
-			this.setState({ account: acc });
-		});
+			.catch(error => this.setState({ taskErr: error.message }));
+		getAccount(sub.userId)
+			.then(acc => {
+				this.setState({ account: acc, accountErr: '' });
+			})
+			.catch(error => {
+				this.setState({ accountErr: error.message });
+			});
+	}
+
+	/**
+	 * So it looks like when we change the page with the pagination buttons,
+	 * instead of instancing new SubmissionMonitorRows, preact just changes the props.
+	 * So we update the stuff.
+	 *
+	 * @param {object} newProps
+	 */
+	componentWillReceiveProps(newProps) {
+		if (
+			newProps.sub.id !== this.props.sub.id ||
+			newProps.sub.state !== this.props.sub.state
+		) {
+			console.warn(newProps.sub.id + ': ' + newProps.sub.userId);
+			this.updateStuff(newProps.sub);
+		}
 	}
 
 	render() {
@@ -36,26 +74,28 @@ export class SubmissionMonitorRow extends Component {
 			score = sub.result.score;
 		}
 
-		let taskCell = <Table.Cell>{this.state.task.title}</Table.Cell>;
-		if (this.state.taskListUrl) {
+		let taskCell = this.state.task.title;
+		if (this.state.taskErr) {
+			taskCell = this.state.taskErr;
+		} else if (!this.state.taskListErr) {
 			taskCell = (
-				<Table.Cell>
-					<Link to={this.state.taskListUrl + '/' + this.state.task.name}>
-						{this.state.task.title}
-					</Link>
-				</Table.Cell>
+				<Link to={this.state.taskListUrl + '/' + this.state.task.name}>
+					{this.state.task.title}
+				</Link>
 			);
 		}
+
+		const accountCell =
+			this.state.accountErr ||
+			`${this.state.account.name} (${this.state.account.clientId})`;
 
 		return (
 			<Table.Row>
 				<Table.Cell>
 					<Link to={`/submissions/${sub.id}`}>{sub.id}</Link>
 				</Table.Cell>
-				<Table.Cell>{`${this.state.account.name} (${
-					this.state.account.clientId
-				})`}</Table.Cell>
-				{taskCell}
+				<Table.Cell>{accountCell}</Table.Cell>
+				<Table.Cell>{taskCell}</Table.Cell>
 				<Table.Cell>{stringDate(sub.createdAt)}</Table.Cell>
 				<Table.Cell>{stringDate(sub.finishedAt)}</Table.Cell>
 				<Table.Cell>{getShortStatus(sub)}</Table.Cell>
