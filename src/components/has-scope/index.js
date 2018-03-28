@@ -2,22 +2,26 @@ import jwtDecode from 'jwt-decode';
 import { connect } from 'preact-redux';
 import { withRouter } from 'react-router-dom';
 
-function ConnectedHasScope({ scope, token, children }) {
+function ConnectedHasScope({ scope, fail = null, token, children }) {
 	if (!token.access_token) {
-		return null;
+		return fail;
 	}
 	let decoded;
 	try {
 		decoded = jwtDecode(token.access_token);
 	} catch (err) {
-		return null;
-	}
-	const r = new RegExp(scope.replace(/\./, '\\.'));
-	if (r.test(decoded.role.scope)) {
-		return <div>{children}</div>;
+		return fail;
 	}
 
-	return null;
+	for (const s of scope.split(' ')) {
+		// Escape dots and add word boundaries
+		const r = new RegExp('\\b' + s.replace(/\./, '\\.') + '\\b');
+		if (!r.test(decoded.role.scope)) {
+			return fail;
+		}
+	}
+
+	return <div>{children}</div>;
 }
 
 export const HasScope = withRouter(
