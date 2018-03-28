@@ -5,3 +5,4 @@ node_js:
 sudo: false
 script:
   - yarn run lint
+cache: yarn
