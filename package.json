@@ -23,7 +23,8 @@
         {
           "varsIgnorePattern": "^h$"
         }
-      ]
+	  ],
+	  "linebreak-style": [2, "unix"]
     },
     "env": {
       "browser": true
