@@ -43,6 +43,7 @@
     "prettier-eslint-cli": "^4.7.1"
   },
   "dependencies": {
+    "jwt-decode": "^2.2.0",
     "markdown-it": "^8.4.1",
     "markdown-it-latex": "^0.2.0",
     "monaco-editor": "^0.10.1",

@@ -14,6 +14,7 @@ import { PopupDisplay } from './popup-display';
 import { Container } from 'semantic-ui-react';
 import User from '../routes/user';
 import Logout from '../routes/logout';
+import Settings from '../routes/settings';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -52,6 +53,7 @@ export default class App extends Component {
 							<Route path="/login" exact component={Login} />
 							<Route path="/logout" exact component={Logout} />
 							<Route path="/user" exact component={User} />
+							<Route path="/settings" component={Settings} />
 							<Route path="/admin" component={Admin} />
 							<Route component={Page} />
 						</Switch>

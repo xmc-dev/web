@@ -5,6 +5,7 @@ import Hamburger from './hamburger';
 import style from './style';
 import logo from './logo.svg';
 import { LoginButton } from './login-button';
+import { HasScope } from '../has-scope';
 
 export default class Navigation extends Component {
 	constructor() {
@@ -32,6 +33,9 @@ export default class Navigation extends Component {
 						icon="ios-list-box-outline"
 						text="MONITOR"
 					/>
+					<HasScope scope="xmc.core/manage">
+						<NavLink href="/admin" icon="ios-build-outline" text="ADMIN" />
+					</HasScope>
 				</NavGroup>
 
 				<NavGroup bottom>
