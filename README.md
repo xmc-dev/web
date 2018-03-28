@@ -1,5 +1,7 @@
 # XMC
 
+[![Build Status](https://travis-ci.org/xmc-dev/web.svg?branch=master)](https://travis-ci.org/xmc-dev/web)
+
 ## CLI Commands
 
 ``` bash
