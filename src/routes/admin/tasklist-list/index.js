@@ -1,5 +1,3 @@
-import { Component } from "preact";
+import { Component } from 'preact';
 
-export default class TaskListList extends Component {
-
-}
+export default class TaskListList extends Component {}
