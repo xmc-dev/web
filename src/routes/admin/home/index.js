@@ -21,12 +21,12 @@ export default function Home() {
 				/>
 				<Card
 					link
-					header="Users & Roles"
+					header="Users &amp; Roles"
 					description="Manage users and assign roles."
 				/>
 				<Card
 					link
-					header="Contests & Problems"
+					header="Contests &amp; Problems"
 					description="Manage contests and add problems."
 				/>
 			</Card.Group>

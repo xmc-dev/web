@@ -1,6 +1,16 @@
 import { API_URL } from '../../config';
-import { getTokenString } from '../auth';
+import { getTokenString, getDecodedJWT, doRefresh } from '../auth';
 import { statuses } from './statuses';
+import Mutex from 'promise-mutex';
+
+// One minute
+const expirationTolerance = 60;
+
+function checkToken(tok) {
+	return (
+		Math.floor(new Date().getTime() / 1000) < tok.exp - expirationTolerance
+	);
+}
 
 export function rfc3339ToDate(date) {
 	const d = new Date(date);
@@ -19,6 +29,14 @@ export function rawCall(url, options) {
 	return fetch(url, opts);
 }
 
+// XXX: This hack is so ugly it deserves its own eslint warning, hence the XXX.
+// So when the token needs to be refreshed, it is refreshed in a promise that
+// after the token is refreshed successfully, it does the actual api call.
+// Problem is that other components might also make api calls and we end up with a race condition.
+// I think that there are two solutions: either move all api calls to redux, or put a mutex.
+// And here is the mutex, ba dum tss.
+const refreshMutex = new Mutex();
+
 /**
  * Makes an API call.
  * @param {string} endpoint The api endpoint with its parameters
@@ -28,12 +46,15 @@ export function rawCall(url, options) {
 export function rawApi(endpoint, options) {
 	const tok = getTokenString();
 	const opts = options || {};
+	let p = () => Promise.resolve(true);
 	opts.headers = opts.headers || new Headers();
 	if (tok) {
+		if (!checkToken(getDecodedJWT())) {
+			p = () => refreshMutex.lock(() => doRefresh());
+		}
 		opts.headers.append('Authorization', 'Bearer ' + tok);
 	}
-
-	return rawCall(API_URL + endpoint, opts);
+	return p().then(() => rawCall(API_URL + endpoint, opts));
 }
 
 /**

@@ -19,7 +19,6 @@ export class Paginate extends Component {
 	}
 
 	handlePageChange(e, { activePage }) {
-		console.log(typeof this.props.getItems);
 		this.setState({ page: activePage });
 		this.props
 			.getItems((activePage - 1) * this.state.meta.perPage)

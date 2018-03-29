@@ -7110,6 +7110,10 @@ promise-inflight@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/promise-inflight/-/promise-inflight-1.0.1.tgz#98472870bf228132fcbdd868129bad12c3c029e3"
 
+promise-mutex@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/promise-mutex/-/promise-mutex-0.1.1.tgz#55e48e050febf90edaf275d77af4ec5fc25d9194"
+
 promise-polyfill@^6.0.2:
   version "6.1.0"
   resolved "https://registry.yarnpkg.com/promise-polyfill/-/promise-polyfill-6.1.0.tgz#dfa96943ea9c121fca4de9b5868cb39d3472e057"

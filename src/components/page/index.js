@@ -47,6 +47,9 @@ export class Page extends Component {
 	}
 
 	componentWillReceiveProps(update) {
+		if (update.url === this.props.url) {
+			return;
+		}
 		this.setState({ error: null, content: '' });
 		this.getContent(update.url);
 	}

@@ -4,6 +4,7 @@ import shajs from 'sha.js';
 import { OAUTH2 } from '../../config';
 import { objectToParams } from '../query-params';
 import store from '../../store';
+import { refreshToken } from '../../actions/auth';
 
 function base64URLEncode(str) {
 	/* eslint-disable no-div-regex */
@@ -102,7 +103,31 @@ export function token(code, state, storedState, verifier) {
 			if ('error' in data) {
 				throw data;
 			}
-			return JSON.stringify(data);
+			return data;
+		});
+}
+
+export function refresh(refreshToken) {
+	const reqOpts = {
+		grant_type: 'refresh_token',
+		refresh_token: refreshToken,
+		client_id: OAUTH2.clientId,
+		client_secret: ''
+	};
+	const url = OAUTH2.url + '/token?' + objectToParams(reqOpts);
+
+	return fetch(url)
+		.then(data => {
+			if (!data.ok) {
+				throw new Error(data.statusText);
+			}
+			return data.json();
+		})
+		.then(data => {
+			if ('error' in data) {
+				throw data;
+			}
+			return data;
 		});
 }
 
@@ -117,5 +142,14 @@ export function getTokenString() {
 		return tok.access_token;
 	}
 	return '';
+}
+
+export function getDecodedJWT() {
+	const tok = store.getState().auth.decodedJWT;
+	return tok || null;
+}
+
+export function doRefresh() {
+	return store.dispatch(refreshToken());
 }
 /* eslint-enable camelcase */

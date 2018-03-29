@@ -1,4 +1,4 @@
-import { token, authorize } from '../../lib/auth';
+import { token, authorize, refresh } from '../../lib/auth';
 
 export const MAKE_AUTHORIZE = 'MAKE_AUTHORIZE';
 export const SET_TOKEN = 'SET_TOKEN';
@@ -32,7 +32,15 @@ export function getToken(code, state) {
 			state,
 			getState().auth.state,
 			getState().auth.verifier
-		).then(data => dispatch({ type: SET_TOKEN, token: JSON.parse(data) }));
+		).then(data => dispatch({ type: SET_TOKEN, token: data }));
+	};
+}
+
+export function refreshToken() {
+	return (dispatch, getState) => {
+		return refresh(getState().auth.token.refresh_token).then(data =>
+			dispatch({ type: SET_TOKEN, token: data })
+		);
 	};
 }
 
