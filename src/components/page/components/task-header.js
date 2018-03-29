@@ -33,7 +33,7 @@ export class TaskHeader extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message} />;
+			return <ErrorMessage error={this.state.error.message}/>;
 		}
 		const t = this.state.task;
 		const d = this.state.dataset;

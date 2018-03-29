@@ -1,7 +1,6 @@
-import { Component } from 'preact';
-import { getTokenString, setNavUpdater } from '../../lib/auth';
+import { Component, h } from 'preact';
+import { getTokenString } from '../../lib/auth';
 import { NavLink } from './nav';
-import { api } from '../../lib/api';
 import { getAccount } from '../../lib/api/account';
 import { connect } from 'preact-redux';
 import { withRouter } from 'react-router-dom';
@@ -43,7 +42,7 @@ class ConnectedLoginButton extends Component {
 			);
 		}
 		return (
-			<NavLink exact href="/login" icon="ios-person-outline" text="LOGIN" />
+			<NavLink exact href="/login" icon="ios-person-outline" text="LOGIN"/>
 		);
 	}
 }

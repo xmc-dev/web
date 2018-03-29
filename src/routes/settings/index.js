@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { Component, h } from 'preact';
 import { Header, Container } from 'semantic-ui-react';
 
 export default class Settings extends Component {

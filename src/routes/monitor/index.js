@@ -9,9 +9,9 @@ export default class Monitor extends Component {
 		const params = paramsToObject(window.location.search);
 		return (
 			<Container>
-				<Helmet title="Monitorul de evaluare" />
+				<Helmet title="Monitorul de evaluare"/>
 				<Header as="h1">Monitorul de evaluare</Header>
-				<SubmissionMonitor taskId={params.taskId} />
+				<SubmissionMonitor taskId={params.taskId}/>
 			</Container>
 		);
 	}

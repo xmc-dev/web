@@ -7,9 +7,9 @@ export default class Archive extends Component {
 	render() {
 		return (
 			<Container>
-				<Helmet title="Arhiva de probleme" />
+				<Helmet title="Arhiva de probleme"/>
 				<Header as="h1">Arhiva de probleme</Header>
-				<TaskList />
+				<TaskList/>
 			</Container>
 		);
 	}

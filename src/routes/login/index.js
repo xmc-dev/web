@@ -80,11 +80,11 @@ The authentification process didn't return the correct values. Please contact th
 
 	render() {
 		if (!window.location.search) {
-			return <Authorize scope={['xmc.core.manage', 'xmc.core/submission']} />;
+			return <Authorize scope={['xmc.core.manage', 'xmc.core/submission']}/>;
 		}
 		if (this.state.redirect) {
 			this.props.onRedirect();
-			return <Redirect to="/" />;
+			return <Redirect to="/"/>;
 		}
 		if ('error' in this.state.error) {
 			return (

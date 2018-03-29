@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import { OAUTH2 } from '../../config';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'preact-redux';
@@ -9,7 +10,7 @@ function ConnectedLogout({ doLogout, showMessage }) {
 	const tok = getTokenString();
 	if (!tok) {
 		showMessage();
-		return <Redirect to="/" />;
+		return <Redirect to="/"/>;
 	}
 
 	doLogout();

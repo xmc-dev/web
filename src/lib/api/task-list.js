@@ -21,5 +21,7 @@ export function getTaskListUrl(tl) {
 }
 
 export function getTaskList(id, options) {
-	return api('/tasklists/' + id).then(raw => processTaskList(raw.taskList));
+	return api('/tasklists/' + id, options).then(raw =>
+		processTaskList(raw.taskList)
+	);
 }

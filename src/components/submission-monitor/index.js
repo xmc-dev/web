@@ -1,51 +1,36 @@
-import { Component } from 'preact';
-import { Table, Container, Pagination, Icon } from 'semantic-ui-react';
-import { ErrorMessage } from '../error-message';
+import { h } from 'preact';
+import { Table } from 'semantic-ui-react';
 import { SubmissionMonitorRow, SubmissionMonitorHeaderRow } from './row';
-import { api } from '../../lib/api';
 import { getSubmissions } from '../../lib/api/submission';
 import { Paginate } from '../paginate';
 
 function MonitorTable({ items }) {
+	let i = 0;
+	const rows = items.map(it => {
+		i++;
+		return <SubmissionMonitorRow key={i} sub={it}/>;
+	});
 	return (
 		<Table celled striped selectable>
 			<Table.Header>
-				<SubmissionMonitorHeaderRow />
+				<SubmissionMonitorHeaderRow/>
 			</Table.Header>
-			<Table.Body>
-				{items.map(it => <SubmissionMonitorRow sub={it} />)}
-			</Table.Body>
+			<Table.Body>{rows}</Table.Body>
 		</Table>
 	);
 }
 
-export class SubmissionMonitor extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			submissions: [],
-			error: null,
-			meta: {},
-			page: 1
-		};
-		this.getSubmissions = this.getSubmissions.bind(this);
-	}
-
-	getSubmissions(offset) {
-		return getSubmissions({
+function getSubs(taskId) {
+	return offset =>
+		getSubmissions({
 			offset: offset,
 			includeResult: true,
-			taskId: this.props.taskId || ''
-		})
-			.then(data => {
-				return { meta: data.meta, items: data.submissions };
-			})
-			.catch(error => {
-				this.setState({ error });
-			});
-	}
+			taskId: taskId || ''
+		}).then(data => {
+			return { meta: data.meta, items: data.submissions };
+		});
+}
 
-	render() {
-		return <Paginate getItems={this.getSubmissions} component={MonitorTable} />;
-	}
+export function SubmissionMonitor({ taskId }) {
+	return <Paginate getItems={getSubs(taskId)} component={MonitorTable}/>;
 }

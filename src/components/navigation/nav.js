@@ -1,6 +1,7 @@
-import style from './style';
+import { h } from 'preact';
 import { NavLink as StyledLink } from 'react-router-dom';
 import Ionicon from 'react-ionicons';
+import style from './style';
 
 export function NavLink({ href, icon, text, bottom, exact, children }) {
 	let id = '';
@@ -10,9 +11,9 @@ export function NavLink({ href, icon, text, bottom, exact, children }) {
 
 	let inner;
 	if (children.length) {
-		inner = this.props.children;
+		inner = children;
 	} else {
-		inner = <Ionicon icon={icon} fontSize="2em" color="white" />;
+		inner = <Ionicon icon={icon} fontSize="2em" color="white"/>;
 	}
 
 	return (
@@ -31,7 +32,7 @@ export function NavGroup({ children, bottom, hidden }) {
 	const hi = hidden ? style.hidden : '';
 
 	return (
-		<div class={style.section + ' ' + hi} id={id}>
+		<div className={style.section + ' ' + hi} id={id}>
 			{children}
 		</div>
 	);

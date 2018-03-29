@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 import { Table } from 'semantic-ui-react';
 import { stringDate } from '../../lib/date';
 import { byteSizeToString } from '../../lib/data-size';
@@ -19,6 +19,7 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 		['Compilator', sub.language],
 		['Data trimiterii', stringDate(sub.createdAt)],
 		['Data evaluarii', stringDate(sub.finishedAt)],
+		// eslint-disable-next-line react/jsx-key
 		['Marime', <a href={codeUrl}>{byteSizeToString(attachment.size)}</a>],
 		['Problema', task.name]
 	];

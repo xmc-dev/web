@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { Component, h } from 'preact';
 import { Page as PageComponent } from '../../components/page';
 
 export default class Page extends Component {
@@ -12,6 +12,6 @@ export default class Page extends Component {
 	}
 
 	render() {
-		return <PageComponent url={this.state.url} />;
+		return <PageComponent url={this.state.url}/>;
 	}
 }

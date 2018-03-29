@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { Container, Header, Message } from 'semantic-ui-react';
+import { Message } from 'semantic-ui-react';
 
 /**
  *

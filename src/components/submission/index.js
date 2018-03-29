@@ -1,12 +1,10 @@
 import { h, Component } from 'preact';
 import { getShortStatus } from '../../lib/submission';
-import { api } from '../../lib/api';
 import { getAttachmentContent, getAttachment } from '../../lib/api/attachment';
 import { ErrorMessage } from '../error-message';
 import { InfoTable } from './info-table';
 import { Container, Tab, Header } from 'semantic-ui-react';
 import { Code, CodeView } from '../code';
-import { MonacoEditor } from 'react-monaco-editor';
 import { TestResultsTable } from './test-results-table';
 import { getSubmission } from '../../lib/api/submission';
 import { getTask } from '../../lib/api/task';
@@ -29,7 +27,7 @@ export class Submission extends Component {
 			.then(task => {
 				this.setState({ task });
 			})
-			.catch(error => {
+			.catch(() => {
 				// Fallback
 				this.setState({ task: { name: '' } });
 			});
@@ -76,7 +74,7 @@ export class Submission extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message} />;
+			return <ErrorMessage error={this.state.error.message}/>;
 		}
 		const panes = [
 			{
@@ -106,9 +104,9 @@ export class Submission extends Component {
 						return (
 							<Tab.Pane>
 								<Header as="h4">Comanda de compilare</Header>
-								<Code code={this.state.submission.result.buildCommand} />
+								<Code code={this.state.submission.result.buildCommand}/>
 								<Header as="h4">Raport compilator</Header>
-								<Code code={this.state.submission.result.compilationMessage} />
+								<Code code={this.state.submission.result.compilationMessage}/>
 							</Tab.Pane>
 						);
 					}
@@ -135,7 +133,7 @@ export class Submission extends Component {
 					task={this.state.task}
 					codeUrl={this.state.codeUrl}
 				/>
-				<Tab renderActiveOnly panes={panes} />
+				<Tab renderActiveOnly panes={panes}/>
 			</Container>
 		);
 	}

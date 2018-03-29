@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import { Message } from 'semantic-ui-react';
 import { connect } from 'preact-redux';
 import { hidePopup } from '../../actions/popup';

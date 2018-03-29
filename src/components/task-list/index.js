@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import { Item } from 'semantic-ui-react';
 import { TaskListItem } from './item';
 import { ErrorMessage } from '../error-message';
-import { api } from '../../lib/api';
 import { getTasks } from '../../lib/api/task';
 
 export class TaskList extends Component {
@@ -17,8 +16,10 @@ export class TaskList extends Component {
 	componentDidMount() {
 		getTasks()
 			.then(data => {
+				let i = 0;
 				const tasks = data.map(task => {
-					return <TaskListItem task={task} />;
+					i++;
+					return <TaskListItem key={i} task={task}/>;
 				});
 				this.setState({ tasks });
 			})
@@ -29,7 +30,7 @@ export class TaskList extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message} />;
+			return <ErrorMessage error={this.state.error.message}/>;
 		}
 		return <Item.Group>{this.state.tasks}</Item.Group>;
 	}

@@ -2,9 +2,7 @@ import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
 import { Container } from 'semantic-ui-react';
 import { XMCML } from '../../components/xmcml';
-import { api, rawApi } from '../../lib/api';
 import { getAttachmentContent } from '../../lib/api/attachment';
-import JsxParser from 'react-jsx-parser';
 import { ErrorMessage } from '../../components/error-message';
 import { getPage } from '../../lib/api/page';
 import { TaskHeader } from './components/task-header';
@@ -22,7 +20,6 @@ export class Page extends Component {
 		this.state = {
 			page: { version: {} },
 			error: null,
-			url: props.url,
 			content: ''
 		};
 		this.getContent = this.getContent.bind(this);
@@ -38,7 +35,7 @@ export class Page extends Component {
 				return getAttachmentContent(page.version.attachmentId);
 			})
 			.then(att => {
-				this.setState({ url: att.url, content: att.data });
+				this.setState({ content: att.data });
 			})
 			.catch(error => {
 				this.setState({ error });
@@ -50,7 +47,7 @@ export class Page extends Component {
 	}
 
 	componentWillReceiveProps(update) {
-		this.setState({ error: null, url: update.url, content: '' });
+		this.setState({ error: null, content: '' });
 		this.getContent(update.url);
 	}
 
@@ -58,13 +55,13 @@ export class Page extends Component {
 		if (this.state.error) {
 			return (
 				<Container>
-					<ErrorMessage error={this.state.error.message} />
+					<ErrorMessage error={this.state.error.message}/>
 				</Container>
 			);
 		}
 		return (
 			<Container>
-				<Helmet title={this.state.page.version.title} />
+				<Helmet title={this.state.page.version.title}/>
 				<XMCML
 					md={this.state.content || '# Loading...'}
 					components={{

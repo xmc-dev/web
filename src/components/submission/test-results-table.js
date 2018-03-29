@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 import { Table } from 'semantic-ui-react';
 
 export function TestResultsTable({ testResults, finalScore }) {

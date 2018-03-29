@@ -3,8 +3,8 @@ import MonacoEditor from 'react-monaco-editor';
 
 export function Code({ code }) {
 	return (
-		<pre style="overflow-x: auto;">
-			<code style="overflow-wrap: normal; white-space: pre;">{code}</code>
+		<pre style={{ overflowX: 'auto' }}>
+			<code style={{ overflowWrap: 'normal', whiteSpace: 'pre' }}>{code}</code>
 		</pre>
 	);
 }

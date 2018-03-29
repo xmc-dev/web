@@ -33,28 +33,28 @@ export class Paginate extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message} />;
+			return <ErrorMessage error={this.state.error.message}/>;
 		}
 		return (
 			<div>
-				<this.props.component items={this.state.items} />
+				<this.props.component items={this.state.items}/>
 				<Container fluid textAlign="center">
 					<Pagination
 						defaultActivePage={this.state.page}
 						ellipsisItem={{
-							content: <Icon name="ellipsis horizontal" />,
+							content: <Icon name="ellipsis horizontal"/>,
 							icon: true
 						}}
 						firstItem={{
-							content: <Icon name="angle double left" />,
+							content: <Icon name="angle double left"/>,
 							icon: true
 						}}
 						lastItem={{
-							content: <Icon name="angle double right" />,
+							content: <Icon name="angle double right"/>,
 							icon: true
 						}}
-						prevItem={{ content: <Icon name="angle left" />, icon: true }}
-						nextItem={{ content: <Icon name="angle right" />, icon: true }}
+						prevItem={{ content: <Icon name="angle left"/>, icon: true }}
+						nextItem={{ content: <Icon name="angle right"/>, icon: true }}
 						totalPages={Math.ceil(
 							(this.state.meta.total || 1) / (this.state.meta.perPage || 1)
 						)}

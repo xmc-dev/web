@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import jwtDecode from 'jwt-decode';
 import { connect } from 'preact-redux';
 import { withRouter } from 'react-router-dom';

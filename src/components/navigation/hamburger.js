@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { Component, h } from 'preact';
 import Ionicon from 'react-ionicons';
 
 import style from './style';
@@ -18,7 +18,7 @@ export default class Hamburger extends Component {
 		return (
 			<div id={style.hamburger} onClick={this.toggleMenu}>
 				<a>
-					<Ionicon icon={icon} fontSize="2em" color="white" />
+					<Ionicon icon={icon} fontSize="2em" color="white"/>
 				</a>
 			</div>
 		);

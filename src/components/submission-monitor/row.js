@@ -69,10 +69,6 @@ export class SubmissionMonitorRow extends Component {
 
 	render() {
 		const sub = this.props.sub;
-		let score = 0;
-		if (sub.result) {
-			score = sub.result.score;
-		}
 
 		let taskCell = this.state.task.title;
 		if (this.state.taskErr) {

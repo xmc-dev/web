@@ -1,14 +1,6 @@
 import { h, Component } from 'preact';
 import { Link, Redirect } from 'react-router-dom';
-import {
-	Segment,
-	Button,
-	Form,
-	Header,
-	Divider,
-	Message,
-	Icon
-} from 'semantic-ui-react';
+import { Segment, Button, Form, Message, Icon } from 'semantic-ui-react';
 import { getBase64 } from '../../../lib/file';
 import { createSubmission } from '../../../lib/api/submission';
 
@@ -110,12 +102,12 @@ export class TaskFooter extends Component {
 
 	render() {
 		if (this.state.redirectTo) {
-			return <Redirect to={this.state.redirectTo} />;
+			return <Redirect to={this.state.redirectTo}/>;
 		}
 		return (
 			<div>
 				<Message icon hidden={!this.state.warning.show} warning attached="top">
-					<Icon name="warning" />
+					<Icon name="warning"/>
 					<Message.Content>
 						<Message.Header>{this.state.warning.head}</Message.Header>
 						{this.state.warning.body}
@@ -124,7 +116,7 @@ export class TaskFooter extends Component {
 				<Segment attached={this.state.warning.show ? true : 'top'}>
 					<Form onSubmit={this.onFormSubmit}>
 						<Form.Group inline style={{ margin: 0 }}>
-							Incarca solutie in
+							<span>Incarca solutie in</span>
 							<strong>
 								<Form.Dropdown
 									label=" "
@@ -136,7 +128,7 @@ export class TaskFooter extends Component {
 									}
 								/>
 							</strong>
-							<Form.Input transparent type="file" onChange={this.onChange} />
+							<Form.Input transparent type="file" onChange={this.onChange}/>
 							<Button
 								basic
 								positive

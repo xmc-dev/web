@@ -2,7 +2,6 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import popupReducer from '../reducers/popup';
 import authReducer from '../reducers/auth';
-import { showPopup, showPopupWithTimeout } from '../actions/popup';
 
 function cleanOldState(state) {
 	return { ...state, popup: { popups: [] } };

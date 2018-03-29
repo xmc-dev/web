@@ -15,31 +15,31 @@ export default class Navigation extends Component {
 	}
 
 	hideNav() {
-		this.setState({ hidden: !this.state.hidden });
+		this.setState(prevState => ({ hidden: !prevState.hidden }));
 	}
 
 	render() {
 		return (
 			<nav id={style.navigation}>
-				<Hamburger hideNav={this.hideNav} hidden={this.state.hidden} />
+				<Hamburger hideNav={this.hideNav} hidden={this.state.hidden}/>
 				<div id={style.logo}>
-					<img src={logo} />
+					<img src={logo}/>
 				</div>
 				<NavGroup hidden={this.state.hidden}>
-					<NavLink exact href="/" icon="ios-home-outline" text="HOME" />
-					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE" />
+					<NavLink exact href="/" icon="ios-home-outline" text="HOME"/>
+					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE"/>
 					<NavLink
 						href="/submissions"
 						icon="ios-list-box-outline"
 						text="MONITOR"
 					/>
 					<HasScope scope="xmc.core/manage">
-						<NavLink href="/admin" icon="ios-build-outline" text="ADMIN" />
+						<NavLink href="/admin" icon="ios-build-outline" text="ADMIN"/>
 					</HasScope>
 				</NavGroup>
 
 				<NavGroup bottom>
-					<LoginButton />
+					<LoginButton/>
 					<NavLink
 						exact
 						href="/settings"

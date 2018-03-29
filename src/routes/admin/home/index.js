@@ -1,3 +1,4 @@
+import { h } from 'preact';
 import { Container, Header } from 'semantic-ui-react';
 
 export default function Home() {

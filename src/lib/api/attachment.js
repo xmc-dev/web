@@ -1,6 +1,5 @@
 import { api, rawCall, rfc3339ToDate } from '../api';
 import { FILES_PROXY } from '../../config';
-import { stringDate } from '../date';
 
 function processAttachment(raw) {
 	const dates = {

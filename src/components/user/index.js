@@ -2,7 +2,6 @@ import { h, Component } from 'preact';
 import { getAccount } from '../../lib/api/account';
 import { ErrorMessage } from '../error-message';
 import { Container, Button, Header } from 'semantic-ui-react';
-import { connect } from 'preact-redux';
 import { Redirect } from 'react-router-dom';
 
 export class User extends Component {
@@ -16,7 +15,6 @@ export class User extends Component {
 		getAccount(this.props.id)
 			.then(account => {
 				this.setState({ account });
-				this.props.setClientId(account.clientId);
 			})
 			.catch(error => this.setState({ error }));
 	}
@@ -27,10 +25,10 @@ export class User extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message} />;
+			return <ErrorMessage error={this.state.error.message}/>;
 		}
 		if (this.state.logout) {
-			return <Redirect to="/logout" />;
+			return <Redirect to="/logout"/>;
 		}
 
 		const acc = this.state.account;

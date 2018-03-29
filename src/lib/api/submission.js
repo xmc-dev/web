@@ -49,30 +49,32 @@ export function getSubmission(
 		'/submissions/' +
 			submissionId +
 			'?' +
-			objectToParams(
-				{
-					includeResult,
-					includeTestResults
-				},
-				options
-			)
+			objectToParams({
+				includeResult,
+				includeTestResults
+			}),
+		options
 	).then(raw => processSubmission(raw.submission));
 }
 
 export function getSubmissions(params, options) {
-	return api('/submissions/?' + objectToParams(params)).then(raws => ({
+	return api('/submissions/?' + objectToParams(params), options).then(raws => ({
 		meta: raws.meta,
 		submissions: raws.submissions.map(processSubmission)
 	}));
 }
 
 export function createSubmission({ taskId, code, language }, options) {
-	return api('/submissions/', {
-		method: 'POST',
-		body: JSON.stringify({
-			taskId,
-			code,
-			language
-		})
-	}).then(response => response.json);
+	return api(
+		'/submissions/',
+		{
+			method: 'POST',
+			body: JSON.stringify({
+				taskId,
+				code,
+				language
+			})
+		},
+		options
+	).then(response => response.json);
 }

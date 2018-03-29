@@ -9,5 +9,5 @@ function processAccount(raw) {
 
 export function getAccount(id, options) {
 	const i = id || '';
-	return api('/accounts/' + i).then(raw => processAccount(raw));
+	return api('/accounts/' + i, options).then(raw => processAccount(raw));
 }

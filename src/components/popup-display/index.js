@@ -1,4 +1,4 @@
-import { Component } from 'preact';
+import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { Popup } from './popup';
 
@@ -7,12 +7,13 @@ const mapStateToProps = state => {
 };
 
 function ConnectedPopupDisplay({ popups }) {
-	const ret = popups.map((p, i) => <Popup id={p.id} popup={p.popup} />);
+	let i = 0;
+	const ret = popups.map(p => <Popup key={i++} id={p.id} popup={p.popup}/>);
 
 	// Create some space between this and the main container
-	let style = '';
+	let style = {};
 	if (popups.length > 0) {
-		style = 'margin-bottom: 2rem;';
+		style['margin-bottom'] = '2rem';
 	}
 	return <div style={style}>{ret}</div>;
 }

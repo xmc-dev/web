@@ -1,6 +1,5 @@
 import { h, Component } from 'preact';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Helmet from 'preact-helmet';
 
 import Navigation from './navigation';
 import Monitor from '../routes/monitor';
@@ -9,7 +8,6 @@ import Archive from '../routes/archive';
 import Login from '../routes/login';
 import Page from '../routes/page';
 import Admin from '../routes/admin';
-import { auth } from '../lib/auth';
 import { PopupDisplay } from './popup-display';
 import { Container } from 'semantic-ui-react';
 import User from '../routes/user';
@@ -40,22 +38,22 @@ export default class App extends Component {
 		return (
 			<Router onChange={this.handleRoute}>
 				<div id="app">
-					<Navigation />
+					<Navigation/>
 					<div id="container">
 						<Container>
-							<PopupDisplay />
+							<PopupDisplay/>
 						</Container>
 						<Switch>
-							<Route path="/" exact component={Page} />
-							<Route path="/archive" exact component={Archive} />
-							<Route path="/submissions" exact component={Monitor} />
-							<Route path="/submissions/:id" exact component={Submission} />
-							<Route path="/login" exact component={Login} />
-							<Route path="/logout" exact component={Logout} />
-							<Route path="/user" exact component={User} />
-							<Route path="/settings" component={Settings} />
-							<Route path="/admin" component={Admin} />
-							<Route component={Page} />
+							<Route path="/" exact component={Page}/>
+							<Route path="/archive" exact component={Archive}/>
+							<Route path="/submissions" exact component={Monitor}/>
+							<Route path="/submissions/:id" exact component={Submission}/>
+							<Route path="/login" exact component={Login}/>
+							<Route path="/logout" exact component={Logout}/>
+							<Route path="/user" exact component={User}/>
+							<Route path="/settings" component={Settings}/>
+							<Route path="/admin" component={Admin}/>
+							<Route component={Page}/>
 						</Switch>
 					</div>
 				</div>

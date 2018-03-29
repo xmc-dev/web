@@ -1,4 +1,4 @@
-import { h, Component } from 'preact';
+import { h } from 'preact';
 import { Item } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
