@@ -125,7 +125,7 @@ export function refresh(refreshToken) {
 		})
 		.then(data => {
 			if ('error' in data) {
-				throw data;
+				throw new Error(`${data.error}: ${data.error_description}`);
 			}
 			return data;
 		});

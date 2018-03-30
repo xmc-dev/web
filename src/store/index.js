@@ -2,6 +2,7 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 import popupReducer from '../reducers/popup';
 import authReducer from '../reducers/auth';
+import submissionsReducer from '../reducers/submissions';
 
 function cleanOldState(state) {
 	return { ...state, popup: { popups: [] } };
@@ -14,7 +15,8 @@ const savedState = localStorage.getItem('reduxState') ?
 const store = createStore(
 	combineReducers({
 		popup: popupReducer,
-		auth: authReducer
+		auth: authReducer,
+		submissions: submissionsReducer
 	}),
 	cleanOldState(savedState),
 	composeEnhancers(applyMiddleware(thunk))

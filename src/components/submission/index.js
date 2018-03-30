@@ -6,14 +6,14 @@ import { InfoTable } from './info-table';
 import { Container, Tab, Header } from 'semantic-ui-react';
 import { Code, CodeView } from '../code';
 import { TestResultsTable } from './test-results-table';
-import { getSubmission } from '../../lib/api/submission';
 import { getTask } from '../../lib/api/task';
+import { connect } from 'preact-redux';
+import { readSubmission } from '../../actions/submissions';
 
-export class Submission extends Component {
+class ConnectedSubmission extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			submission: {},
 			attachment: {},
 			task: {},
 			sourceCode: '',
@@ -54,7 +54,9 @@ export class Submission extends Component {
 	}
 
 	componentDidMount() {
-		getSubmission(this.props.id, {
+		this.props.getSubmission(this.props.id);
+		/*
+		GetSubmission(this.props.id, {
 			includeResult: true,
 			includeTestResults: true
 		})
@@ -70,6 +72,17 @@ export class Submission extends Component {
 			.catch(error => {
 				this.setState({ error });
 			});
+			*/
+	}
+
+	componentWillReceiveProps(newProps) {
+		const sub = newProps.sub;
+		this.setState({ error: sub.error });
+		if (!sub.error && !sub.isFetching) {
+			this.getTask(sub);
+			this.getAttachment(sub);
+			this.getSourceCodeFile(sub);
+		}
 	}
 
 	render() {
@@ -81,17 +94,17 @@ export class Submission extends Component {
 				menuItem: 'Evaluare',
 				render: () => {
 					let table;
-					if (this.state.submission.result) {
+					if (this.props.sub.result) {
 						table = (
 							<TestResultsTable
-								testResults={this.state.submission.result.testResults}
-								finalScore={this.state.submission.result.score}
+								testResults={this.props.sub.result.testResults}
+								finalScore={this.props.sub.result.score}
 							/>
 						);
 					}
 					return (
 						<Tab.Pane>
-							<p>{getShortStatus(this.state.submission)}</p>
+							<p>{getShortStatus(this.props.sub)}</p>
 							{table}
 						</Tab.Pane>
 					);
@@ -100,13 +113,13 @@ export class Submission extends Component {
 			{
 				menuItem: 'Compilare',
 				render: () => {
-					if (this.state.submission.result) {
+					if (this.props.sub.result) {
 						return (
 							<Tab.Pane>
 								<Header as="h4">Comanda de compilare</Header>
-								<Code code={this.state.submission.result.buildCommand}/>
+								<Code code={this.props.sub.result.buildCommand}/>
 								<Header as="h4">Raport compilator</Header>
-								<Code code={this.state.submission.result.compilationMessage}/>
+								<Code code={this.props.sub.result.compilationMessage}/>
 							</Tab.Pane>
 						);
 					}
@@ -118,7 +131,7 @@ export class Submission extends Component {
 					<Tab.Pane>
 						<CodeView
 							code={this.state.sourceCode}
-							language={this.state.submission.language}
+							language={this.props.sub.language}
 						/>
 					</Tab.Pane>
 				)
@@ -128,7 +141,7 @@ export class Submission extends Component {
 			<Container fluid>
 				<Header as="h1">Raport de evaluare</Header>
 				<InfoTable
-					submission={this.state.submission}
+					submission={this.props.sub}
 					attachment={this.state.attachment}
 					task={this.state.task}
 					codeUrl={this.state.codeUrl}
@@ -138,3 +151,13 @@ export class Submission extends Component {
 		);
 	}
 }
+
+export const Submission = connect(
+	(state, ownProps) => ({ sub: state.submissions.byId[ownProps.id] || {} }),
+	dispatch => ({
+		getSubmission: id =>
+			dispatch(
+				readSubmission(id, { includeResult: true, includeTestResults: true })
+			)
+	})
+)(ConnectedSubmission);

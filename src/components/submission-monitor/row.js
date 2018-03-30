@@ -62,7 +62,6 @@ export class SubmissionMonitorRow extends Component {
 			newProps.sub.id !== this.props.sub.id ||
 			newProps.sub.state !== this.props.sub.state
 		) {
-			console.warn(newProps.sub.id + ': ' + newProps.sub.userId);
 			this.updateStuff(newProps.sub);
 		}
 	}
