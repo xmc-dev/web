@@ -21,36 +21,36 @@ class ConnectedSubmissionMonitorRow extends Component {
 	}
 
 	componentDidMount() {
-		this.updateStuff(this.props.sub);
+		this.props
+			.getTask(this.props.sub.taskId)
+			.then(() => this.updateStuff(this.props));
 	}
 
-	updateStuff(sub) {
-		this.props.getTask(this.props.sub.taskId).then(() => {
-			const t = this.props.task;
-			if (t) {
-				getTaskList(t.taskListId)
-					.then(tl => {
-						this.setState({
-							taskListUrl: getTaskListUrl(tl),
-							taskListErr: ''
-						});
-					})
-					.catch(error => this.setState({ taskListErr: error.message }));
-			}
-			getAccount(sub.userId)
-				.then(acc => {
-					this.setState({ account: acc, accountErr: '' });
+	updateStuff(props) {
+		const t = props.task;
+		if (t && !t.isFetching && !t.error) {
+			getTaskList(t.taskListId)
+				.then(tl => {
+					this.setState({
+						taskListUrl: getTaskListUrl(tl),
+						taskListErr: ''
+					});
 				})
-				.catch(error => {
-					this.setState({ accountErr: error.message });
-				});
-		});
+				.catch(error => this.setState({ taskListErr: error.message }));
+		}
+		getAccount(props.sub.userId)
+			.then(acc => {
+				this.setState({ account: acc, accountErr: '' });
+			})
+			.catch(error => {
+				this.setState({ accountErr: error.message });
+			});
 	}
 
 	/**
 	 * So it looks like when we change the page with the pagination buttons,
 	 * instead of instancing new SubmissionMonitorRows, preact just changes the props.
-	 * So we update the stuff.
+	 * So we update both the "stuff" and the task.
 	 *
 	 * @param {object} newProps
 	 */
@@ -60,7 +60,9 @@ class ConnectedSubmissionMonitorRow extends Component {
 			newProps.sub.id !== this.props.sub.id ||
 			newProps.sub.state !== this.props.sub.state
 		) {
-			this.updateStuff(newProps.sub);
+			newProps
+				.getTask(newProps.sub.taskId)
+				.then(() => this.updateStuff(newProps));
 		}
 	}
 

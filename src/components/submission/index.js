@@ -135,11 +135,11 @@ class ConnectedSubmission extends Component {
 }
 
 export const Submission = connect(
-	(state, ownProps) => ({
-		sub: state.submissions.byId[ownProps.id] || {},
-		task:
-			state.tasks.byId[(state.submissions.byId[ownProps.id] || {}).taskId] || {}
-	}),
+	(state, ownProps) => {
+		const ret = { sub: state.submissions.byId[ownProps.id] || {} };
+		ret.task = state.tasks.byId[ret.sub.taskId] || {};
+		return ret;
+	},
 	dispatch => ({
 		getSubmission: id =>
 			dispatch(

@@ -14,13 +14,14 @@ class ConnectedTaskHeader extends Component {
 	}
 
 	componentDidMount() {
-		this.props.getTask(this.props.taskId);
-		this.updateStuff();
+		this.props
+			.getTask(this.props.taskId)
+			.then(() => this.updateStuff(this.props));
 	}
 
-	updateStuff() {
-		const task = this.props.task;
-		if (task.datasetId) {
+	updateStuff(props) {
+		const task = props.task;
+		if (task && !task.isFetching && !task.error) {
 			getDataset(task.datasetId)
 				.then(dataset => {
 					this.setState({ dataset });
@@ -38,7 +39,7 @@ class ConnectedTaskHeader extends Component {
 		if (newProps.task === this.props.task) {
 			return;
 		}
-		this.updateStuff();
+		this.updateStuff(newProps);
 	}
 
 	render() {
