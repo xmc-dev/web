@@ -46,7 +46,7 @@ const refreshMutex = new Mutex();
 export function rawApi(endpoint, options) {
 	const tok = getTokenString();
 	const opts = options || {};
-	let p = () => Promise.resolve(true);
+	let p = () => Promise.resolve();
 	opts.headers = opts.headers || new Headers();
 	if (tok) {
 		if (!checkToken(getDecodedJWT())) {

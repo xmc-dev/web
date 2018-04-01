@@ -1,41 +1,51 @@
 import { h, Component } from 'preact';
-import { getTask } from '../../../lib/api/task';
 import { getDataset } from '../../../lib/api/dataset';
 import { getTaskList } from '../../../lib/api/task-list';
 import { Table } from 'semantic-ui-react';
 import { ErrorMessage } from '../../error-message';
+import { connect } from 'preact-redux';
+import { readTaskIfNeeded } from '../../../actions/tasks';
 
-export class TaskHeader extends Component {
+class ConnectedTaskHeader extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { task: {}, dataset: {}, taskList: {}, error: null };
+		this.state = { dataset: {}, taskList: {}, error: null };
+		this.updateStuff = this.updateStuff.bind(this);
 	}
 
 	componentDidMount() {
-		getTask(this.props.taskId)
-			.then(task => {
-				this.setState({ task });
-				getDataset(task.datasetId)
-					.then(dataset => {
-						this.setState({ dataset });
-						getTaskList(task.taskListId).then(taskList => {
-							this.setState({ taskList });
-						});
-					})
-					.catch(error => {
-						throw error;
+		this.props.getTask(this.props.taskId);
+		this.updateStuff();
+	}
+
+	updateStuff() {
+		const task = this.props.task;
+		if (task.datasetId) {
+			getDataset(task.datasetId)
+				.then(dataset => {
+					this.setState({ dataset });
+					getTaskList(task.taskListId).then(taskList => {
+						this.setState({ taskList });
 					});
-			})
-			.catch(error => {
-				this.setState({ error });
-			});
+				})
+				.catch(error => {
+					this.setState({ error });
+				});
+		}
+	}
+
+	componentWillReceiveProps(newProps) {
+		if (newProps.task === this.props.task) {
+			return;
+		}
+		this.updateStuff();
 	}
 
 	render() {
 		if (this.state.error) {
 			return <ErrorMessage error={this.state.error.message}/>;
 		}
-		const t = this.state.task;
+		const t = this.props.task;
 		const d = this.state.dataset;
 		const tl = this.state.taskList;
 		return (
@@ -59,8 +69,21 @@ export class TaskHeader extends Component {
 						<Table.Cell colSpan="2">Concurs</Table.Cell>
 						<Table.Cell colSpan="2">{tl.title}</Table.Cell>
 					</Table.Row>
+					<Table.Row>
+						<Table.Cell colSpan="2">ID</Table.Cell>
+						<Table.Cell colSpan="2">{t.id}</Table.Cell>
+					</Table.Row>
 				</Table.Body>
 			</Table>
 		);
 	}
 }
+
+export const TaskHeader = connect(
+	(state, props) => ({
+		task: state.tasks.byId[props.taskId] || {}
+	}),
+	dispatch => ({
+		getTask: id => dispatch(readTaskIfNeeded(id))
+	})
+)(ConnectedTaskHeader);

@@ -3,18 +3,17 @@ import { Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { getShortStatus } from '../../lib/submission';
 import { stringDate } from '../../lib/date';
-import { getTask } from '../../lib/api/task';
 import { getTaskList, getTaskListUrl } from '../../lib/api/task-list';
 import { getAccount } from '../../lib/api/account';
+import { connect } from 'preact-redux';
+import { readTaskIfNeeded } from '../../actions/tasks';
 
-export class SubmissionMonitorRow extends Component {
+class ConnectedSubmissionMonitorRow extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			task: { name: '' },
 			taskListUrl: '',
 			account: {},
-			taskErr: '',
 			taskListErr: '',
 			accountErr: ''
 		};
@@ -26,28 +25,26 @@ export class SubmissionMonitorRow extends Component {
 	}
 
 	updateStuff(sub) {
-		getTask(sub.taskId)
-			.then(t => {
-				this.setState({ task: t, taskErr: '' });
-				if (t) {
-					getTaskList(t.taskListId)
-						.then(tl => {
-							this.setState({
-								taskListUrl: getTaskListUrl(tl),
-								taskListErr: ''
-							});
-						})
-						.catch(error => this.setState({ taskListErr: error.message }));
-				}
-			})
-			.catch(error => this.setState({ taskErr: error.message }));
-		getAccount(sub.userId)
-			.then(acc => {
-				this.setState({ account: acc, accountErr: '' });
-			})
-			.catch(error => {
-				this.setState({ accountErr: error.message });
-			});
+		this.props.getTask(this.props.sub.taskId).then(() => {
+			const t = this.props.task;
+			if (t) {
+				getTaskList(t.taskListId)
+					.then(tl => {
+						this.setState({
+							taskListUrl: getTaskListUrl(tl),
+							taskListErr: ''
+						});
+					})
+					.catch(error => this.setState({ taskListErr: error.message }));
+			}
+			getAccount(sub.userId)
+				.then(acc => {
+					this.setState({ account: acc, accountErr: '' });
+				})
+				.catch(error => {
+					this.setState({ accountErr: error.message });
+				});
+		});
 	}
 
 	/**
@@ -59,6 +56,7 @@ export class SubmissionMonitorRow extends Component {
 	 */
 	componentWillReceiveProps(newProps) {
 		if (
+			newProps.task !== this.props.task ||
 			newProps.sub.id !== this.props.sub.id ||
 			newProps.sub.state !== this.props.sub.state
 		) {
@@ -69,13 +67,13 @@ export class SubmissionMonitorRow extends Component {
 	render() {
 		const sub = this.props.sub;
 
-		let taskCell = this.state.task.title;
-		if (this.state.taskErr) {
-			taskCell = this.state.taskErr;
+		let taskCell = this.props.task.title;
+		if (this.props.task.error) {
+			taskCell = this.props.task.error.message;
 		} else if (!this.state.taskListErr) {
 			taskCell = (
-				<Link to={this.state.taskListUrl + '/' + this.state.task.name}>
-					{this.state.task.title}
+				<Link to={this.state.taskListUrl + '/' + this.props.task.name}>
+					{this.props.task.title}
 				</Link>
 			);
 		}
@@ -98,6 +96,15 @@ export class SubmissionMonitorRow extends Component {
 		);
 	}
 }
+
+export const SubmissionMonitorRow = connect(
+	(state, props) => ({
+		task: state.tasks.byId[props.sub.taskId] || {}
+	}),
+	dispatch => ({
+		getTask: id => dispatch(readTaskIfNeeded(id))
+	})
+)(ConnectedSubmissionMonitorRow);
 
 export function SubmissionMonitorHeaderRow() {
 	return (

@@ -6,31 +6,20 @@ import { InfoTable } from './info-table';
 import { Container, Tab, Header } from 'semantic-ui-react';
 import { Code, CodeView } from '../code';
 import { TestResultsTable } from './test-results-table';
-import { getTask } from '../../lib/api/task';
 import { connect } from 'preact-redux';
 import { readSubmission } from '../../actions/submissions';
+import { readTaskIfNeeded } from '../../actions/tasks';
 
 class ConnectedSubmission extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			attachment: {},
-			task: {},
 			sourceCode: '',
 			codeUrl: '',
+			isFetching: true,
 			error: null
 		};
-	}
-
-	getTask(sub) {
-		getTask(sub.taskId)
-			.then(task => {
-				this.setState({ task });
-			})
-			.catch(() => {
-				// Fallback
-				this.setState({ task: { name: '' } });
-			});
 	}
 
 	getAttachment(sub) {
@@ -55,31 +44,17 @@ class ConnectedSubmission extends Component {
 
 	componentDidMount() {
 		this.props.getSubmission(this.props.id);
-		/*
-		GetSubmission(this.props.id, {
-			includeResult: true,
-			includeTestResults: true
-		})
-			.then(sub => {
-				this.setState({ submission: sub });
-				return sub;
-			})
-			.then(sub => {
-				this.getTask(sub);
-				this.getAttachment(sub);
-				this.getSourceCodeFile(sub);
-			})
-			.catch(error => {
-				this.setState({ error });
-			});
-			*/
 	}
 
 	componentWillReceiveProps(newProps) {
+		if (newProps.sub === this.props.sub) {
+			return;
+		}
 		const sub = newProps.sub;
 		this.setState({ error: sub.error });
+		this.setState({ isFetching: sub.isFetching });
 		if (!sub.error && !sub.isFetching) {
-			this.getTask(sub);
+			this.props.getTask(sub.taskId);
 			this.getAttachment(sub);
 			this.getSourceCodeFile(sub);
 		}
@@ -88,6 +63,13 @@ class ConnectedSubmission extends Component {
 	render() {
 		if (this.state.error) {
 			return <ErrorMessage error={this.state.error.message}/>;
+		}
+		if (this.state.isFetching) {
+			return (
+				<Container>
+					<Header as="h1">Loading</Header>
+				</Container>
+			);
 		}
 		const panes = [
 			{
@@ -143,7 +125,7 @@ class ConnectedSubmission extends Component {
 				<InfoTable
 					submission={this.props.sub}
 					attachment={this.state.attachment}
-					task={this.state.task}
+					task={this.props.task}
 					codeUrl={this.state.codeUrl}
 				/>
 				<Tab renderActiveOnly panes={panes}/>
@@ -153,11 +135,16 @@ class ConnectedSubmission extends Component {
 }
 
 export const Submission = connect(
-	(state, ownProps) => ({ sub: state.submissions.byId[ownProps.id] || {} }),
+	(state, ownProps) => ({
+		sub: state.submissions.byId[ownProps.id] || {},
+		task:
+			state.tasks.byId[(state.submissions.byId[ownProps.id] || {}).taskId] || {}
+	}),
 	dispatch => ({
 		getSubmission: id =>
 			dispatch(
 				readSubmission(id, { includeResult: true, includeTestResults: true })
-			)
+			),
+		getTask: id => dispatch(readTaskIfNeeded(id))
 	})
 )(ConnectedSubmission);

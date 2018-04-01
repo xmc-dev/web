@@ -21,7 +21,7 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 		['Data evaluarii', stringDate(sub.finishedAt)],
 		// eslint-disable-next-line react/jsx-key
 		['Marime', <a href={codeUrl}>{byteSizeToString(attachment.size)}</a>],
-		['Problema', task.name]
+		['Problema', task.name || task.error.message]
 	];
 	const rows = [];
 	for (let i = 0; i < toShow.length; i += 2) {
