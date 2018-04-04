@@ -19,7 +19,7 @@ import { ErrorMessage } from '../error-message';
 class ConnectedPageEditor extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { content: '', title: '' };
+		this.state = { content: '', title: '', path: '' };
 		this.interval = null;
 		this.editor = null;
 		this.titleInput = null;
@@ -58,12 +58,14 @@ class ConnectedPageEditor extends Component {
 
 	setPath(props) {
 		props.setPath(props.page.path);
+		this.setState({ path: props.page.path });
 	}
 
 	componentWillReceiveProps(newProps) {
 		if (
 			newProps.page !== this.props.page &&
-			typeof newProps.setPath === 'function'
+			typeof newProps.setPath === 'function' &&
+			newProps.page.path
 		) {
 			this.setPath(newProps);
 		}
@@ -75,7 +77,7 @@ class ConnectedPageEditor extends Component {
 				title: 'Page updated successfully',
 				body: (
 					<span>
-						You can see the new page <Link to={newProps.page.path}>here</Link>.
+						You can see the new page <Link to={this.state.path}>here</Link>.
 					</span>
 				),
 				state: 'success'

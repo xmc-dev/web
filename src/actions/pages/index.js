@@ -69,7 +69,10 @@ export function updatePage(id, update) {
 	return dispatch => {
 		dispatch(updatePageRequest(id));
 		return aUpdatePage(id, update)
-			.then(() => dispatch(updatePageSuccess(id)))
+			.then(() => {
+				dispatch(updatePageSuccess(id));
+				dispatch(readPage(id));
+			})
 			.catch(error => dispatch(updatePageFailure(id, error)));
 	};
 }
