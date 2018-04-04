@@ -5,6 +5,7 @@ export const HIDE_POPUP = 'HIDE_POPUP';
  * @typedef {Object} Popup
  * @property {string} title
  * @property {string} body
+ * @property {string} state
  */
 
 /**

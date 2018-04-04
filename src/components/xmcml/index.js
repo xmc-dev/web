@@ -22,7 +22,7 @@ export class XMCML extends Component {
 		return (
 			<JsxParser
 				bindings={this.props.bindings}
-				showWarnings
+				showWarnings={this.props.showWarnings}
 				components={this.state.components}
 				jsx={r}
 			/>

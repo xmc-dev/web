@@ -3,6 +3,13 @@ import { getTokenString, getDecodedJWT, doRefresh } from '../auth';
 import { statuses } from './statuses';
 import Mutex from 'promise-mutex';
 
+export class APIError extends Error {
+	constructor(message, body) {
+		super(message);
+		this.body = body;
+	}
+}
+
 // One minute
 const expirationTolerance = 60;
 
@@ -70,7 +77,9 @@ export function api(endpoint, options) {
 			if (!s) {
 				s = statuses[response.status];
 			}
-			throw new Error(s);
+			return Promise.all([s, response.json()]).then(val => {
+				throw new APIError(val[0], val[1]);
+			});
 		}
 		return response.json();
 	});

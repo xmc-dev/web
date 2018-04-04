@@ -1,11 +1,13 @@
 import { h } from 'preact';
 import { Container, Header, Card, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import Helmet from 'preact-helmet';
 
 export default function Home() {
 	return (
 		<Container>
-			<Header as="h1">Admin page</Header>
+			<Helmet title="Admin"/>
+			<Header as="h1">Admin</Header>
 			<p>
 				View and edit administrative settings for this XMC instance, its users
 				and its content in a centralized location.

@@ -27,3 +27,11 @@ export function getPage(id, { timestamp } = {}, options) {
 		processPage(raw.page)
 	);
 }
+
+export function updatePage(id, update, options) {
+	return api('/pages/' + id, {
+		method: 'PATCH',
+		body: JSON.stringify(update),
+		options
+	});
+}

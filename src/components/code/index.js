@@ -1,6 +1,15 @@
 import { h } from 'preact';
 import MonacoEditor from 'react-monaco-editor';
 
+const requireConfig = { url: '/vs/loader.js', paths: { vs: '/vs' } };
+const editorOptions = {
+	fontSize: 16,
+	fontLigatures: true,
+	fontFamily: 'monospace',
+	automaticLayout: true
+};
+const editorHeight = 600;
+
 export function Code({ code }) {
 	return (
 		<pre style={{ overflowX: 'auto' }}>
@@ -9,19 +18,31 @@ export function Code({ code }) {
 	);
 }
 
-export function CodeView({ code, language }) {
+export function CodeView({ code, language, editorDidMount }) {
 	return (
 		<MonacoEditor
-			requireConfig={{ url: '/vs/loader.js', paths: { vs: '/vs' } }}
+			requireConfig={requireConfig}
 			value={code}
 			language={language}
 			options={{
 				readOnly: true,
-				fontSize: 16,
-				fontLigatures: true,
-				fontFamily: 'monospace'
+				...editorOptions
 			}}
-			height="600"
+			height={editorHeight}
+			editorDidMount={editorDidMount}
+		/>
+	);
+}
+
+export function CodeEditor({ code = '', language, editorDidMount }) {
+	return (
+		<MonacoEditor
+			requireConfig={requireConfig}
+			value={code}
+			language={language}
+			options={{ ...editorOptions }}
+			height={editorHeight}
+			editorDidMount={editorDidMount}
 		/>
 	);
 }

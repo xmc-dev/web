@@ -1,79 +1,94 @@
 import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
-import { Container } from 'semantic-ui-react';
+import { Header, Container } from 'semantic-ui-react';
 import { XMCML } from '../../components/xmcml';
 import { getAttachmentContent } from '../../lib/api/attachment';
 import { ErrorMessage } from '../../components/error-message';
-import { getPage } from '../../lib/api/page';
 import { TaskHeader } from './components/task-header';
 import { TaskFooter } from './components/task-footer';
+import { connect } from 'preact-redux';
+import { readPageIfNeeded } from '../../actions/pages';
 
-export class TestComponent extends Component {
-	render() {
-		return <h1>{this.props.foo} works!</h1>;
-	}
+function TestComponent() {
+	return <h1>Works!</h1>;
 }
 
-export class Page extends Component {
+export function PageView({ content, showWarnings }) {
+	return (
+		<XMCML
+			md={content}
+			components={{
+				TestComponent,
+				TaskHeader,
+				TaskFooter
+			}}
+			showWarnings={showWarnings}
+		/>
+	);
+}
+
+class ConnectedPage extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			page: { version: {} },
-			error: null,
 			content: ''
 		};
 		this.getContent = this.getContent.bind(this);
 	}
 
-	getContent(url) {
-		if (url === '/') {
-			url = '<root>';
-		}
-		getPage(url)
-			.then(page => {
-				this.setState({ page });
-				return getAttachmentContent(page.version.attachmentId);
-			})
-			.then(att => {
+	getContent(props) {
+		if (props.version.attachmentId) {
+			getAttachmentContent(props.version.attachmentId).then(att => {
 				this.setState({ content: att.data });
-			})
-			.catch(error => {
-				this.setState({ error });
 			});
+		}
 	}
 
-	componentWillMount() {
-		this.getContent(this.props.url);
+	componentDidMount() {
+		this.props.getPage(this.props.url).then(() => this.getContent(this.props));
 	}
 
 	componentWillReceiveProps(update) {
-		if (update.url === this.props.url) {
-			return;
+		if (
+			update.page !== this.props.page ||
+			update.version !== this.props.version
+		) {
+			this.setState({ content: '' });
+			update.getPage(update.url).then(() => this.getContent(update));
 		}
-		this.setState({ error: null, content: '' });
-		this.getContent(update.url);
 	}
 
 	render() {
-		if (this.state.error) {
+		if (this.props.page.error) {
 			return (
 				<Container>
-					<ErrorMessage error={this.state.error.message}/>
+					<ErrorMessage error={this.props.page.error.message}/>
+				</Container>
+			);
+		}
+		if (this.props.page.isFetching) {
+			return (
+				<Container>
+					<Header as="h1">Loading...</Header>
 				</Container>
 			);
 		}
 		return (
 			<Container>
-				<Helmet title={this.state.page.version.title}/>
-				<XMCML
-					md={this.state.content || '# Loading...'}
-					components={{
-						TestComponent,
-						TaskHeader,
-						TaskFooter
-					}}
-				/>
+				<Helmet title={this.props.version.title}/>
+				<PageView content={this.state.content} showWarnings/>
 			</Container>
 		);
 	}
 }
+
+export const Page = connect(
+	(state, props) => {
+		const pageId = state.pages.ids[props.url] || props.url;
+		const page = state.pages.byId[pageId] || {};
+		return { pageId, page, version: page.version || {} };
+	},
+	dispatch => ({
+		getPage: id => dispatch(readPageIfNeeded(id))
+	})
+)(ConnectedPage);

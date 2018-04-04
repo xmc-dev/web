@@ -4,10 +4,16 @@ import popupReducer from '../reducers/popup';
 import authReducer from '../reducers/auth';
 import submissionsReducer from '../reducers/submissions';
 import tasksReducer from '../reducers/tasks';
-import { readTaskIfNeeded } from '../actions/tasks';
+import pagesReducer from '../reducers/pages';
 
 function cleanOldState(state) {
-	return { ...state, popup: { popups: [] }, submissions: {}, tasks: {} };
+	return {
+		...state,
+		popup: { popups: [] },
+		submissions: {},
+		tasks: {},
+		pages: {}
+	};
 }
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -19,15 +25,15 @@ const store = createStore(
 		popup: popupReducer,
 		auth: authReducer,
 		submissions: submissionsReducer,
-		tasks: tasksReducer
+		tasks: tasksReducer,
+		pages: pagesReducer
 	}),
 	cleanOldState(savedState),
 	composeEnhancers(applyMiddleware(thunk))
 );
 store.subscribe(() => {
+	console.log(store.getState());
 	localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 });
-window.t = () =>
-	store.dispatch(readTaskIfNeeded('13ce7890-fed2-11e7-9b2b-bb72d51788e7'));
 
 export default store;
