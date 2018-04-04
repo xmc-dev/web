@@ -8,7 +8,9 @@ import { Message } from 'semantic-ui-react';
  * @param {string} props.detail
  */
 export function ErrorMessage({ error, detail }) {
-	detail = detail.charAt(0).toUpperCase() + detail.substr(1);
+	if (detail) {
+		detail = detail.charAt(0).toUpperCase() + detail.substr(1);
+	}
 	console.error(error, detail);
 	return (
 		<Message negative>

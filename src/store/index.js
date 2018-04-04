@@ -32,7 +32,6 @@ const store = createStore(
 	composeEnhancers(applyMiddleware(thunk))
 );
 store.subscribe(() => {
-	console.log(store.getState());
 	localStorage.setItem('reduxState', JSON.stringify(store.getState()));
 });
 
