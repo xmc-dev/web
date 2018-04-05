@@ -2,6 +2,7 @@ import { h } from 'preact';
 import { Container, Header, Card, Divider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Helmet from 'preact-helmet';
+import { HasScope } from '../../../components/has-scope';
 
 export default function Home() {
 	return (
@@ -14,13 +15,15 @@ export default function Home() {
 			</p>
 			<Divider hidden section/>
 			<Card.Group centered>
-				<Card
-					link
-					as={Link}
-					to="/admin/pages"
-					header="Pages"
-					description="Add, edit and remove pages written in XMCML."
-				/>
+				<HasScope scope="xmc.core/manage/page">
+					<Card
+						link
+						as={Link}
+						to="/admin/pages"
+						header="Pages"
+						description="Add, edit and remove pages written in XMCML."
+					/>
+				</HasScope>
 				<Card
 					link
 					header="Users &amp; Roles"

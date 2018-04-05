@@ -31,10 +31,12 @@ export class User extends Component {
 			return <Redirect to="/logout"/>;
 		}
 
-		const acc = this.state.account;
+		const acc = this.state.account.account || {};
+		const role = this.state.account.role || {};
 		return (
 			<Container>
 				<Header as="h1">{acc.name}</Header>
+				<Header as="h2">{role.name}</Header>
 				<Button onClick={this.logout}>Logout</Button>
 			</Container>
 		);

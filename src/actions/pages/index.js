@@ -1,4 +1,5 @@
 import { getPage, updatePage as aUpdatePage } from '../../lib/api/page';
+import { getAttachmentContent } from '../../lib/api/attachment';
 
 export const READ_PAGE_REQUEST = 'READ_PAGE_REQUEST';
 export const READ_PAGE_SUCCESS = 'READ_PAGE_SUCCESS';
@@ -7,6 +8,10 @@ export const READ_PAGE_FAILURE = 'READ_PAGE_FAILURE';
 export const UPDATE_PAGE_REQUEST = 'UPDATE_PAGE_REQUEST';
 export const UPDATE_PAGE_SUCCESS = 'UPDATE_PAGE_SUCCESS';
 export const UPDATE_PAGE_FAILURE = 'UPDATE_PAGE_FAILURE';
+
+export const READ_CONTENT_REQUEST = 'READ_CONTENT_REQUEST';
+export const READ_CONTENT_SUCCESS = 'READ_CONTENT_SUCCESS';
+export const READ_CONTENT_FAILURE = 'READ_CONTENT_FAILURE';
 
 export const readPageRequest = (id, timestamp = '') => ({
 	type: READ_PAGE_REQUEST,
@@ -42,6 +47,24 @@ export const updatePageFailure = (id, error) => ({
 	error
 });
 
+export const readContentRequest = (id, attId, timestamp = '') => ({
+	type: READ_CONTENT_REQUEST,
+	attId,
+	id: id + timestamp
+});
+
+export const readContentSuccess = (id, content, timestamp = '') => ({
+	type: READ_CONTENT_SUCCESS,
+	id: id + timestamp,
+	content
+});
+
+export const readContentFailure = (id, error, timestamp = '') => ({
+	type: READ_CONTENT_FAILURE,
+	id: id + timestamp,
+	error
+});
+
 export function readPage(id, timestamp = '') {
 	return dispatch => {
 		dispatch(readPageRequest(id, timestamp));
@@ -74,5 +97,30 @@ export function updatePage(id, update) {
 				dispatch(readPage(id));
 			})
 			.catch(error => dispatch(updatePageFailure(id, error)));
+	};
+}
+
+export function readContent(id, timestamp = '') {
+	return (dispatch, getState) => {
+		const attId = getState().pages.byId[id + timestamp].version.attachmentId;
+		dispatch(readContentRequest(id, attId, timestamp));
+		return getAttachmentContent(attId)
+			.then(att => dispatch(readContentSuccess(id, att.data, timestamp)))
+			.catch(error => dispatch(readContentFailure(id, error, timestamp)));
+	};
+}
+
+function shouldReadContent(state, id, timestamp) {
+	const attId = state.pages.byId[id + timestamp].version.attachmentId;
+	const content = state.pages.contents[id + timestamp];
+	return !content || content.attId !== attId;
+}
+
+export function readContentIfNeeded(id, timestamp = '') {
+	return (dispatch, getState) => {
+		if (shouldReadContent(getState(), id, timestamp)) {
+			return dispatch(readContent(id, timestamp));
+		}
+		return Promise.resolve();
 	};
 }

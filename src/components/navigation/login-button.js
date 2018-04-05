@@ -21,7 +21,7 @@ class ConnectedLoginButton extends Component {
 	getAccount() {
 		if (getTokenString()) {
 			getAccount().then(account => {
-				this.setState({ account });
+				this.setState({ account: account.account });
 			});
 		}
 	}

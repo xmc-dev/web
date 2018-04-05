@@ -1,7 +1,12 @@
 import { h } from 'preact';
 import { connect } from 'preact-redux';
 import { withRouter } from 'react-router-dom';
+import { ForbiddenPage } from '../error-message';
 
+/**
+ * Renders children if the user has the required scopes. If not, renders fail.
+ * @param {*} params
+ */
 function ConnectedHasScope({ scope, fail = null, decodedJWT, children }) {
 	if (!decodedJWT) {
 		return fail;
@@ -29,3 +34,11 @@ export const HasScope = withRouter(
 		decodedJWT: state.auth.decodedJWT
 	}))(ConnectedHasScope)
 );
+
+export function PageNeedsScope({ scope, children }) {
+	return (
+		<HasScope scope={scope} fail={<ForbiddenPage/>}>
+			{children}
+		</HasScope>
+	);
+}

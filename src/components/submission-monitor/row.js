@@ -40,7 +40,7 @@ class ConnectedSubmissionMonitorRow extends Component {
 		}
 		getAccount(props.sub.userId)
 			.then(acc => {
-				this.setState({ account: acc, accountErr: '' });
+				this.setState({ account: acc.account, accountErr: '' });
 			})
 			.catch(error => {
 				this.setState({ accountErr: error.message });

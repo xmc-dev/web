@@ -52,7 +52,9 @@ class ConnectedPageEditor extends Component {
 	editorDidMount(editor) {
 		this.editor = editor;
 		this.interval = setInterval(() => {
-			this.setState({ content: editor.getValue() });
+			if (this.state.content !== editor.getValue()) {
+				this.setState({ content: editor.getValue() });
+			}
 		}, 100);
 	}
 
