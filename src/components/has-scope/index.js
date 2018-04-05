@@ -26,6 +26,9 @@ function ConnectedHasScope({ scope, fail = null, decodedJWT, children }) {
 		}
 	}
 
+	if (children.length === 1) {
+		return children[0];
+	}
 	return <div>{children}</div>;
 }
 
