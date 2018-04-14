@@ -10,7 +10,7 @@ export default function Admin() {
 		<Switch>
 			<Route path="/admin" exact component={Home}/>
 			<Route path="/admin/pages" exact component={PageList}/>
-			<Route path="/admin/pages/:id" exact component={PageEdit}/>
+			<Route path="/admin/pages/:id*" exact component={PageEdit}/>
 		</Switch>
 	);
 }
