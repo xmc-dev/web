@@ -98,5 +98,8 @@ The authentification process didn't return the correct values. Please contact th
 	}
 }
 
-const Login = connect(() => ({}), mapDispatchToProps)(ConnectedLogin);
+const Login = connect(
+	() => ({}),
+	mapDispatchToProps
+)(ConnectedLogin);
 export default Login;

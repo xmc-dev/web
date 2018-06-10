@@ -86,20 +86,7 @@ class ConnectedPage extends Component {
 		return (
 			<Container>
 				<Helmet title={this.props.version.title}/>
-				<Grid columns={2} textAlign="left">
-					<Grid.Column>
-						<PageView content={this.props.content.content || ''} showWarnings/>
-						<Rail position="right">
-							<Segment>
-								<List>
-									<List.Item>
-										<Link to={`/admin/pages/${urlPath}`}>Edit page</Link>
-									</List.Item>
-								</List>
-							</Segment>
-						</Rail>
-					</Grid.Column>
-				</Grid>
+				<PageView content={this.props.content.content || ''} showWarnings/>
 			</Container>
 		);
 	}
