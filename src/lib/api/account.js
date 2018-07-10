@@ -16,6 +16,6 @@ function processAccount(raw) {
 }
 
 export function getAccount(id, options) {
-	const i = id || '';
+	const i = id || 'me';
 	return api('/accounts/' + i, options).then(raw => processAccount(raw));
 }
