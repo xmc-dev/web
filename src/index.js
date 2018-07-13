@@ -1,7 +1,7 @@
 import './style';
 import App from './components/app';
 import { Provider } from 'preact-redux';
-import '../node_modules/semantic-ui/dist/semantic.min.css';
+import './semantic/dist/semantic.min.css';
 import '../node_modules/katex/dist/katex.min.css';
 import store from './store';
 import { h } from 'preact';
