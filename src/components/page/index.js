@@ -1,20 +1,12 @@
 import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
-import {
-	Segment,
-	Header,
-	Container,
-	Rail,
-	Grid,
-	List
-} from 'semantic-ui-react';
+import { Header, Container } from 'semantic-ui-react';
 import { XMCML } from '../../components/xmcml';
 import { ErrorMessage } from '../../components/error-message';
 import { TaskHeader } from './components/task-header';
 import { TaskFooter } from './components/task-footer';
 import { connect } from 'preact-redux';
-import { readPageIfNeeded, readContentIfNeeded } from '../../actions/pages';
-import { Link } from 'react-router-dom';
+import { readPageIfNeeded } from '../../actions/pages';
 
 function TestComponent() {
 	return <h1>Works!</h1>;
@@ -41,24 +33,11 @@ class ConnectedPage extends Component {
 	}
 
 	getContent(props) {
-		props.getPage(props.url).then(() => {
-			if (props.page.id) {
-				props.getContent(props.page.id);
-			}
-		});
+		props.getPage(props.url);
 	}
 
 	componentDidMount() {
 		this.getContent(this.props);
-	}
-
-	componentWillReceiveProps(update) {
-		if (
-			update.page !== this.props.page ||
-			update.version !== this.props.version
-		) {
-			this.getContent(update);
-		}
 	}
 
 	render() {
@@ -86,7 +65,7 @@ class ConnectedPage extends Component {
 		return (
 			<Container>
 				<Helmet title={this.props.version.title}/>
-				<PageView content={this.props.content.content || ''} showWarnings/>
+				<PageView content={this.props.version.contents || ''} showWarnings/>
 			</Container>
 		);
 	}
@@ -96,11 +75,9 @@ export const Page = connect(
 	(state, props) => {
 		const pageId = state.pages.ids[props.url] || props.url;
 		const page = state.pages.byId[pageId] || {};
-		const content = state.pages.contents[pageId] || {};
-		return { pageId, page, version: page.version || {}, content };
+		return { pageId, page, version: page.version || {} };
 	},
 	dispatch => ({
-		getPage: id => dispatch(readPageIfNeeded(id)),
-		getContent: id => dispatch(readContentIfNeeded(id))
+		getPage: id => dispatch(readPageIfNeeded(id))
 	})
 )(ConnectedPage);

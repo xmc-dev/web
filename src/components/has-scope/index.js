@@ -12,17 +12,19 @@ function ConnectedHasScope({ scope, fail = null, decodedJWT, children }) {
 		return fail;
 	}
 
-	const ownedScopes = decodedJWT.role.scope.split(' ');
-	for (const s of scope.split(' ')) {
-		const decomposed = s.split('/');
-		let i = 0;
-		let comp = decomposed[0];
-		while (i < decomposed.length && ownedScopes.indexOf(comp) === -1) {
-			i++;
-			comp = [comp, decomposed[i]].join('/');
-		}
-		if (i === decomposed.length) {
-			return fail;
+	if (decodedJWT.role.scope !== '*') {
+		const ownedScopes = decodedJWT.role.scope.split(' ');
+		for (const s of scope.split(' ')) {
+			const decomposed = s.split('/');
+			let i = 0;
+			let comp = decomposed[0];
+			while (i < decomposed.length && ownedScopes.indexOf(comp) === -1) {
+				i++;
+				comp = [comp, decomposed[i]].join('/');
+			}
+			if (i === decomposed.length) {
+				return fail;
+			}
 		}
 	}
 

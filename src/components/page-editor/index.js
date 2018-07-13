@@ -63,19 +63,19 @@ class ConnectedPageEditor extends Component {
 		this.setState({ path: props.page.path });
 	}
 
-	componentWillReceiveProps(newProps) {
+	componentDidUpdate(oldProps) {
 		if (
-			newProps.page !== this.props.page &&
-			typeof newProps.setPath === 'function' &&
-			newProps.page.path
+			this.props.page !== oldProps.page &&
+			typeof this.props.setPath === 'function' &&
+			this.props.page.path
 		) {
-			this.setPath(newProps);
+			this.setPath(this.props);
 		}
 		if (
-			newProps.update.successTime instanceof Date &&
-			newProps.update.successTime !== this.props.update.successTime
+			this.props.update.successTime instanceof Date &&
+			this.props.update.successTime !== oldProps.update.successTime
 		) {
-			newProps.showPopup({
+			this.props.showPopup({
 				title: 'Page updated successfully',
 				body: (
 					<span>

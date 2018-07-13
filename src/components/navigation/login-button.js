@@ -12,8 +12,8 @@ class ConnectedLoginButton extends Component {
 		this.getAccount = this.getAccount.bind(this);
 	}
 
-	componentWillReceiveProps(props) {
-		if (props.token !== this.props.token) {
+	componentDidUpdate(prevProps) {
+		if (this.props.token !== prevProps.token) {
 			this.getAccount();
 		}
 	}

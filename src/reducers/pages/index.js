@@ -4,18 +4,14 @@ import {
 	READ_PAGE_FAILURE,
 	UPDATE_PAGE_REQUEST,
 	UPDATE_PAGE_SUCCESS,
-	UPDATE_PAGE_FAILURE,
-	READ_CONTENT_REQUEST,
-	READ_CONTENT_SUCCESS,
-	READ_CONTENT_FAILURE
+	UPDATE_PAGE_FAILURE
 } from '../../actions/pages';
 import { combineReducers } from 'redux';
 
 const initialState = {
 	byId: {},
 	ids: {},
-	updates: {},
-	contents: {}
+	updates: {}
 };
 
 function pagesByIdReducer(state = initialState.byId, action) {
@@ -72,32 +68,9 @@ function updatesReducer(state = initialState.updates, action) {
 	}
 }
 
-function contentsReducer(state = initialState.contents, action) {
-	switch (action.type) {
-		case READ_CONTENT_REQUEST:
-			return {
-				...state,
-				[action.id]: { isFetching: true, error: null, attId: action.attId }
-			};
-		case READ_CONTENT_SUCCESS:
-			return {
-				...state,
-				[action.id]: { isFetching: false, error: null, content: action.content }
-			};
-		case READ_CONTENT_FAILURE:
-			return {
-				...state,
-				[action.id]: { isFetching: false, error: action.error }
-			};
-		default:
-			return state;
-	}
-}
-
 const pagesReducer = combineReducers({
 	byId: pagesByIdReducer,
 	ids: pageIdsReducer,
-	updates: updatesReducer,
-	contents: contentsReducer
+	updates: updatesReducer
 });
 export default pagesReducer;
