@@ -10,7 +10,6 @@ import {
 import { Link } from 'react-router-dom';
 import { connect } from 'preact-redux';
 import { readPageIfNeeded, updatePage } from '../../actions/pages';
-import { getAttachmentContent } from '../../lib/api/attachment';
 import { CodeEditor } from '../code';
 import { PageView } from '../page';
 import { showPopupWithTimeout } from '../../actions/popup';
@@ -19,30 +18,25 @@ import { ErrorMessage } from '../error-message';
 class ConnectedPageEditor extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { content: '', title: '', path: '' };
+		this.state = { contents: '', title: '', path: '' };
 		this.interval = null;
 		this.editor = null;
 		this.titleInput = null;
-		this.getContent = this.getContent.bind(this);
 		this.editorDidMount = this.editorDidMount.bind(this);
 		this.setPath = this.setPath.bind(this);
 		this.update = this.update.bind(this);
 	}
 
-	getContent(props) {
-		if (props.version.attachmentId) {
-			getAttachmentContent(props.version.attachmentId).then(att => {
-				this.setState({ content: att.data });
-			});
-		}
-	}
-
 	componentDidMount() {
 		this.props
 			.getPage(this.props.id)
-			.then(() => this.getContent(this.props))
 			.then(() => this.setPath(this.props))
-			.then(() => this.setState({ title: this.props.version.title }));
+			.then(() =>
+				this.setState({
+					contents: this.props.version.contents,
+					title: this.props.version.title
+				})
+			);
 	}
 
 	componentWillUnmount() {
@@ -52,8 +46,8 @@ class ConnectedPageEditor extends Component {
 	editorDidMount(editor) {
 		this.editor = editor;
 		this.interval = setInterval(() => {
-			if (this.state.content !== editor.getValue()) {
-				this.setState({ content: editor.getValue() });
+			if (this.state.contents !== editor.getValue()) {
+				this.setState({ contents: editor.getValue() });
 			}
 		}, 100);
 	}
@@ -89,7 +83,7 @@ class ConnectedPageEditor extends Component {
 
 	update() {
 		this.props.doUpdate(this.props.page.id, {
-			contents: btoa(this.editor.getValue()),
+			contents: this.editor.getValue(),
 			title: this.state.title
 		});
 	}
@@ -120,7 +114,7 @@ class ConnectedPageEditor extends Component {
 				</p>
 				<p>
 					<CodeEditor
-						code={this.state.content}
+						code={this.state.contents}
 						language="markdown"
 						editorDidMount={this.editorDidMount}
 					/>
@@ -130,7 +124,7 @@ class ConnectedPageEditor extends Component {
 				</p>
 				<Header as="h2">Preview</Header>
 				<Segment padded>
-					<PageView content={this.state.content}/>
+					<PageView content={this.state.contents}/>
 				</Segment>
 			</Container>
 		);
