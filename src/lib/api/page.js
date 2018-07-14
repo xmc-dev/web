@@ -14,7 +14,7 @@ function processPage(raw) {
 	});
 }
 
-export function getPage(id, { timestamp } = {}, options) {
+export function getPage(id, { timestamp, raw } = {}, options) {
 	if (id === '/') {
 		id = '<root>';
 	}
@@ -22,6 +22,9 @@ export function getPage(id, { timestamp } = {}, options) {
 	const params = {};
 	if (timestamp) {
 		params.timestamp = timestamp.toISOString();
+	}
+	if (raw) {
+		params.raw = 'true';
 	}
 	return api('/pages/' + id + '?' + objectToParams(params), options).then(raw =>
 		processPage(raw.page)

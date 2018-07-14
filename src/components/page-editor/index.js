@@ -14,6 +14,7 @@ import { CodeEditor } from '../code';
 import { PageView } from '../page';
 import { showPopupWithTimeout } from '../../actions/popup';
 import { ErrorMessage } from '../error-message';
+import { getPage as aGetPage } from '../../lib/api/page';
 
 class ConnectedPageEditor extends Component {
 	constructor(props) {
@@ -22,21 +23,29 @@ class ConnectedPageEditor extends Component {
 		this.interval = null;
 		this.editor = null;
 		this.titleInput = null;
+		this.getPage = this.getPage.bind(this);
 		this.editorDidMount = this.editorDidMount.bind(this);
-		this.setPath = this.setPath.bind(this);
 		this.update = this.update.bind(this);
 	}
 
 	componentDidMount() {
-		this.props
-			.getPage(this.props.id)
-			.then(() => this.setPath(this.props))
-			.then(() =>
+		this.getPage(this.props.id);
+	}
+
+	getPage() {
+		this.props.getPage(this.props.id).then(() =>
+			aGetPage(this.props.id === '<root>' ? '/' : this.props.id, {
+				raw: true
+			}).then(page => {
 				this.setState({
-					contents: this.props.version.contents,
-					title: this.props.version.title
-				})
-			);
+					page,
+					title: page.version.title,
+					contents: page.version.contents,
+					path: page.path
+				});
+				this.props.setPath(page.path);
+			})
+		);
 	}
 
 	componentWillUnmount() {
@@ -52,18 +61,9 @@ class ConnectedPageEditor extends Component {
 		}, 100);
 	}
 
-	setPath(props) {
-		props.setPath(props.page.path);
-		this.setState({ path: props.page.path });
-	}
-
 	componentDidUpdate(oldProps) {
-		if (
-			this.props.page !== oldProps.page &&
-			typeof this.props.setPath === 'function' &&
-			this.props.page.path
-		) {
-			this.setPath(this.props);
+		if (this.props.id !== oldProps.id) {
+			this.getPage();
 		}
 		if (
 			this.props.update.successTime instanceof Date &&
@@ -82,7 +82,7 @@ class ConnectedPageEditor extends Component {
 	}
 
 	update() {
-		this.props.doUpdate(this.props.page.id, {
+		this.props.doUpdate(this.state.page.id, {
 			contents: this.editor.getValue(),
 			title: this.state.title
 		});
@@ -134,9 +134,8 @@ class ConnectedPageEditor extends Component {
 export const PageEditor = connect(
 	(state, props) => {
 		const id = state.pages.ids[props.id === '<root>' ? '/' : props.id];
-		const page = state.pages.byId[id] || {};
 		const update = state.pages.updates[id] || {};
-		return { page, version: page.version || {}, update };
+		return { update };
 	},
 	dispatch => ({
 		getPage: id => dispatch(readPageIfNeeded(id === '<root>' ? '/' : id)),
