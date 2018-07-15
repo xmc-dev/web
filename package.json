@@ -67,9 +67,10 @@
     "semantic-ui": "^2.3.3"
   },
   "dependencies": {
+    "asciimath-to-latex": "^0.3.2",
     "jwt-decode": "^2.2.0",
+    "katex": "^0.10.0-beta",
     "markdown-it": "^8.4.1",
-    "markdown-it-latex": "^0.2.0",
     "monaco-editor": "^0.10.1",
     "preact": "^8.2.6",
     "preact-compat": "^3.17.0",

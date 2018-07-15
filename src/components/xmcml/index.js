@@ -2,7 +2,9 @@ import { h, Component } from 'preact';
 import { Link } from 'react-router-dom';
 import JsxParser from 'react-jsx-parser';
 import MarkdownIt from 'markdown-it';
-import MarkdownItLatex from 'markdown-it-latex';
+import MarkdownItLatex from '../../lib/markdown-it-latex';
+import { ErrorMessage } from '../error-message';
+import { Math } from './math';
 
 export class XMCML extends Component {
 	constructor(props) {
@@ -11,9 +13,12 @@ export class XMCML extends Component {
 		this.props.bindings = this.props.bindings || {};
 		this.state.components = {
 			...this.props.components,
-			Link
+			Link,
+			Math
 		};
 		this.md = new MarkdownIt({ html: true });
+		// This MarkdownItLatex thing inserts into the markup
+		// <Math> tags.
 		this.md.use(MarkdownItLatex);
 	}
 
@@ -56,15 +61,20 @@ export class XMCML extends Component {
 	}
 
 	render() {
-		const p = this.processMacros(this.props.md);
-		const r = this.md.render(p);
-		return (
-			<JsxParser
-				bindings={this.props.bindings}
-				showWarnings={this.props.showWarnings}
-				components={this.state.components}
-				jsx={r}
-			/>
-		);
+		try {
+			const p = this.processMacros(this.props.md);
+			const r = this.md.render(p);
+			console.log(r);
+			return (
+				<JsxParser
+					bindings={this.props.bindings}
+					showWarnings={this.props.showWarnings}
+					components={this.state.components}
+					jsx={r}
+				/>
+			);
+		} catch (err) {
+			return <ErrorMessage error={err.name} detail={err.message}/>;
+		}
 	}
 }

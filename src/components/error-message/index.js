@@ -16,7 +16,9 @@ export function ErrorMessage({ error, detail }) {
 	return (
 		<Message negative>
 			<Message.Header>Error: {error}</Message.Header>
-			<p>{detail}</p>
+			<pre>
+				<p>{detail}</p>
+			</pre>
 		</Message>
 	);
 }
