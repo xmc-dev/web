@@ -18,7 +18,4 @@ function ConnectedPopup({ id, popup: { title, body, state }, onDismiss }) {
 	);
 }
 
-export const Popup = connect(
-	() => ({}),
-	mapDispatchToProps
-)(ConnectedPopup);
+export const Popup = connect(() => ({}), mapDispatchToProps)(ConnectedPopup);
