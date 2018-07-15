@@ -3,6 +3,13 @@ import { Table } from 'semantic-ui-react';
 import { stringDate } from '../../lib/date';
 import { byteSizeToString } from '../../lib/data-size';
 
+function attachmentLink(submission, codeUrl, attachment) {
+	if (submission.censored) {
+		return 'Ascuns';
+	}
+	return <a href={codeUrl}>{byteSizeToString(attachment.size)}</a>;
+}
+
 /**
  * Info table of the submission view component.
  *
@@ -19,8 +26,7 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 		['Compilator', sub.language],
 		['Data trimiterii', stringDate(sub.createdAt)],
 		['Data evaluarii', stringDate(sub.finishedAt)],
-		// eslint-disable-next-line react/jsx-key
-		['Marime', <a href={codeUrl}>{byteSizeToString(attachment.size)}</a>],
+		['Marime', attachmentLink(submission, codeUrl, attachment)],
 		['Problema', task.name || ((task.error && task.error.message) || '')]
 	];
 	const rows = [];
@@ -46,7 +52,9 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 	rows.push(
 		<Table.Row>
 			<Table.Cell colSpan="3">Scor</Table.Cell>
-			<Table.Cell>{result.score}</Table.Cell>
+			<Table.Cell>
+				{(typeof result.score === 'number' && result.score) || 'Ascuns'}
+			</Table.Cell>
 		</Table.Row>
 	);
 	return (

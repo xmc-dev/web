@@ -55,8 +55,10 @@ class ConnectedSubmission extends Component {
 		this.setState({ isFetching: sub.isFetching });
 		if (!sub.error && !sub.isFetching) {
 			this.props.getTask(sub.taskId);
-			this.getAttachment(sub);
-			this.getSourceCodeFile(sub);
+			if (!sub.censored) {
+				this.getAttachment(sub);
+				this.getSourceCodeFile(sub);
+			}
 		}
 	}
 
@@ -68,6 +70,14 @@ class ConnectedSubmission extends Component {
 			return (
 				<Container>
 					<Header as="h1">Loading</Header>
+				</Container>
+			);
+		}
+		if (this.props.sub.censored) {
+			return (
+				<Container fluid>
+					<Header as="h1">Raport de evaluare</Header>
+					<InfoTable submission={this.props.sub} task={this.props.task}/>
 				</Container>
 			);
 		}
@@ -143,7 +153,10 @@ export const Submission = connect(
 	dispatch => ({
 		getSubmission: id =>
 			dispatch(
-				readSubmission(id, { includeResult: true, includeTestResults: true })
+				readSubmission(id, {
+					includeResult: true,
+					includeTestResults: true
+				})
 			),
 		getTask: id => dispatch(readTaskIfNeeded(id))
 	})
