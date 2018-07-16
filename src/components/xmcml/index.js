@@ -64,7 +64,6 @@ export class XMCML extends Component {
 		try {
 			const p = this.processMacros(this.props.md);
 			const r = this.md.render(p);
-			console.log(r);
 			return (
 				<JsxParser
 					bindings={this.props.bindings}

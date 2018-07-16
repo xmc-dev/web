@@ -5,6 +5,7 @@ import { XMCML } from '../../components/xmcml';
 import { ErrorMessage } from '../../components/error-message';
 import { TaskHeader } from './components/task-header';
 import { TaskFooter } from './components/task-footer';
+import { TaskList } from './components/task-list';
 import { connect } from 'preact-redux';
 import { readPageIfNeeded } from '../../actions/pages';
 
@@ -19,7 +20,8 @@ export function PageView({ content, showWarnings }) {
 			components={{
 				TestComponent,
 				TaskHeader,
-				TaskFooter
+				TaskFooter,
+				TaskList
 			}}
 			showWarnings={showWarnings}
 		/>
@@ -38,6 +40,12 @@ class ConnectedPage extends Component {
 
 	componentDidMount() {
 		this.getContent(this.props);
+	}
+
+	componentDidUpdate(oldProps) {
+		if (this.props.url !== oldProps.url || this.props.page !== oldProps.page) {
+			this.getContent(this.props);
+		}
 	}
 
 	render() {

@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navigation from './navigation';
 import Monitor from '../routes/monitor';
 import Submission from '../routes/submission';
-import Archive from '../routes/archive';
 import Login from '../routes/login';
 import Page from '../routes/page';
 import Admin from '../routes/admin';
@@ -44,8 +43,6 @@ export default class App extends Component {
 							<PopupDisplay/>
 						</Container>
 						<Switch>
-							<Route path="/" exact component={Page}/>
-							<Route path="/archive" exact component={Archive}/>
 							<Route path="/submissions" exact component={Monitor}/>
 							<Route path="/submissions/:id" exact component={Submission}/>
 							<Route path="/login" exact component={Login}/>

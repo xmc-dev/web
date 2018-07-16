@@ -1,12 +1,12 @@
 import { h, Component } from 'preact';
 import { Item } from 'semantic-ui-react';
 import { TaskListItem } from './item';
-import { ErrorMessage } from '../error-message';
-import { getTasks } from '../../lib/api/task';
+import { ErrorMessage } from '../../../error-message';
+import { getTasks } from '../../../../lib/api/task';
 
 export class TaskList extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 		this.state = {
 			tasks: [],
 			error: null
@@ -14,7 +14,7 @@ export class TaskList extends Component {
 	}
 
 	componentDidMount() {
-		getTasks()
+		getTasks(this.props.taskListId)
 			.then(data => {
 				let i = 0;
 				const tasks = data.map(task => {
