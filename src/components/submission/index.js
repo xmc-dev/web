@@ -46,13 +46,15 @@ class ConnectedSubmission extends Component {
 		this.props.getSubmission(this.props.id);
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (newProps.sub === this.props.sub) {
+	componentDidUpdate(oldProps) {
+		if (this.props.sub === oldProps.sub) {
 			return;
 		}
-		const sub = newProps.sub;
+		const sub = this.props.sub;
+		/* eslint-disable react/no-did-update-set-state */
 		this.setState({ error: sub.error });
 		this.setState({ isFetching: sub.isFetching });
+		/* eslint-enable react/no-did-update-set-state */
 		if (!sub.error && !sub.isFetching) {
 			this.props.getTask(sub.taskId);
 			if (!sub.censored) {

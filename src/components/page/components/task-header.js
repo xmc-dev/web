@@ -5,11 +5,13 @@ import { Table } from 'semantic-ui-react';
 import { ErrorMessage } from '../../error-message';
 import { connect } from 'preact-redux';
 import { readTaskIfNeeded } from '../../../actions/tasks';
+import { getAccount } from '../../../lib/api/account';
+import { lastScore } from '../../../lib/submission';
 
 class ConnectedTaskHeader extends Component {
 	constructor(props) {
 		super(props);
-		this.state = { dataset: {}, taskList: {}, error: null };
+		this.state = { dataset: {}, taskList: {}, error: null, lastScore: -1 };
 		this.updateStuff = this.updateStuff.bind(this);
 	}
 
@@ -21,7 +23,15 @@ class ConnectedTaskHeader extends Component {
 
 	updateStuff(props) {
 		const task = props.task;
-		if (task && !task.isFetching && !task.error) {
+		if (task && task.isFetching === false && !task.error) {
+			getAccount()
+				.then(acc => lastScore(props.taskId, acc.account.uuid))
+				.then(score => this.setState({ lastScore: score }))
+				.catch(err => {
+					if (err.name !== 'Unauthorized') {
+						throw err;
+					}
+				});
 			getDataset(task.datasetId)
 				.then(dataset => {
 					this.setState({ dataset });
@@ -35,11 +45,11 @@ class ConnectedTaskHeader extends Component {
 		}
 	}
 
-	componentWillReceiveProps(newProps) {
-		if (newProps.task === this.props.task) {
+	componentDidUpdate(oldProps) {
+		if (this.props.task === oldProps.task) {
 			return;
 		}
-		this.updateStuff(newProps);
+		this.updateStuff(this.props);
 	}
 
 	render() {
@@ -58,7 +68,9 @@ class ConnectedTaskHeader extends Component {
 							{t.inputFile}, {t.outputFile}
 						</Table.Cell>
 						<Table.Cell>Scorul tau</Table.Cell>
-						<Table.Cell>0 (nu e implementat, placeholder)</Table.Cell>
+						<Table.Cell>
+							{this.state.lastScore === -1 ? 'N/A' : this.state.lastScore}
+						</Table.Cell>
 					</Table.Row>
 					<Table.Row>
 						<Table.Cell>Limita de timp</Table.Cell>

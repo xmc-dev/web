@@ -4,9 +4,9 @@ import { statuses } from './statuses';
 import Mutex from 'promise-mutex';
 
 export class APIError extends Error {
-	constructor(message, body) {
-		super(message);
-		this.body = body;
+	constructor(name, body) {
+		super(body.error);
+		this.name = name;
 	}
 }
 

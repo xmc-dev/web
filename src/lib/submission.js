@@ -1,3 +1,5 @@
+import { getSubmissions } from './api/submission';
+
 /** Representation of a submission error. */
 export class SubmissionError {
 	/**
@@ -47,4 +49,18 @@ export function getShortStatus(sub) {
 		default:
 			return sub.state;
 	}
+}
+
+export function lastScore(taskId, userId) {
+	return getSubmissions({
+		taskId,
+		userId,
+		includeResult: true,
+		perPage: 1
+	}).then(
+		sub =>
+			sub.submissions[0] && sub.submissions[0].result ?
+				sub.submissions[0].result.score :
+				-1
+	);
 }
