@@ -28,6 +28,7 @@ export default class Navigation extends Component {
 				<NavGroup hidden={this.state.hidden}>
 					<NavLink exact href="/" icon="ios-home-outline" text="HOME"/>
 					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE"/>
+					<NavLink href="/rounds" icon="ios-medal-outline" text="ROUNDS"/>
 					<NavLink
 						href="/submissions"
 						icon="ios-list-box-outline"

@@ -12,6 +12,7 @@ import { Container } from 'semantic-ui-react';
 import User from '../routes/user';
 import Logout from '../routes/logout';
 import Settings from '../routes/settings';
+import Rounds from '../routes/rounds';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -49,6 +50,7 @@ export default class App extends Component {
 							<Route path="/logout" exact component={Logout}/>
 							<Route path="/user" exact component={User}/>
 							<Route path="/settings" component={Settings}/>
+							<Route path="/rounds" exact component={Rounds}/>
 							<Route path="/admin" component={Admin}/>
 							<Route component={Page}/>
 						</Switch>

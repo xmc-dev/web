@@ -31,8 +31,8 @@ export default function Home() {
 				/>
 				<Card
 					link
-					header="Contests &amp; Problems"
-					description="Manage contests and add problems."
+					header="Contests &amp; Task Lists"
+					description="Manage contests and task lists."
 				/>
 			</Card.Group>
 		</Container>

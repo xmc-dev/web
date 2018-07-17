@@ -10,7 +10,7 @@ function processVersion(raw) {
 function processPage(raw) {
 	return Object.assign({}, raw, {
 		latestTimestamp: rfc3339ToDate(raw.latestTimestamp),
-		version: processVersion(raw.version)
+		version: raw.version ? processVersion(raw.version) : undefined
 	});
 }
 
@@ -29,6 +29,13 @@ export function getPage(id, { timestamp, raw } = {}, options) {
 	return api('/pages/' + id + '?' + objectToParams(params), options).then(raw =>
 		processPage(raw.page)
 	);
+}
+
+export function getFirstChildren(id, params = {}, options) {
+	return api(
+		'/pagechildren/' + id + '?' + objectToParams(params),
+		options
+	).then(raws => raws.pages.map(processPage));
 }
 
 export function updatePage(id, update, options) {

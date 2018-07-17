@@ -8,7 +8,7 @@ export class Paginate extends Component {
 		this.state = {
 			items: [],
 			error: null,
-			meta: {},
+			meta: { perPage: 0 },
 			page: 1
 		};
 		this.handlePageChange = this.handlePageChange.bind(this);
