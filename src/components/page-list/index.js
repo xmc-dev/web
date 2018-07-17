@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { Table, Icon } from 'semantic-ui-react';
+import { ErrorMessage } from '../error-message';
 import { getPage, getFirstChildren } from '../../lib/api/page';
 import { Link } from 'react-router-dom';
 import { stringDate } from '../../lib/date';
@@ -9,7 +10,7 @@ function PageListRow({ page, header } = { page: {}, header: false }) {
 	const pathLink = header ? (
 		page.path
 	) : (
-		<Link to={`/admin/pages${page.path}`}>{page.path}</Link>
+		<Link to={`/admin/pages/list${page.path}`}>{page.path}</Link>
 	);
 	const path = page.path === '/' ? '/<root>' : page.path;
 
@@ -21,7 +22,7 @@ function PageListRow({ page, header } = { page: {}, header: false }) {
 			</Comp>
 			<Comp width={5}>{page.version && page.version.title}</Comp>
 			<Comp width={4}>
-				<Link to={`/admin/pages${path}/edit`}>Modify Page</Link>
+				<Link to={`/admin/pages/edit${path}`}>Modify Page</Link>
 			</Comp>
 			<Comp width={3} textAlign="right">
 				{stringDate(page.latestTimestamp)}
@@ -36,12 +37,13 @@ export class PageList extends Component {
 		this.state = {
 			page: {},
 			children: [],
-			error: {}
+			error: null
 		};
 		this.updateContent = this.updateContent.bind(this);
 	}
 
 	updateContent() {
+		this.setState({ error: null });
 		getPage(this.props.id, { raw: true })
 			.then(page => {
 				this.setState({ page });
@@ -70,6 +72,14 @@ export class PageList extends Component {
 	}
 
 	render() {
+		if (this.state.error) {
+			return (
+				<ErrorMessage
+					error={this.state.error.name}
+					detail={this.state.error.message}
+				/>
+			);
+		}
 		const rows = this.state.children.map(child => (
 			<PageListRow key={child.id} page={child}/>
 		));
@@ -78,7 +88,7 @@ export class PageList extends Component {
 				<Table.Row>
 					<Table.Cell colSpan={3}>
 						<Icon name="reply"/>
-						<Link to={`/admin/pages${this.back(this.state.page.path)}`}>
+						<Link to={`/admin/pages/list${this.back(this.state.page.path)}`}>
 							..
 						</Link>
 					</Table.Cell>
@@ -95,6 +105,7 @@ export class PageList extends Component {
 						{rows}
 					</Table.Body>
 				</Table>
+				<Link to="/admin/pages/new">New page</Link>
 			</div>
 		);
 	}
