@@ -93,8 +93,8 @@ class ConnectedPageEditor extends Component {
 		if (this.props.update.error) {
 			err = (
 				<ErrorMessage
-					error={this.props.update.error.message}
-					detail={this.props.update.error.body.error}
+					error={this.props.update.error.name}
+					detail={this.props.update.error.message}
 				/>
 			);
 		}

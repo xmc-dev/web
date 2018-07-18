@@ -1,5 +1,5 @@
 import { h } from 'preact';
-import { Item } from 'semantic-ui-react';
+import { Item } from 'semantic-ui-react/dist/commonjs';
 import { Link } from 'react-router-dom';
 
 export function TaskListItem(props) {

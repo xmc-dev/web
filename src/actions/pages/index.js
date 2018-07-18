@@ -1,4 +1,12 @@
-import { getPage, updatePage as aUpdatePage } from '../../lib/api/page';
+import {
+	createPage as aCreatePage,
+	getPage,
+	updatePage as aUpdatePage
+} from '../../lib/api/page';
+
+export const CREATE_PAGE_REQUEST = 'CREATE_PAGE_REQUEST';
+export const CREATE_PAGE_SUCCESS = 'CREATE_PAGE_SUCCESS';
+export const CREATE_PAGE_FAILURE = 'CREATE_PAGE_FAILURE';
 
 export const READ_PAGE_REQUEST = 'READ_PAGE_REQUEST';
 export const READ_PAGE_SUCCESS = 'READ_PAGE_SUCCESS';
@@ -7,6 +15,25 @@ export const READ_PAGE_FAILURE = 'READ_PAGE_FAILURE';
 export const UPDATE_PAGE_REQUEST = 'UPDATE_PAGE_REQUEST';
 export const UPDATE_PAGE_SUCCESS = 'UPDATE_PAGE_SUCCESS';
 export const UPDATE_PAGE_FAILURE = 'UPDATE_PAGE_FAILURE';
+
+export const createPageRequest = (page, title, contents) => ({
+	type: CREATE_PAGE_REQUEST,
+	page,
+	title,
+	contents
+});
+
+export const createPageSuccess = (id, path) => ({
+	type: CREATE_PAGE_SUCCESS,
+	id,
+	path
+});
+
+export const createPageFailure = (path, error) => ({
+	type: CREATE_PAGE_FAILURE,
+	path,
+	error
+});
 
 export const readPageRequest = (id, timestamp = '') => ({
 	type: READ_PAGE_REQUEST,
@@ -41,6 +68,15 @@ export const updatePageFailure = (id, error) => ({
 	id,
 	error
 });
+
+export function createPage(page, title, contents) {
+	return dispatch => {
+		dispatch(createPageRequest(page));
+		return aCreatePage(page, title, contents)
+			.then(id => dispatch(createPageSuccess(id, page.path)))
+			.catch(error => dispatch(createPageFailure(page.path, error)));
+	};
+}
 
 export function readPage(id, timestamp = '') {
 	return dispatch => {

@@ -54,7 +54,12 @@ class ConnectedTaskHeader extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message}/>;
+			return (
+				<ErrorMessage
+					error={this.state.error.name}
+					detail={this.state.error.message}
+				/>
+			);
 		}
 		const t = this.props.task;
 		const d = this.state.dataset;

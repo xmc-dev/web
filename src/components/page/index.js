@@ -1,8 +1,8 @@
 import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
 import { Header, Container } from 'semantic-ui-react';
-import { XMCML } from '../../components/xmcml';
-import { ErrorMessage } from '../../components/error-message';
+import { XMCML } from '../xmcml';
+import { ErrorMessage } from '../error-message';
 import { TaskHeader } from './components/task-header';
 import { TaskFooter } from './components/task-footer';
 import { TaskList } from './components/task-list';
@@ -52,7 +52,10 @@ class ConnectedPage extends Component {
 		if (this.props.page.error) {
 			return (
 				<Container>
-					<ErrorMessage error={this.props.page.error.message}/>
+					<ErrorMessage
+						error={this.props.page.error.name}
+						detail={this.props.page.error.message}
+					/>
 				</Container>
 			);
 		}

@@ -38,10 +38,22 @@ export function getFirstChildren(id, params = {}, options) {
 	).then(raws => raws.pages.map(processPage));
 }
 
+export function createPage(pageMeta, title, contents, options) {
+	return api('/pages/', {
+		method: 'POST',
+		body: JSON.stringify({
+			page: pageMeta,
+			title,
+			contents
+		}),
+		...options
+	}).then(rsp => rsp.id);
+}
+
 export function updatePage(id, update, options) {
 	return api('/pages/' + id, {
 		method: 'PATCH',
 		body: JSON.stringify(update),
-		options
+		...options
 	});
 }

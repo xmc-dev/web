@@ -66,7 +66,12 @@ class ConnectedSubmission extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message}/>;
+			return (
+				<ErrorMessage
+					error={this.state.error.name}
+					detail={this.state.error.message}
+				/>
+			);
 		}
 		if (this.state.isFetching) {
 			return (

@@ -1,4 +1,4 @@
-import { api, rfc3339ToDate } from '../api';
+import { api, rfc3339ToDate } from '.';
 import { objectToParams } from '../query-params';
 
 function processTestResult(raw) {

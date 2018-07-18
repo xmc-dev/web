@@ -1,8 +1,8 @@
 import { h, Component } from 'preact';
-import { Table, Icon } from 'semantic-ui-react';
+import { Button, Table, Icon } from 'semantic-ui-react';
 import { ErrorMessage } from '../error-message';
 import { getPage, getFirstChildren } from '../../lib/api/page';
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import { stringDate } from '../../lib/date';
 
 function PageListRow({ page, header } = { page: {}, header: false }) {
@@ -37,7 +37,8 @@ export class PageList extends Component {
 		this.state = {
 			page: {},
 			children: [],
-			error: null
+			error: null,
+			goToNew: false
 		};
 		this.updateContent = this.updateContent.bind(this);
 	}
@@ -94,8 +95,12 @@ export class PageList extends Component {
 					</Table.Cell>
 				</Table.Row>
 			);
+		const redir = this.state.goToNew ? (
+			<Redirect push to="/admin/pages/new"/>
+		) : null;
 		return (
 			<div>
+				{redir}
 				<Table fixed>
 					<Table.Header>
 						<PageListRow page={this.state.page} header/>
@@ -105,7 +110,9 @@ export class PageList extends Component {
 						{rows}
 					</Table.Body>
 				</Table>
-				<Link to="/admin/pages/new">New page</Link>
+				<Button onClick={() => this.setState({ goToNew: true })}>
+					New page
+				</Button>
 			</div>
 		);
 	}

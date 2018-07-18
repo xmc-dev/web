@@ -30,7 +30,12 @@ export class TaskList extends Component {
 
 	render() {
 		if (this.state.error) {
-			return <ErrorMessage error={this.state.error.message}/>;
+			return (
+				<ErrorMessage
+					error={this.state.error.name}
+					detail={this.state.error.message}
+				/>
+			);
 		}
 		return <Item.Group>{this.state.tasks}</Item.Group>;
 	}
