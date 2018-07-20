@@ -14,13 +14,11 @@ export default class Hamburger extends Component {
 	}
 
 	render() {
-		const icon = this.props.hidden ? 'ios-menu-outline' : 'ios-close';
+		const icon = this.props.extended ? 'ios-close' : 'ios-menu-outline';
 		return (
-			<div id={style.hamburger} onClick={this.toggleMenu}>
-				<a>
-					<Ionicon icon={icon} fontSize="2em" color="white"/>
-				</a>
-			</div>
+			<a id={style.hamburger} onClick={this.toggleMenu}>
+				<Ionicon icon={icon} fontSize="1.5em" color="white"/>
+			</a>
 		);
 	}
 }

@@ -1,10 +1,12 @@
 #navigation {
 	height: 100%;
-	width: 6em;
+	width: 3em;
 	position: fixed;
 	z-index: 1;
 	top: 0;
 	left: 0;
+
+	font-size: 16px;
 
 	background-color: #333;
 	text-align: center;
@@ -12,26 +14,50 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
+	
+	transition: all 0.2s;
 }
 #navigation #hamburger {
-	display: none;
 	z-index: 10;
 
-	order: 1;
-}
-#navigation #logo {
-	width: 100%;
-	padding: 2em 2em 8em 2em;
-	z-index: 1;
-	background: #333333;
-
 	order: 2;
+	display: block;
+
+	width: 3em;
+	height: 3em;
+	padding: 0.75em;
+
+	color: white;
+	transition: all 0.1s;
+	cursor: pointer;
+}
+#navigation #hamburger:hover {
+	background: rgba(255, 255, 255, 0.1);
+	color: white;
+}
+
+#navigation #logo {
+	width: 3em;
+	height: 1.75em;
+	padding: 0.45em 0;
+	z-index: 1;
+	background: #239572;
+	flex-shrink: 0;
+
+	order: 1;
+
+	transition: all 0.2s;
+}
+#navigation #logo:hover {
+	background: #2cbe92;
 }
 #navigation #logo img {
-	width: 2em;
+	width: 0.85em;
+	vertical-align: top;
 }
+
 #navigation .section {
-	width: 6em;
+	width: 3em;
 	display: flex;
 	flex-basis: 100%;
 	flex-direction: column;
@@ -47,110 +73,89 @@
 }
 
 #navigation .section a {
-	display: block;
+	width: 3em;
+	height: 3em;
+	padding: 0.75em;
 
-	width: 6em;
-	height: 6em;
-	padding: 1.125em;
+	overflow: hidden;
+	white-space: nowrap;
+
+	text-align: left;
 
 	color: white;
-	transition: all 0.1s;
-}
-#navigation .section a:hover {
-	background: rgba(255, 255, 255, 0.1);
-	color: white;
+	background: #333;
+
+	transition: all 0.2s;
+	will-change: width, color;
 }
 #navigation .section a span {
-	display: block;
-	font-size: 0.75em;
+	display: inline-block;
+	font-size: 14px;
+	margin: 0 2em;
+	vertical-align: middle;
+	transform: translateX(-1em);
+
+	font-weight: bold;
+
+	transition: transform 0.2s;
+	will-change: transform;
+}
+#navigation .section svg {
+	display: inline-block;
+	vertical-align: middle;
+}
+#navigation .section a:hover {
+	background: #444;
+	color: white;
+	width: 9em;
+	box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.15);
+}
+#navigation .section a:hover span {
+	transform: translateX(0em);
 }
 #navigation .section a.active {
 	background: #239572;
-	width: 6.5em;
-	transition: all 0.2s;
+	width: 3em;
+}
+#navigation .section a.active:hover {
+	background: #2cbe92;
+	width: 9em;
 	box-shadow: 0px 3px 16px rgba(0, 0, 0, 0.15), 0px 16px 16px -16px rgba(45, 190, 146, 0.75);
+}
+
+
+#navigation.extended {
+	width: 16em;
+}
+#navigation.extended .section a {
+	width: 16em !important;
+}
+#navigation.extended .section a span {
+	transform: translateX(0em);
 }
 
 @media only screen and (max-device-width : 640px) , (max-device-height : 640px) {
 	#navigation {
 		width: 100%;
-		height: auto;
-		z-index: 100;
-		-webkit-tap-highlight-color: rgba(34, 148, 114, 0.2);
-		flex-direction: row;
-		flex-wrap: wrap;
+		height: 3em;
 		overflow: hidden;
-	}
-	#navigation #hamburger {
-		display: block;
+		z-index: 100;
 		text-align: left;
-		height: 4em;
-
-		order: 1;
+		-webkit-tap-highlight-color: rgba(34, 148, 114, 0.2);
+	}
+	#navigation.extended {
+		width: 100%;
+		height: 100%;
 	}
 	#navigation #logo {
-		position: absolute;
-		padding: 1em;
-		height: 4em;
-
-		order: 2;
+		display: none;
 	}
 	#navigation .section {
 		width: 100%;
-		flex-direction: row;
-		flex: 0 0 100%;
-		transition: 0.2s all;
-		transition-timing-function: cubic-bezier(0.785, 0.135, 0.15, 0.86);
-		overflow-x: auto;
-
-		order: 4;
-	}
-	#navigation .section.hidden {
-		position: absolute;
-		transform: translate(0, -12em);
-	}
-	#navigation .section#bottom {
-		width: initial;
-		flex-basis: auto;
-		height: 4em;
-		order: 3;
 	}
 
-	#navigation .section a {
-		transition: all 0.2s;
-		flex: 0 0 6em;
-	}
-	#navigation .section a.active {
-		width: 6em;
-		transition: all 0.3s;
-	}
-
-	#navigation .section#bottom a {
-		width: 4em;
-		flex: 0 0 4em;
-		height: 4em;
-		padding: 1em;
-	}
-	#navigation .section#bottom a.active {
-		width: 4em;
-	}
-	#navigation .section#bottom a span {
-		display: none;
-	}
-
-	#navigation #hamburger a {
-		display: block;
-
-		width: 4em;
-		height: 4em;
-		padding: 1em;
-
-		color: white;
-		transition: all 0.1s;
-	}
-	#navigation #hamburger a:hover {
-		background: rgba(255, 255, 255, 0.1);
-		color: white;
+	#navigation.extended .section a {
+		width: 100% !important;
 	}
 }
 

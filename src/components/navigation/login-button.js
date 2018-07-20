@@ -42,7 +42,7 @@ class ConnectedLoginButton extends Component {
 			);
 		}
 		return (
-			<NavLink exact href="/login" icon="ios-person-outline" text="LOGIN"/>
+			<NavLink exact href="/login" icon="ios-person-outline" text="Login"/>
 		);
 	}
 }

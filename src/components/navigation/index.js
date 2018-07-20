@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { NavLink, NavGroup } from './nav';
 import Hamburger from './hamburger';
+import { NavLink as StyledLink } from 'react-router-dom';
 
 import style from './style';
 import logo from './logo.svg';
@@ -10,32 +11,32 @@ import { HasScope } from '../has-scope';
 export default class Navigation extends Component {
 	constructor() {
 		super();
-		this.state = { hidden: true };
+		this.state = { extended: false };
 		this.hideNav = this.hideNav.bind(this);
 	}
 
 	hideNav() {
-		this.setState(prevState => ({ hidden: !prevState.hidden }));
+		this.setState(prevState => ({ extended: !prevState.extended }));
 	}
 
 	render() {
 		return (
-			<nav id={style.navigation}>
-				<Hamburger hideNav={this.hideNav} hidden={this.state.hidden}/>
-				<div id={style.logo}>
+			<nav id={style.navigation} class={this.state.extended ? style.extended : ""}>
+				<Hamburger hideNav={this.hideNav} extended={this.state.extended}/>
+				<StyledLink to="/" id={style.logo}>
 					<img src={logo}/>
-				</div>
-				<NavGroup hidden={this.state.hidden}>
-					<NavLink exact href="/" icon="ios-home-outline" text="HOME"/>
-					<NavLink href="/archive" icon="ios-filing-outline" text="ARCHIVE"/>
-					<NavLink href="/rounds" icon="ios-medal-outline" text="ROUNDS"/>
+				</StyledLink>
+				<NavGroup extended={this.state.extended}>
+					<NavLink exact href="/" icon="ios-home-outline" text="Home"/>
+					<NavLink href="/archive" icon="ios-filing-outline" text="Archive"/>
+					<NavLink href="/rounds" icon="ios-medal-outline" text="Rounds"/>
 					<NavLink
 						href="/submissions"
 						icon="ios-list-box-outline"
-						text="MONITOR"
+						text="Monitor"
 					/>
 					<HasScope scope="xmc.core/manage">
-						<NavLink href="/admin" icon="ios-build-outline" text="ADMIN"/>
+						<NavLink href="/admin" icon="ios-build-outline" text="Admin"/>
 					</HasScope>
 				</NavGroup>
 
@@ -46,7 +47,7 @@ export default class Navigation extends Component {
 						href="/settings"
 						icon="ios-settings-outline"
 						bottom
-						text="SETTINGS"
+						text="Settings"
 					/>
 				</NavGroup>
 			</nav>

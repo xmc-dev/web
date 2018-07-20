@@ -13,7 +13,7 @@ export function NavLink({ href, icon, text, bottom, exact, children }) {
 	if (children.length) {
 		inner = children;
 	} else {
-		inner = <Ionicon icon={icon} fontSize="2em" color="white"/>;
+		inner = <Ionicon icon={icon} fontSize="1.5em" color="white"/>;
 	}
 
 	return (
@@ -24,12 +24,12 @@ export function NavLink({ href, icon, text, bottom, exact, children }) {
 	);
 }
 
-export function NavGroup({ children, bottom, hidden }) {
+export function NavGroup({ children, bottom, extended }) {
 	let id = '';
 	if (bottom) {
 		id = style.bottom;
 	}
-	const hi = hidden ? style.hidden : '';
+	const hi = extended ? style.extended : '';
 
 	return (
 		<div className={style.section + ' ' + hi} id={id}>
