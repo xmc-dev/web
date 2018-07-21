@@ -46,6 +46,8 @@ export function getShortStatus(sub) {
 			return 'În așteptare';
 		case 'PROCESSING':
 			return 'În lucru';
+		case 'DONE':
+			return 'Evaluare completă';
 		default:
 			return sub.state;
 	}

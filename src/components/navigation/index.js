@@ -21,7 +21,10 @@ export default class Navigation extends Component {
 
 	render() {
 		return (
-			<nav id={style.navigation} class={this.state.extended ? style.extended : ""}>
+			<nav
+				id={style.navigation}
+				className={this.state.extended ? style.extended : ''}
+			>
 				<Hamburger hideNav={this.hideNav} extended={this.state.extended}/>
 				<StyledLink to="/" id={style.logo}>
 					<img src={logo}/>

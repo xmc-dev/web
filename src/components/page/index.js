@@ -5,6 +5,7 @@ import { XMCML } from '../xmcml';
 import { ErrorMessage } from '../error-message';
 import { TaskHeader } from './components/task-header';
 import { TaskFooter } from './components/task-footer';
+import { TaskListHeader } from './components/task-list-header';
 import { TaskList } from './components/task-list';
 import { connect } from 'preact-redux';
 import { readPageIfNeeded } from '../../actions/pages';
@@ -21,7 +22,8 @@ export function PageView({ content, showWarnings }) {
 				TestComponent,
 				TaskHeader,
 				TaskFooter,
-				TaskList
+				TaskList,
+				TaskListHeader
 			}}
 			showWarnings={showWarnings}
 		/>
