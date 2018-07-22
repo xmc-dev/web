@@ -1,5 +1,7 @@
 import { h, Component } from 'preact';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { IntlProvider } from 'preact-i18n';
+import definitionRO from '../translations/ro.json';
 
 import Navigation from './navigation';
 import Monitor from '../routes/monitor';
@@ -36,27 +38,29 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<Router onChange={this.handleRoute}>
-				<div id="app">
-					<Navigation/>
-					<div id="container">
-						<Container>
-							<PopupDisplay/>
-						</Container>
-						<Switch>
-							<Route path="/submissions" exact component={Monitor}/>
-							<Route path="/submissions/:id" exact component={Submission}/>
-							<Route path="/login" exact component={Login}/>
-							<Route path="/logout" exact component={Logout}/>
-							<Route path="/user" exact component={User}/>
-							<Route path="/settings" component={Settings}/>
-							<Route path="/rounds" exact component={Rounds}/>
-							<Route path="/admin" component={Admin}/>
-							<Route component={Page}/>
-						</Switch>
+			<IntlProvider definition={definitionRO}>
+				<Router onChange={this.handleRoute}>
+					<div id="app">
+						<Navigation/>
+						<div id="container">
+							<Container>
+								<PopupDisplay/>
+							</Container>
+							<Switch>
+								<Route path="/submissions" exact component={Monitor}/>
+								<Route path="/submissions/:id" exact component={Submission}/>
+								<Route path="/login" exact component={Login}/>
+								<Route path="/logout" exact component={Logout}/>
+								<Route path="/user" exact component={User}/>
+								<Route path="/settings" component={Settings}/>
+								<Route path="/rounds" exact component={Rounds}/>
+								<Route path="/admin" component={Admin}/>
+								<Route component={Page}/>
+							</Switch>
+						</div>
 					</div>
-				</div>
-			</Router>
+				</Router>
+			</IntlProvider>
 		);
 	}
 }

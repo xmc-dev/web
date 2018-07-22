@@ -1,4 +1,6 @@
 import { getSubmissions } from './api/submission';
+import { Text } from 'preact-i18n';
+import { h } from 'preact';
 
 /** Representation of a submission error. */
 export class SubmissionError {
@@ -34,20 +36,30 @@ export class SubmissionError {
  */
 export function getShortStatus(sub) {
 	if (sub.result) {
-		const msg = 'Evaluare completă: ';
 		const err = new SubmissionError(sub.result.errorMessage);
 		if (!err.code) {
-			return msg + sub.result.score + ' puncte';
+			return (
+				<Text
+					id="submission-status.done-no-err"
+					plural={sub.result.score}
+					fields={{ points: sub.result.score }}
+				/>
+			);
 		}
-		return msg + err.toString();
+		return (
+			<Text
+				id="submission-status.done-err"
+				fields={{ error: err.toString() }}
+			/>
+		);
 	}
 	switch (sub.state) {
 		case 'WAITING':
-			return 'În așteptare';
+			return <Text id="submission-status.waiting"/>;
 		case 'PROCESSING':
-			return 'În lucru';
+			return <Text id="submission-status.processing"/>;
 		case 'DONE':
-			return 'Evaluare completă';
+			return <Text id="submission-status.done"/>;
 		default:
 			return sub.state;
 	}

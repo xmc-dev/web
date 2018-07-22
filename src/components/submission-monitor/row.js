@@ -1,6 +1,7 @@
 import { h, Component } from 'preact';
 import { Table } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import { Text } from 'preact-i18n';
 import { getShortStatus } from '../../lib/submission';
 import { stringDate } from '../../lib/date';
 import { getTaskList, getTaskListUrl } from '../../lib/api/task-list';
@@ -54,7 +55,7 @@ class ConnectedSubmissionMonitorRow extends Component {
 	 *
 	 * @param {object} newProps
 	 */
-	componentWillReceiveProps(newProps) {
+	UNSAFE_componentWillReceiveProps(newProps) {
 		if (
 			newProps.task !== this.props.task ||
 			newProps.sub.id !== this.props.sub.id ||
@@ -111,12 +112,24 @@ export const SubmissionMonitorRow = connect(
 export function SubmissionMonitorHeaderRow() {
 	return (
 		<Table.Row>
-			<Table.HeaderCell>ID</Table.HeaderCell>
-			<Table.HeaderCell>Utilizator</Table.HeaderCell>
-			<Table.HeaderCell>Problema</Table.HeaderCell>
-			<Table.HeaderCell>Data trimiterii</Table.HeaderCell>
-			<Table.HeaderCell>Data terminării job-ului</Table.HeaderCell>
-			<Table.HeaderCell>Stare</Table.HeaderCell>
+			<Table.HeaderCell>
+				<Text id="submission-monitor.header.id"/>
+			</Table.HeaderCell>
+			<Table.HeaderCell>
+				<Text id="submission-monitor.header.user"/>
+			</Table.HeaderCell>
+			<Table.HeaderCell>
+				<Text id="submission-monitor.header.problem"/>
+			</Table.HeaderCell>
+			<Table.HeaderCell>
+				<Text id="submission-monitor.header.submission-date"/>
+			</Table.HeaderCell>
+			<Table.HeaderCell>
+				<Text id="submission-monitor.header.finish-date"/>
+			</Table.HeaderCell>
+			<Table.HeaderCell>
+				<Text id="submission-monitor.header.state"/>
+			</Table.HeaderCell>
 		</Table.Row>
 	);
 }

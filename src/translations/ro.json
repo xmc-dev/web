@@ -1,0 +1,94 @@
+{
+	"nav": {
+		"home": "Acasă",
+		"archive": "Arhivă",
+		"rounds": "Runde",
+		"monitor": "Monitor",
+		"login": "Conectează-te",
+		"settings": "Setări",
+		"admin": "Adminitrator"
+	},
+	"task-header": {
+		"input-output-files": "Fișiere de intrare/ieșire:",
+		"your-score": "Scorul tău",
+		"time-limit": "Limită de timp",
+		"memory-limit": "Limită de memorie",
+		"round": "Rundă",
+		"id": "ID"
+	},
+	"task-footer": {
+		"no-file-warning": "Selectează un fișier pentru trimitere intâi!",
+		"compiler-autoselect-failure-head": "Nu s-a putut selecta automat un compilator pentru fișierul dat!",
+		"compiler-autoselect-failure-body": "Asigură-te că ai selectat fișierul corect.",
+		"submit-solution-in": "Încarcă soluție în",
+		"submit": "Trimite",
+		"show-submitted-solutions": "Vezi soluțiile trimise"
+	},
+	"submission-monitor": {
+		"header": {
+			"id": "ID",
+			"user": "Utilizator",
+			"problem": "Problemă",
+			"submission-date": "Data trimiterii",
+			"finish-date": "Data terminării evaluării",
+			"state": "Stare"
+		}
+	},
+	"submission-status": {
+		"done-no-err": {
+			"none": "Evaluare completă: 0 puncte",
+			"one": "Evaluare completă: 1 punct",
+			"many": "Evaluare completă: {{points}} puncte"
+		},
+		"done-err": "Evaluare completă: {{error}}",
+		"waiting": "În așteptare",
+		"processing": "În lucru",
+		"done": "Evaluare completă"
+	},
+	"submission": {
+		"censored": "Ascuns",
+		"status": "Stare",
+		"compiler": "Compilator",
+		"submission-date": "Data trimiterii",
+		"evaluation-date": "Data evaluării",
+		"size": "Mărime",
+		"problem": "Problemă",
+		"score": "Scor",
+		"time": "Timp",
+		"memory": "Memorie folosită (KB)",
+		"message": "Mesaj",
+		"points": "Punctaj",
+		"final-score": "Scor final",
+		"evaluation-report": "Raport de evaluare",
+		"menu": {
+			"evaluation": "Evaluare",
+			"compilation": "Compilare",
+			"code": "Cod"
+		},
+		"compilation": {
+			"compilation-command": "Comanda de compilare",
+			"compiler-report": "Raport compilator"
+		}
+	},
+	"user": {
+		"logout": "Deconectează-te"
+	},
+	"error-message": {
+		"error": "Eroare: {{error}}",
+		"forbidden-page": {
+			"error": "Permisiuni insuficiente",
+			"detail": "Nu ai permisiunile necesare pentru a vedea această pagină."
+		}
+	},
+	"login": {
+		"popup": {
+			"title": "Conectare reușită",
+			"body": "Bine ai venit!"
+		}
+	},
+	"logout": {
+		"popup": {
+			"title": "Deconectare reușită"
+		}
+	}
+}

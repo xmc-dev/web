@@ -1,5 +1,6 @@
 import { h, Component } from 'preact';
 import { Link, Redirect } from 'react-router-dom';
+import { Text } from 'preact-i18n';
 import { Segment, Button, Form, Message, Icon } from 'semantic-ui-react';
 import { getBase64 } from '../../../lib/file';
 import { createSubmission } from '../../../lib/api/submission';
@@ -45,7 +46,7 @@ export class TaskFooter extends Component {
 		if (!this.state.file) {
 			this.setState({
 				warning: {
-					head: 'Select a file to submit first!',
+					head: <Text id="task-footer.no-file-warning"/>,
 					show: true
 				}
 			});
@@ -64,8 +65,8 @@ export class TaskFooter extends Component {
 		} else {
 			this.setState({
 				warning: {
-					head: 'Couldn\'t auto select a compiler for the selected file!',
-					body: 'Make sure that you selected the correct file.',
+					head: <Text id="task-footer.compiler-autoselect-failure-head"/>,
+					body: <Text id="task-footer.compiler-autoselect-failure-body"/>,
 					show: true
 				}
 			});
@@ -116,7 +117,9 @@ export class TaskFooter extends Component {
 				<Segment attached={this.state.warning.show ? true : 'top'}>
 					<Form onSubmit={this.onFormSubmit}>
 						<Form.Group inline style={{ margin: 0 }}>
-							<span>Incarca solutie in</span>
+							<span>
+								<Text id="task-footer.submit-solution-in"/>
+							</span>
 							<strong>
 								<Form.Dropdown
 									label=" "
@@ -135,14 +138,14 @@ export class TaskFooter extends Component {
 								type="submit"
 								style={{ position: 'absolute', right: 0 }}
 							>
-								Trimite
+								<Text id="task-footer.submit"/>
 							</Button>
 						</Form.Group>
 					</Form>
 				</Segment>
 				<Segment attached="bottom">
 					<Link to={'/submissions?taskId=' + this.props.taskId}>
-						Vezi solutii trimise
+						<Text id="task-footer.show-submitted-solutions"/>
 					</Link>
 				</Segment>
 			</div>

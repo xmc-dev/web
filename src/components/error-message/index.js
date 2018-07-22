@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { Message } from 'semantic-ui-react';
+import { Text, withText } from 'preact-i18n';
 import Helmet from 'preact-helmet';
 
 /**
@@ -15,7 +16,9 @@ export function ErrorMessage({ error, detail }) {
 	console.error(error, detail);
 	return (
 		<Message negative>
-			<Message.Header>Error: {error}</Message.Header>
+			<Message.Header>
+				<Text id="error-message.error" fields={{ error }}/>
+			</Message.Header>
 			<pre>
 				<p>{detail}</p>
 			</pre>
@@ -23,14 +26,14 @@ export function ErrorMessage({ error, detail }) {
 	);
 }
 
-export function ForbiddenPage() {
+export const ForbiddenPage = withText({
+	error: 'error-message.forbidden-page.error',
+	detail: 'error-message.forbidden-page.detail'
+})(props => {
 	return (
 		<div>
 			<Helmet title="Forbidden"/>
-			<ErrorMessage
-				error="Forbidden"
-				detail="You are not allowed to see this page."
-			/>
+			<ErrorMessage error={props.error} detail={props.detail}/>
 		</div>
 	);
-}
+});

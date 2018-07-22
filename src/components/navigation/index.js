@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { NavLink, NavGroup } from './nav';
 import Hamburger from './hamburger';
 import { NavLink as StyledLink } from 'react-router-dom';
+import { Text } from 'preact-i18n';
 
 import style from './style';
 import logo from './logo.svg';
@@ -30,16 +31,33 @@ export default class Navigation extends Component {
 					<img src={logo}/>
 				</StyledLink>
 				<NavGroup extended={this.state.extended}>
-					<NavLink exact href="/" icon="ios-home-outline" text="Home"/>
-					<NavLink href="/archive" icon="ios-filing-outline" text="Archive"/>
-					<NavLink href="/rounds" icon="ios-medal-outline" text="Rounds"/>
+					<NavLink
+						exact
+						href="/"
+						icon="ios-home-outline"
+						text={<Text id="nav.home"/>}
+					/>
+					<NavLink
+						href="/archive"
+						icon="ios-filing-outline"
+						text={<Text id="nav.archive"/>}
+					/>
+					<NavLink
+						href="/rounds"
+						icon="ios-medal-outline"
+						text={<Text id="nav.rounds"/>}
+					/>
 					<NavLink
 						href="/submissions"
 						icon="ios-list-box-outline"
-						text="Monitor"
+						text={<Text id="nav.monitor"/>}
 					/>
 					<HasScope scope="xmc.core/manage">
-						<NavLink href="/admin" icon="ios-build-outline" text="Admin"/>
+						<NavLink
+							href="/admin"
+							icon="ios-build-outline"
+							text={<Text id="nav.admin"/>}
+						/>
 					</HasScope>
 				</NavGroup>
 
@@ -50,7 +68,7 @@ export default class Navigation extends Component {
 						href="/settings"
 						icon="ios-settings-outline"
 						bottom
-						text="Settings"
+						text={<Text id="nav.settings"/>}
 					/>
 				</NavGroup>
 			</nav>

@@ -7,6 +7,7 @@ import { connect } from 'preact-redux';
 import { readTaskIfNeeded } from '../../../actions/tasks';
 import { getAccount } from '../../../lib/api/account';
 import { lastScore } from '../../../lib/submission';
+import { Text } from 'preact-i18n';
 
 class ConnectedTaskHeader extends Component {
 	constructor(props) {
@@ -68,27 +69,39 @@ class ConnectedTaskHeader extends Component {
 			<Table celled>
 				<Table.Body>
 					<Table.Row>
-						<Table.Cell>Fisierul de intrare/iesire:</Table.Cell>
+						<Table.Cell>
+							<Text id="task-header.input-output-files"/>
+						</Table.Cell>
 						<Table.Cell>
 							{t.inputFile}, {t.outputFile}
 						</Table.Cell>
-						<Table.Cell>Scorul tau</Table.Cell>
+						<Table.Cell>
+							<Text id="task-header.your-score"/>
+						</Table.Cell>
 						<Table.Cell>
 							{this.state.lastScore === -1 ? 'N/A' : this.state.lastScore}
 						</Table.Cell>
 					</Table.Row>
 					<Table.Row>
-						<Table.Cell>Limita de timp</Table.Cell>
+						<Table.Cell>
+							<Text id="task-header.time-limit"/>
+						</Table.Cell>
 						<Table.Cell>{d.timeLimit}</Table.Cell>
-						<Table.Cell>Limita de memorie</Table.Cell>
+						<Table.Cell>
+							<Text id="task-header.memory-limit"/>
+						</Table.Cell>
 						<Table.Cell>{d.memoryLimit} KB</Table.Cell>
 					</Table.Row>
 					<Table.Row>
-						<Table.Cell colSpan="2">Concurs</Table.Cell>
+						<Table.Cell colSpan="2">
+							<Text id="task-header.round"/>
+						</Table.Cell>
 						<Table.Cell colSpan="2">{tl.title}</Table.Cell>
 					</Table.Row>
 					<Table.Row>
-						<Table.Cell colSpan="2">ID</Table.Cell>
+						<Table.Cell colSpan="2">
+							<Text id="task-header.id"/>
+						</Table.Cell>
 						<Table.Cell colSpan="2">{t.id}</Table.Cell>
 					</Table.Row>
 				</Table.Body>

@@ -1,17 +1,18 @@
 import { h, Component } from 'preact';
 import { Header, Container } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
+import { withText } from 'preact-i18n';
 import { paramsToObject } from '../../lib/query-params';
 import { connect } from 'preact-redux';
 import { showPopupWithTimeout } from '../../actions/popup';
 import { makeAuthorize, getToken } from '../../actions/auth';
 
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch, props) => ({
 	onRedirect: () => {
 		dispatch(
 			showPopupWithTimeout({
-				title: 'Login successful',
-				body: 'Welcome to XMC',
+				title: props.popupTitle,
+				body: props.popupBody,
 				state: 'success'
 			})
 		);
@@ -98,8 +99,13 @@ The authentification process didn't return the correct values. Please contact th
 	}
 }
 
-const Login = connect(
-	() => ({}),
-	mapDispatchToProps
-)(ConnectedLogin);
+const Login = withText({
+	popupTitle: 'login.popup.title',
+	popupBody: 'login.popup.body'
+})(
+	connect(
+		() => ({}),
+		mapDispatchToProps
+	)(ConnectedLogin)
+);
 export default Login;

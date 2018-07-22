@@ -3,6 +3,7 @@ import { getAccount } from '../../lib/api/account';
 import { ErrorMessage } from '../error-message';
 import { Container, Button, Header } from 'semantic-ui-react';
 import { Redirect } from 'react-router-dom';
+import { Text } from 'preact-i18n';
 
 export class User extends Component {
 	constructor(props) {
@@ -42,7 +43,9 @@ export class User extends Component {
 			<Container>
 				<Header as="h1">{acc.name}</Header>
 				<Header as="h2">{role.name}</Header>
-				<Button onClick={this.logout}>Logout</Button>
+				<Button onClick={this.logout}>
+					<Text id="user.logout"/>
+				</Button>
 			</Container>
 		);
 	}

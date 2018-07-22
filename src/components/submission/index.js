@@ -7,8 +7,10 @@ import { Container, Tab, Header } from 'semantic-ui-react';
 import { Code, CodeView } from '../code';
 import { TestResultsTable } from './test-results-table';
 import { connect } from 'preact-redux';
+import { Text, withText } from 'preact-i18n';
 import { readSubmission } from '../../actions/submissions';
 import { readTaskIfNeeded } from '../../actions/tasks';
+import { textSpanIntersectsWithTextSpan } from 'typescript';
 
 class ConnectedSubmission extends Component {
 	constructor(props) {
@@ -64,7 +66,7 @@ class ConnectedSubmission extends Component {
 		}
 	}
 
-	render() {
+	render({ translations }) {
 		if (this.state.error) {
 			return (
 				<ErrorMessage
@@ -83,14 +85,17 @@ class ConnectedSubmission extends Component {
 		if (this.props.sub.censored) {
 			return (
 				<Container fluid>
-					<Header as="h1">Raport de evaluare</Header>
+					<Header as="h1">
+						<Text id="submission.evaluation-report"/>
+					</Header>
 					<InfoTable submission={this.props.sub} task={this.props.task}/>
 				</Container>
 			);
 		}
+
 		const panes = [
 			{
-				menuItem: 'Evaluare',
+				menuItem: this.props.menuEvaluation,
 				render: () => {
 					let table;
 					if (this.props.sub.result) {
@@ -110,14 +115,18 @@ class ConnectedSubmission extends Component {
 				}
 			},
 			{
-				menuItem: 'Compilare',
+				menuItem: this.props.menuCompilation,
 				render: () => {
 					if (this.props.sub.result) {
 						return (
 							<Tab.Pane>
-								<Header as="h4">Comanda de compilare</Header>
+								<Header as="h4">
+									<Text id="submission.compilation.compilation-command"/>
+								</Header>
 								<Code code={this.props.sub.result.buildCommand}/>
-								<Header as="h4">Raport compilator</Header>
+								<Header as="h4">
+									<Text id="submission.compilation.compiler-report"/>
+								</Header>
 								<Code code={this.props.sub.result.compilationMessage}/>
 							</Tab.Pane>
 						);
@@ -125,7 +134,7 @@ class ConnectedSubmission extends Component {
 				}
 			},
 			{
-				menuItem: 'Cod',
+				menuItem: this.props.menuCode,
 				render: () => (
 					<Tab.Pane>
 						<CodeView
@@ -138,7 +147,9 @@ class ConnectedSubmission extends Component {
 		];
 		return (
 			<Container fluid>
-				<Header as="h1">Raport de evaluare</Header>
+				<Header as="h1">
+					<Text id="submission.evaluation-report"/>
+				</Header>
 				<InfoTable
 					submission={this.props.sub}
 					attachment={this.state.attachment}
@@ -167,4 +178,10 @@ export const Submission = connect(
 			),
 		getTask: id => dispatch(readTaskIfNeeded(id))
 	})
-)(ConnectedSubmission);
+)(
+	withText({
+		menuEvaluation: 'submission.menu.evaluation',
+		menuCompilation: 'submission.menu.compilation',
+		menuCode: 'submission.menu.code'
+	})(ConnectedSubmission)
+);

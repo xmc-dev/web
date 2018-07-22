@@ -1,5 +1,6 @@
 import { h } from 'preact';
 import { Table } from 'semantic-ui-react';
+import { Text } from 'preact-i18n';
 
 export function TestResultsTable({ testResults, finalScore }) {
 	if (!testResults || testResults.length === 0) {
@@ -9,10 +10,18 @@ export function TestResultsTable({ testResults, finalScore }) {
 		<Table.Header>
 			<Table.Row>
 				<Table.HeaderCell>#</Table.HeaderCell>
-				<Table.HeaderCell>Timp</Table.HeaderCell>
-				<Table.HeaderCell>Memorie folosită (KB)</Table.HeaderCell>
-				<Table.HeaderCell>Mesaj</Table.HeaderCell>
-				<Table.HeaderCell>Punctaj</Table.HeaderCell>
+				<Table.HeaderCell>
+					<Text id="submission.time"/>
+				</Table.HeaderCell>
+				<Table.HeaderCell>
+					<Text id="submission.memory"/>
+				</Table.HeaderCell>
+				<Table.HeaderCell>
+					<Text id="submission.message"/>
+				</Table.HeaderCell>
+				<Table.HeaderCell>
+					<Text id="submission.points"/>
+				</Table.HeaderCell>
 			</Table.Row>
 		</Table.Header>
 	);
@@ -38,7 +47,9 @@ export function TestResultsTable({ testResults, finalScore }) {
 
 			<Table.Footer>
 				<Table.Row>
-					<Table.HeaderCell colSpan="4">Scor final</Table.HeaderCell>
+					<Table.HeaderCell colSpan="4">
+						<Text id="submission.final-score"/>
+					</Table.HeaderCell>
 					<Table.HeaderCell>{finalScore}</Table.HeaderCell>
 				</Table.Row>
 			</Table.Footer>
