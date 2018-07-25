@@ -1,0 +1,94 @@
+{
+	"nav": {
+		"home": "Home",
+		"archive": "Archive",
+		"rounds": "Rounds",
+		"monitor": "Monitor",
+		"login": "Log in / Sign up",
+		"settings": "Settings",
+		"admin": "Admin"
+	},
+	"task-header": {
+		"input-output-files": "Input/output files:",
+		"your-score": "Your score",
+		"time-limit": "Time limit",
+		"memory-limit": "Memory limit",
+		"round": "Round",
+		"id": "ID"
+	},
+	"task-footer": {
+		"no-file-warning": "Select a file first",
+		"compiler-autoselect-failure-head": "Couldn't automatically determine compiler for file",
+		"compiler-autoselect-failure-body": "Make sure you are sending the correct file.",
+		"submit-solution-in": "Submit solution in",
+		"submit": "Submit",
+		"show-submitted-solutions": "Show submitted solutions"
+	},
+	"submission-monitor": {
+		"header": {
+			"id": "ID",
+			"user": "User",
+			"problem": "Problem",
+			"submission-date": "Submitted at",
+			"finish-date": "Finished at",
+			"state": "State"
+		}
+	},
+	"submission-status": {
+		"done-no-err": {
+			"none": "Grading finished: 0 points",
+			"one": "Grading finished: 1 point",
+			"many": "Grading finished: {{points}} points"
+		},
+		"done-err": "Grading finished: {{error}}",
+		"waiting": "In queue",
+		"processing": "Processing",
+		"done": "Grading finished"
+	},
+	"submission": {
+		"censored": "Hidden",
+		"status": "Status",
+		"compiler": "Compiler",
+		"submission-date": "Submitted at",
+		"evaluation-date": "Graded at",
+		"size": "Size",
+		"problem": "Problem",
+		"score": "Score",
+		"time": "Time",
+		"memory": "Memory usage (KB)",
+		"message": "Message",
+		"points": "Points",
+		"final-score": "Final score",
+		"evaluation-report": "Grading report",
+		"menu": {
+			"evaluation": "Grading",
+			"compilation": "Compiling",
+			"code": "Code"
+		},
+		"compilation": {
+			"compilation-command": "Compilation command",
+			"compiler-report": "Compiler report"
+		}
+	},
+	"user": {
+		"logout": "Log out"
+	},
+	"error-message": {
+		"error": "Error: {{error}}",
+		"forbidden-page": {
+			"error": "Forbidden",
+			"detail": "You do not have permission to view this page."
+		}
+	},
+	"login": {
+		"popup": {
+			"title": "Logged in successfully",
+			"body": "Welcome!"
+		}
+	},
+	"logout": {
+		"popup": {
+			"title": "Logged out successfully"
+		}
+	}
+}
