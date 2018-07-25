@@ -48,22 +48,15 @@ class ConnectedSubmissionMonitorRow extends Component {
 			});
 	}
 
-	/**
-	 * So it looks like when we change the page with the pagination buttons,
-	 * instead of instancing new SubmissionMonitorRows, preact just changes the props.
-	 * So we update both the "stuff" and the task.
-	 *
-	 * @param {object} newProps
-	 */
-	UNSAFE_componentWillReceiveProps(newProps) {
+	componentDidUpdate(oldProps) {
 		if (
-			newProps.task !== this.props.task ||
-			newProps.sub.id !== this.props.sub.id ||
-			newProps.sub.state !== this.props.sub.state
+			this.props.task !== oldProps.task ||
+			this.props.sub.id !== oldProps.sub.id ||
+			this.props.sub.state !== oldProps.sub.state
 		) {
-			newProps
-				.getTask(newProps.sub.taskId)
-				.then(() => this.updateStuff(newProps));
+			this.props
+				.getTask(this.props.sub.taskId)
+				.then(() => this.updateStuff(this.props));
 		}
 	}
 
