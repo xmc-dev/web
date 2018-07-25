@@ -5,6 +5,7 @@ import { Text } from 'preact-i18n';
 import { getAccount } from '../../lib/api/account';
 import { connect } from 'preact-redux';
 import { withRouter } from 'react-router-dom';
+import style from './style';
 
 class ConnectedLoginButton extends Component {
 	constructor(props) {
@@ -48,6 +49,7 @@ class ConnectedLoginButton extends Component {
 				href="/login"
 				icon="ios-person-outline"
 				text={<Text id="nav.login"/>}
+				className={style.long}
 			/>
 		);
 	}

@@ -2,6 +2,7 @@ import { h, Component } from 'preact';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { IntlProvider } from 'preact-i18n';
 import definitionRO from '../translations/ro.json';
+import definitionEN from '../translations/en.json';
 
 import Navigation from './navigation';
 import Monitor from '../routes/monitor';
@@ -15,6 +16,7 @@ import User from '../routes/user';
 import Logout from '../routes/logout';
 import Settings from '../routes/settings';
 import Rounds from '../routes/rounds';
+import Problem from '../routes/mockups/problem';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
@@ -38,7 +40,7 @@ export default class App extends Component {
 
 	render() {
 		return (
-			<IntlProvider definition={definitionRO}>
+			<IntlProvider definition={definitionEN}>
 				<Router onChange={this.handleRoute}>
 					<div id="app">
 						<Navigation/>
@@ -47,6 +49,7 @@ export default class App extends Component {
 								<PopupDisplay/>
 							</Container>
 							<Switch>
+								<Route path="/mockups/problem" exact component={Problem}/>
 								<Route path="/submissions" exact component={Monitor}/>
 								<Route path="/submissions/:id" exact component={Submission}/>
 								<Route path="/login" exact component={Login}/>

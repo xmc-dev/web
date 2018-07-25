@@ -3,7 +3,7 @@ import { NavLink as StyledLink } from 'react-router-dom';
 import Ionicon from 'react-ionicons';
 import style from './style';
 
-export function NavLink({ href, icon, text, bottom, exact, children }) {
+export function NavLink({ href, icon, text, bottom, exact, children, className }) {
 	let id = '';
 	if (bottom) {
 		id = style.bottom;
@@ -17,7 +17,7 @@ export function NavLink({ href, icon, text, bottom, exact, children }) {
 	}
 
 	return (
-		<StyledLink exact={exact} activeClassName={style.active} to={href} id={id}>
+		<StyledLink exact={exact} activeClassName={style.active} to={href} id={id} className={className}>
 			{inner}
 			<span>{text}</span>
 		</StyledLink>

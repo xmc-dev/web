@@ -6,6 +6,7 @@ html, body {
 	font-family: 'Helvetica Neue', arial, sans-serif;
 	font-weight: 400;
 	color: #444;
+	background: #f9f9f9 !important;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 }
@@ -16,12 +17,11 @@ html, body {
 
 #container {
 	margin-left: 48px;
-	padding: 4em 0;
 }
 
 @media only screen and (max-device-width : 640px) , (max-device-height : 640px) {
 	#container {
 		margin-left: 0;
-		padding-top: 6em;
+		padding-top: 48px;
 	}
 }

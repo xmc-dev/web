@@ -1,12 +1,13 @@
 import { h, Component } from 'preact';
 import Helmet from 'preact-helmet';
-import { Header, Container } from 'semantic-ui-react';
+import { Button, Header, Container } from 'semantic-ui-react';
 import { XMCML } from '../xmcml';
 import { ErrorMessage } from '../error-message';
 import { TaskHeader } from './components/task-header';
 import { TaskFooter } from './components/task-footer';
 import { TaskListHeader } from './components/task-list-header';
 import { TaskList } from './components/task-list';
+import { Header as CHeader } from './components/header';
 import { connect } from 'preact-redux';
 import { readPageIfNeeded } from '../../actions/pages';
 
@@ -75,11 +76,19 @@ class ConnectedPage extends Component {
 		if (!urlPath) {
 			urlPath = '<root>';
 		}
+		let right, objectId = this.props.page.objectId;
+		if (objectId) {
+			let object = objectId.split("/");
+			if (object[0] == "task_list") {
+				right = <Button primary>Participate</Button>
+			}
+		}
 		return (
-			<Container>
+			<main>
 				<Helmet title={this.props.version.title}/>
+				<CHeader title={this.props.version.title} right={right}/>
 				<PageView content={this.props.version.contents || ''} showWarnings/>
-			</Container>
+			</main>
 		);
 	}
 }
