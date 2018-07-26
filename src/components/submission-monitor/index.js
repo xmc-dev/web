@@ -11,7 +11,7 @@ function MonitorTable({ items }) {
 		return <SubmissionMonitorRow key={i} sub={it}/>;
 	});
 	return (
-		<Table celled striped selectable>
+		<Table basic selectable>
 			<Table.Header>
 				<SubmissionMonitorHeaderRow/>
 			</Table.Header>

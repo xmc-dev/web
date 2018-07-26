@@ -10,6 +10,8 @@ import { TaskList } from './components/task-list';
 import { Header as CHeader } from './components/header';
 import { connect } from 'preact-redux';
 import { readPageIfNeeded } from '../../actions/pages';
+import { NavLink } from 'react-router-dom';
+import { HasScope } from '../has-scope';
 
 function TestComponent() {
 	return <h1>Works!</h1>;
@@ -76,18 +78,38 @@ class ConnectedPage extends Component {
 		if (!urlPath) {
 			urlPath = '<root>';
 		}
-		let right, objectId = this.props.page.objectId;
+		let right,
+			objectId = this.props.page.objectId;
 		if (objectId) {
-			let object = objectId.split("/");
-			if (object[0] == "task_list") {
-				right = <Button primary>Participate</Button>
+			let object = objectId.split('/');
+			if (object[0] == 'task_list') {
+				right = <Button primary>Participate</Button>;
+			} else if (object[0] == 'task') {
+				right = <TaskHeader taskId={object[1]}/>;
 			}
 		}
+		let title = (
+			<span>
+				{this.props.version.title}
+				<HasScope scope="xmc.core/manage">
+					<NavLink
+						to={'/admin/pages/edit/' + this.props.page.id}
+						className="luchian small-link"
+					>
+						Edit
+					</NavLink>
+				</HasScope>
+			</span>
+		);
+		// Right = <div>{right}</div>;
+		console.log(this.props.page);
 		return (
 			<main>
 				<Helmet title={this.props.version.title}/>
-				<CHeader title={this.props.version.title} right={right}/>
-				<PageView content={this.props.version.contents || ''} showWarnings/>
+				<CHeader title={title} right={right}/>
+				<Container>
+					<PageView content={this.props.version.contents || ''} showWarnings/>
+				</Container>
 			</main>
 		);
 	}

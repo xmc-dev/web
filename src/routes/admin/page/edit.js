@@ -1,8 +1,9 @@
 import { h, Component } from 'preact';
-import { Header, Container } from 'semantic-ui-react';
+import { Container } from 'semantic-ui-react';
 import Helmet from 'preact-helmet';
 import { PageEditor } from '../../../components/page-editor';
 import { PageNeedsScope } from '../../../components/has-scope';
+import { Header } from '../../../components/page/components/header';
 
 export default class PageEdit extends Component {
 	constructor(props) {
@@ -17,13 +18,13 @@ export default class PageEdit extends Component {
 
 	render() {
 		return (
-			<Container>
+			<main>
 				<PageNeedsScope scope="xmc.core/manage/page">
 					<Helmet title={`Edit page ${this.state.path}`}/>
-					<Header as="h1">Edit page {this.state.path}</Header>
+					<Header title="Edit page" subtitle={this.state.path}/>
 					<PageEditor id={this.props.match.params.id} setPath={this.setPath}/>
 				</PageNeedsScope>
-			</Container>
+			</main>
 		);
 	}
 }

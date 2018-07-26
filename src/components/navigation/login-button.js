@@ -40,6 +40,7 @@ class ConnectedLoginButton extends Component {
 					href="/user"
 					icon="ios-person-outline"
 					text={this.state.account.name}
+					className={style.long}
 				/>
 			);
 		}

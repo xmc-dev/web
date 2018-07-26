@@ -17,6 +17,7 @@ html, body {
 
 #container {
 	margin-left: 48px;
+	padding-bottom: 4em;
 }
 
 @media only screen and (max-device-width : 640px) , (max-device-height : 640px) {

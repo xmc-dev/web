@@ -45,9 +45,11 @@ export default class App extends Component {
 					<div id="app">
 						<Navigation/>
 						<div id="container">
-							<Container>
-								<PopupDisplay/>
-							</Container>
+							<aside className="luchian popup-container">
+								<Container>
+									<PopupDisplay/>
+								</Container>
+							</aside>
 							<Switch>
 								<Route path="/mockups/problem" exact component={Problem}/>
 								<Route path="/submissions" exact component={Monitor}/>
