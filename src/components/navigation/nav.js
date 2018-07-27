@@ -1,7 +1,6 @@
 import { h } from 'preact';
 import { NavLink as StyledLink } from 'react-router-dom';
 import Ionicon from 'react-ionicons';
-import style from './style';
 
 export function NavLink({
 	href,
@@ -10,11 +9,11 @@ export function NavLink({
 	bottom,
 	exact,
 	children,
-	className
+	className,
+	onClick
 }) {
-	let id = '';
 	if (bottom) {
-		id = style.bottom;
+		className += " bottom";
 	}
 
 	let inner;
@@ -25,28 +24,31 @@ export function NavLink({
 	}
 
 	return (
-		<StyledLink
-			exact={exact}
-			activeClassName={style.active}
-			to={href}
-			id={id}
-			className={className}
-		>
-			{inner}
-			<span>{text}</span>
-		</StyledLink>
+		<div onClick={onClick}>
+			<StyledLink
+				exact={exact}
+				activeClassName="active"
+				to={href}
+				className={className}
+			>
+				{inner}
+				<span>{text}</span>
+			</StyledLink>
+		</div>
 	);
 }
 
 export function NavGroup({ children, bottom, extended }) {
-	let id = '';
+	let className = "section";
 	if (bottom) {
-		id = style.bottom;
+		className += " bottom";
 	}
-	const hi = extended ? style.extended : '';
+	if (extended) {
+		className += " extended";
+	}
 
 	return (
-		<div className={style.section + ' ' + hi} id={id}>
+		<div className={className}>
 			{children}
 		</div>
 	);

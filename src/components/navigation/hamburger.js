@@ -1,8 +1,6 @@
 import { Component, h } from 'preact';
 import Ionicon from 'react-ionicons';
 
-import style from './style';
-
 export default class Hamburger extends Component {
 	constructor(props) {
 		super(props);
@@ -16,7 +14,7 @@ export default class Hamburger extends Component {
 	render() {
 		const icon = this.props.extended ? 'ios-close' : 'ios-menu-outline';
 		return (
-			<a id={style.hamburger} onClick={this.toggleMenu}>
+			<a class="hamburger" onClick={this.toggleMenu}>
 				<Ionicon icon={icon} fontSize="1.5em" color="white"/>
 			</a>
 		);
