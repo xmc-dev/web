@@ -22,7 +22,12 @@ export default class PageEdit extends Component {
 				<PageNeedsScope scope="xmc.core/manage/page">
 					<Helmet title={`Edit page ${this.state.path}`}/>
 					<Header title="Edit page" subtitle={this.state.path}/>
-					<PageEditor id={this.props.match.params.id} setPath={this.setPath}/>
+					<Container>
+						<PageEditor
+							id={this.props.match.params.id}
+							setPath={this.setPath}
+						/>
+					</Container>
 				</PageNeedsScope>
 			</main>
 		);

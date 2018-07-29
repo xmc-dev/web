@@ -78,13 +78,13 @@ class ConnectedPage extends Component {
 		if (!urlPath) {
 			urlPath = '<root>';
 		}
-		let right,
-			objectId = this.props.page.objectId;
+		let right;
+		let objectId = this.props.page.objectId;
 		if (objectId) {
 			let object = objectId.split('/');
-			if (object[0] == 'task_list') {
+			if (object[0] === 'task_list') {
 				right = <Button primary>Participate</Button>;
-			} else if (object[0] == 'task') {
+			} else if (object[0] === 'task') {
 				right = <TaskHeader taskId={object[1]}/>;
 			}
 		}

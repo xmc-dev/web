@@ -1,4 +1,4 @@
-import { api, rawCall, rfc3339ToDate, rawApi } from '../api';
+import { api, rawCall, rfc3339ToDate } from '../api';
 import { FILES_PROXY } from '../../config';
 
 function processAttachment(raw) {

@@ -1,11 +1,5 @@
 import { h } from 'preact';
-import {
-	Container,
-	Header as SHeader,
-	Card,
-	Divider,
-	Button
-} from 'semantic-ui-react';
+import { Card, Button } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import Helmet from 'preact-helmet';
 import { HasScope } from '../../../components/has-scope';

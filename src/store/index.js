@@ -5,6 +5,7 @@ import authReducer from '../reducers/auth';
 import submissionsReducer from '../reducers/submissions';
 import tasksReducer from '../reducers/tasks';
 import pagesReducer from '../reducers/pages';
+import langReducer from '../reducers/lang';
 
 function cleanOldState(state) {
 	return {
@@ -26,7 +27,8 @@ const store = createStore(
 		auth: authReducer,
 		submissions: submissionsReducer,
 		tasks: tasksReducer,
-		pages: pagesReducer
+		pages: pagesReducer,
+		lang: langReducer
 	}),
 	cleanOldState(savedState),
 	composeEnhancers(applyMiddleware(thunk))

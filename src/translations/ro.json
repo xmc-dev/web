@@ -1,4 +1,6 @@
 {
+	"icon": "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48cGF0aCBmaWxsPSIjZmZkYTQ0IiBkPSJNMzQ1IDE2YTI1NS41IDI1NS41IDAgMCAwLTE3OCAwbC0yMi4zIDI0MEwxNjcgNDk2YTI1NS40IDI1NS40IDAgMCAwIDE3OCAwbDIyLjMtMjQwTDM0NSAxNnoiLz48cGF0aCBmaWxsPSIjZDgwMDI3IiBkPSJNNTEyIDI1NkEyNTYgMjU2IDAgMCAwIDM0NSAxNnY0ODBjOTcuNS0zNi4xIDE2Ny0xMzAgMTY3LTI0MHoiLz48cGF0aCBmaWxsPSIjMDA1MmI0IiBkPSJNMCAyNTZhMjU2IDI1NiAwIDAgMCAxNjcgMjQwVjE2QTI1NiAyNTYgMCAwIDAgMCAyNTZ6Ii8+PC9zdmc+",
+	"name": "Română",
 	"nav": {
 		"home": "Acasă",
 		"archive": "Arhivă",
@@ -9,7 +11,8 @@
 		"admin": "Adminitrator"
 	},
 	"task-header": {
-		"input-output-files": "Fișiere de intrare/ieșire:",
+		"input-file": "Fișier de intrare",
+		"output-file": "Fișier de ieșire",
 		"your-score": "Scorul tău",
 		"time-limit": "Limită de timp",
 		"memory-limit": "Limită de memorie",

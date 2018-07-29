@@ -10,7 +10,6 @@ import { connect } from 'preact-redux';
 import { Text, withText } from 'preact-i18n';
 import { readSubmission } from '../../actions/submissions';
 import { readTaskIfNeeded } from '../../actions/tasks';
-import { textSpanIntersectsWithTextSpan } from 'typescript';
 
 class ConnectedSubmission extends Component {
 	constructor(props) {
@@ -66,7 +65,7 @@ class ConnectedSubmission extends Component {
 		}
 	}
 
-	render({ translations }) {
+	render() {
 		if (this.state.error) {
 			return (
 				<ErrorMessage

@@ -8,7 +8,7 @@ export function Header(props) {
 				{props.subtitle && <p className="subtitle">{props.subtitle}</p>}
 			</div>
 			{props.right && <div className="right">{props.right}</div>}
-			{props.children.length != 0 && (
+			{props.children.length !== 0 && (
 				<div className="content">{props.children}</div>
 			)}
 		</header>

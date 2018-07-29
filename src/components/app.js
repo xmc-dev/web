@@ -16,14 +16,14 @@ import User from '../routes/user';
 import Logout from '../routes/logout';
 import Settings from '../routes/settings';
 import Rounds from '../routes/rounds';
-import Problem from '../routes/mockups/problem';
+import { connect } from 'preact-redux';
 
 // Import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 // import Monitor from 'async!../routes/monitor';
 // import Submission from 'async!../routes/submission';
 
-export default class App extends Component {
+class ConnectedApp extends Component {
 	constructor(props) {
 		super(props);
 		this.currentUrl = {};
@@ -39,8 +39,19 @@ export default class App extends Component {
 	}
 
 	render() {
+		let def = definitionEN;
+		switch (this.props.langId) {
+			case 'en':
+				def = definitionEN;
+				break;
+			case 'ro':
+				def = definitionRO;
+				break;
+			default:
+				console.error('Unexpected language \'' + this.props.langId + '\'');
+		}
 		return (
-			<IntlProvider definition={definitionEN}>
+			<IntlProvider definition={def}>
 				<Router onChange={this.handleRoute}>
 					<div id="app">
 						<Navigation/>
@@ -51,7 +62,6 @@ export default class App extends Component {
 								</Container>
 							</aside>
 							<Switch>
-								<Route path="/mockups/problem" exact component={Problem}/>
 								<Route path="/submissions" exact component={Monitor}/>
 								<Route path="/submissions/:id" exact component={Submission}/>
 								<Route path="/login" exact component={Login}/>
@@ -69,3 +79,6 @@ export default class App extends Component {
 		);
 	}
 }
+
+const App = connect(state => ({ langId: state.lang.id }))(ConnectedApp);
+export default App;

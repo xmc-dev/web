@@ -13,7 +13,7 @@ export function NavLink({
 	onClick
 }) {
 	if (bottom) {
-		className += " bottom";
+		className += ' bottom';
 	}
 
 	let inner;
@@ -39,17 +39,13 @@ export function NavLink({
 }
 
 export function NavGroup({ children, bottom, extended }) {
-	let className = "section";
+	let className = 'section';
 	if (bottom) {
-		className += " bottom";
+		className += ' bottom';
 	}
 	if (extended) {
-		className += " extended";
+		className += ' extended';
 	}
 
-	return (
-		<div className={className}>
-			{children}
-		</div>
-	);
+	return <div className={className}>{children}</div>;
 }

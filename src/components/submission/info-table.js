@@ -22,6 +22,7 @@ function attachmentLink(submission, codeUrl, attachment) {
 export function InfoTable({ submission, attachment, task, codeUrl }) {
 	const sub = submission;
 	const result = sub.result || {};
+	/* eslint-disable react/jsx-key */
 	const toShow = [
 		[<Text id="submission.status"/>, sub.state],
 		[<Text id="submission.compiler"/>, sub.language],
@@ -36,6 +37,7 @@ export function InfoTable({ submission, attachment, task, codeUrl }) {
 			task.name || ((task.error && task.error.message) || '')
 		]
 	];
+	/* eslint-enable react/jsx-key */
 	const rows = [];
 	for (let i = 0; i < toShow.length; i += 2) {
 		if (i === toShow.length - 1) {

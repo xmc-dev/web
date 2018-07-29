@@ -48,7 +48,7 @@ class ConnectedLogin extends Component {
 		this.state = { error: {}, redirect: false };
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		if (window.location.search) {
 			const params = paramsToObject(window.location.search);
 			if ('error' in params) {

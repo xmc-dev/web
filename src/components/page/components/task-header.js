@@ -1,7 +1,6 @@
 import { h, Component } from 'preact';
 import { getDataset } from '../../../lib/api/dataset';
 import { getTaskList } from '../../../lib/api/task-list';
-import { Table } from 'semantic-ui-react';
 import { ErrorMessage } from '../../error-message';
 import { connect } from 'preact-redux';
 import { readTaskIfNeeded } from '../../../actions/tasks';
@@ -66,9 +65,14 @@ class ConnectedTaskHeader extends Component {
 		const t = this.props.task;
 		const d = this.state.dataset;
 		const tl = this.state.taskList;
+		console.log(tl);
 		return (
 			<TaskInfo
 				items={[
+					{
+						label: <Text id="task-header.round"/>,
+						value: tl.description
+					},
 					{
 						label: <Text id="task-header.time-limit"/>,
 						value: d.timeLimit
@@ -78,12 +82,12 @@ class ConnectedTaskHeader extends Component {
 						value: d.memoryLimit
 					},
 					{
-						label: <Text id="task-header.input-files"/>,
+						label: <Text id="task-header.input-file"/>,
 						value: t.inputFile,
 						monospace: true
 					},
 					{
-						label: <Text id="task-header.output-files"/>,
+						label: <Text id="task-header.output-file"/>,
 						value: t.outputFile,
 						monospace: true
 					},

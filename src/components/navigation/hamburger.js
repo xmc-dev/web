@@ -14,7 +14,7 @@ export default class Hamburger extends Component {
 	render() {
 		const icon = this.props.extended ? 'ios-close' : 'ios-menu-outline';
 		return (
-			<a class="hamburger" onClick={this.toggleMenu}>
+			<a className="hamburger" onClick={this.toggleMenu}>
 				<Ionicon icon={icon} fontSize="1.5em" color="white"/>
 			</a>
 		);

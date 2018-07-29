@@ -6,6 +6,7 @@ import { Text } from 'preact-i18n';
 
 import logo from './logo.svg';
 import { LoginButton } from './login-button';
+import { LangChooser } from './lang-chooser';
 import { HasScope } from '../has-scope';
 
 export default class Navigation extends Component {
@@ -27,7 +28,9 @@ export default class Navigation extends Component {
 	render() {
 		return (
 			<nav
-				className={"luchian navigation" + (this.state.extended ? " extended" : '')}
+				className={
+					'luchian navigation' + (this.state.extended ? ' extended' : '')
+				}
 			>
 				<Hamburger hideNav={this.toggleNav} extended={this.state.extended}/>
 				<StyledLink to="/" className="logo">
@@ -71,14 +74,7 @@ export default class Navigation extends Component {
 
 				<NavGroup bottom>
 					<LoginButton/>
-					<NavLink
-						exact
-						href="/settings"
-						icon="ios-settings-outline"
-						bottom
-						text={<Text id="nav.settings"/>}
-						onClick={this.hideNav}
-					/>
+					<LangChooser/>
 				</NavGroup>
 			</nav>
 		);

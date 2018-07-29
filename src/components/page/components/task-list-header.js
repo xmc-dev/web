@@ -2,12 +2,14 @@ import { h, Component } from 'preact';
 import { Message } from 'semantic-ui-react';
 
 export class TaskListHeader extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			participants: []
-		};
-	}
+	// eslint-disable capitalized-comments
+	// constructor(props) {
+	// 	super(props);
+	// 	this.state = {
+	// 		participants: []
+	// 	};
+	// }
+	// eslint-enable capitalized-comments
 
 	render() {
 		return (
