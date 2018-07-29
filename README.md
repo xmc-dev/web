@@ -2,6 +2,14 @@
 
 [![Build Status](https://travis-ci.org/xmc-dev/web.svg?branch=master)](https://travis-ci.org/xmc-dev/web)
 
+## Attention!
+
+This git repository uses submodules! You must clone with
+
+``` bash
+git clone --recursive https://github.com/xmc-dev/web
+```
+
 ## CLI Commands
 
 ``` bash
