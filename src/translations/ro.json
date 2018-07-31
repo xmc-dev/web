@@ -28,6 +28,7 @@
 		"show-submitted-solutions": "Vezi soluțiile trimise"
 	},
 	"submission-monitor": {
+		"title": "Monitorul de evaluare",
 		"header": {
 			"id": "ID",
 			"user": "Utilizator",
@@ -93,5 +94,11 @@
 		"popup": {
 			"title": "Deconectare reușită"
 		}
+	},
+	"rounds": {
+		"title": "Runde"
+	},
+	"profile": {
+		"title": "Profil"
 	}
 }

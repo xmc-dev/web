@@ -1,7 +1,8 @@
 import { h, Component } from 'preact';
 import { getAccount } from '../../lib/api/account';
 import { ErrorMessage } from '../error-message';
-import { Container, Button, Header } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
+import { Header } from '../../components/page/components/header';
 import { Redirect } from 'react-router-dom';
 import { Text } from 'preact-i18n';
 
@@ -40,13 +41,15 @@ export class User extends Component {
 		const acc = this.state.account.account || {};
 		const role = this.state.account.role || {};
 		return (
-			<Container>
-				<Header as="h1">{acc.name}</Header>
-				<Header as="h2">{role.name}</Header>
-				<Button onClick={this.logout}>
-					<Text id="user.logout"/>
-				</Button>
-			</Container>
+			<Header
+				title={acc.name}
+				subtitle={role.name}
+				right={
+					<Button primary onClick={this.logout}>
+						<Text id="user.logout"/>
+					</Button>
+				}
+			/>
 		);
 	}
 }

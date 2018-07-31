@@ -3,7 +3,8 @@ import { getShortStatus } from '../../lib/submission';
 import { getAttachmentContent, getAttachment } from '../../lib/api/attachment';
 import { ErrorMessage } from '../error-message';
 import { InfoTable } from './info-table';
-import { Container, Tab, Header } from 'semantic-ui-react';
+import { Container, Tab, Header as SHeader } from 'semantic-ui-react';
+import { Header } from '../../components/page/components/header';
 import { Code, CodeView } from '../code';
 import { TestResultsTable } from './test-results-table';
 import { connect } from 'preact-redux';
@@ -77,18 +78,17 @@ class ConnectedSubmission extends Component {
 		if (this.state.isFetching) {
 			return (
 				<Container>
-					<Header as="h1">Loading</Header>
+					<Header title="Loading"/>
 				</Container>
 			);
 		}
 		if (this.props.sub.censored) {
 			return (
-				<Container fluid>
-					<Header as="h1">
-						<Text id="submission.evaluation-report"/>
+				<main>
+					<Header title={<Text id="submission.evaluation-report"/>}>
+						<InfoTable submission={this.props.sub} task={this.props.task}/>
 					</Header>
-					<InfoTable submission={this.props.sub} task={this.props.task}/>
-				</Container>
+				</main>
 			);
 		}
 
@@ -119,13 +119,13 @@ class ConnectedSubmission extends Component {
 					if (this.props.sub.result) {
 						return (
 							<Tab.Pane>
-								<Header as="h4">
+								<SHeader as="h4">
 									<Text id="submission.compilation.compilation-command"/>
-								</Header>
+								</SHeader>
 								<Code code={this.props.sub.result.buildCommand}/>
-								<Header as="h4">
+								<SHeader as="h4">
 									<Text id="submission.compilation.compiler-report"/>
-								</Header>
+								</SHeader>
 								<Code code={this.props.sub.result.compilationMessage}/>
 							</Tab.Pane>
 						);
@@ -145,18 +145,17 @@ class ConnectedSubmission extends Component {
 			}
 		];
 		return (
-			<Container fluid>
-				<Header as="h1">
-					<Text id="submission.evaluation-report"/>
+			<div>
+				<Header title={<Text id="submission.evaluation-report"/>}>
+					<InfoTable
+						submission={this.props.sub}
+						attachment={this.state.attachment}
+						task={this.props.task}
+						codeUrl={this.state.codeUrl}
+					/>
 				</Header>
-				<InfoTable
-					submission={this.props.sub}
-					attachment={this.state.attachment}
-					task={this.props.task}
-					codeUrl={this.state.codeUrl}
-				/>
 				<Tab renderActiveOnly panes={panes}/>
-			</Container>
+			</div>
 		);
 	}
 }

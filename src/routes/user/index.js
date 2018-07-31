@@ -1,15 +1,14 @@
 import { Component, h } from 'preact';
-import { Container } from 'semantic-ui-react';
 import { User as CUser } from '../../components/user';
-import { Helmet } from 'preact-helmet';
+import { Title } from '../../components/title';
 
 export default class User extends Component {
 	render() {
 		return (
-			<Container>
-				<Helmet title="Profile"/>
+			<main>
+				<Title id="profile.title"/>
 				<CUser id={this.props.match.params.id}/>
-			</Container>
+			</main>
 		);
 	}
 }

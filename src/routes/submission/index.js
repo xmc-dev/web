@@ -1,15 +1,14 @@
 import { h, Component } from 'preact';
-import { Container } from 'semantic-ui-react';
 import { Submission as SubmissionComponent } from '../../components/submission';
-import Helmet from 'preact-helmet';
+import { Title } from '../../components/title';
 
 export default class Submission extends Component {
 	render() {
 		return (
-			<Container>
-				<Helmet title="Monitorul de evaluare"/>
+			<main>
+				<Title id="submission.evaluation-report"/>
 				<SubmissionComponent id={this.props.match.params.id}/>
-			</Container>
+			</main>
 		);
 	}
 }

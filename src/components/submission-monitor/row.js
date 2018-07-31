@@ -80,14 +80,13 @@ class ConnectedSubmissionMonitorRow extends Component {
 
 		return (
 			<Table.Row>
-				<Table.Cell>
-					<Link to={`/submissions/${sub.id}`}>{sub.id}</Link>
-				</Table.Cell>
 				<Table.Cell>{accountCell}</Table.Cell>
 				<Table.Cell>{taskCell}</Table.Cell>
 				<Table.Cell>{stringDate(sub.createdAt)}</Table.Cell>
 				<Table.Cell>{stringDate(sub.finishedAt)}</Table.Cell>
-				<Table.Cell>{getShortStatus(sub)}</Table.Cell>
+				<Table.Cell>
+					<Link to={`/submissions/${sub.id}`}>{getShortStatus(sub)}</Link>
+				</Table.Cell>
 			</Table.Row>
 		);
 	}
@@ -105,9 +104,6 @@ export const SubmissionMonitorRow = connect(
 export function SubmissionMonitorHeaderRow() {
 	return (
 		<Table.Row>
-			<Table.HeaderCell>
-				<Text id="submission-monitor.header.id"/>
-			</Table.HeaderCell>
 			<Table.HeaderCell>
 				<Text id="submission-monitor.header.user"/>
 			</Table.HeaderCell>

@@ -28,6 +28,7 @@
 		"show-submitted-solutions": "Show submitted solutions"
 	},
 	"submission-monitor": {
+		"title": "Submission Monitor",
 		"header": {
 			"id": "ID",
 			"user": "User",
@@ -93,5 +94,11 @@
 		"popup": {
 			"title": "Logged out successfully"
 		}
+	},
+	"rounds": {
+		"title": "Rounds"
+	},
+	"profile": {
+		"title": "Profile"
 	}
 }
