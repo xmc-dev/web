@@ -8,7 +8,7 @@
 		"monitor": "Monitor",
 		"login": "Conectează-te",
 		"settings": "Setări",
-		"admin": "Adminitrator"
+		"admin": "Admin"
 	},
 	"task-header": {
 		"input-file": "Fișier de intrare",
@@ -100,5 +100,30 @@
 	},
 	"profile": {
 		"title": "Profil"
+	},
+	"admin": {
+		"title": "Administrare",
+		"subtitle": "Vezi și modifică setările pentru această instanță de XMC.",
+		"pages": {
+			"title": "Pagini",
+			"subtitle": "Adaugă, modifică și șterge pagini scrise în XMCML.",
+			"modify-page": "Modifică pagina",
+			"new-page": "Creează pagina",
+			"create": {
+				"popup-title": "Pagină creeată cu succes",
+				"popup-body": "Click aici pentru a vedea pagina cea nouă",
+				"path": "Cale",
+				"title": "Titlu",
+				"submit": "Creează"
+			}
+		},
+		"users": {
+			"title": "Utilizatori și drepturi",
+			"subtitle": "Gestionează utilizatori și atribuie drepturi"
+		},
+		"task-lists": {
+			"title": "Concursuri și liste de probleme",
+			"subtitle": "Gestionează concursuri și liste de probleme"
+		}
 	}
 }

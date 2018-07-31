@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { createPage } from '../../actions/pages';
 import { ErrorMessage } from '../error-message';
 import { showPopupWithTimeout } from '../../actions/popup';
+import { withText, Text, Localizer } from 'preact-i18n';
 
 class ConnectedPageCreator extends Component {
 	constructor(props) {
@@ -37,9 +38,11 @@ class ConnectedPageCreator extends Component {
 				this.setState({ error: c.error });
 			} else {
 				this.props.showPopup({
-					title: 'Page created successfully',
+					title: this.props.popupTitle,
 					body: (
-						<Link to={this.state.path}>Click here to see the new page</Link>
+						<Link to={this.state.path}>
+							<Text id="admin.pages.create.popup-body"/>
+						</Link>
 					),
 					state: 'success'
 				});
@@ -75,37 +78,49 @@ class ConnectedPageCreator extends Component {
 				{err}
 				<Form>
 					<Form.Group widths="equal">
-						<Form.Input
-							fluid
-							label="Path"
-							placeholder="/somewhere/close"
-							onChange={e => this.setState({ path: e.target.value })}
-						>
-							<input value={this.state.path}/>
-						</Form.Input>
-						<Form.Input
-							fuild
-							label="Title"
-							placeholder="Hamlet"
-							onChange={e => this.setState({ title: e.target.value })}
-						>
-							<input value={this.state.title}/>
-						</Form.Input>
+						<Localizer>
+							<Form.Input
+								fluid
+								label={<Text id="admin.pages.create.path"/>}
+								placeholder="/somewhere/close"
+								onChange={e => this.setState({ path: e.target.value })}
+							>
+								<input value={this.state.path}/>
+							</Form.Input>
+						</Localizer>
+						<Localizer>
+							<Form.Input
+								fuild
+								label={<Text id="admin.pages.create.title"/>}
+								placeholder="Hamlet"
+								onChange={e => this.setState({ title: e.target.value })}
+							>
+								<input value={this.state.title}/>
+							</Form.Input>
+						</Localizer>
 					</Form.Group>
-					<Form.Button onClick={this.create}>Submit</Form.Button>
+					<Localizer>
+						<Form.Button onClick={this.create}>
+							<Text id="admin.pages.create.submit"/>
+						</Form.Button>
+					</Localizer>
 				</Form>
 			</Container>
 		);
 	}
 }
 
-export const PageCreator = connect(
-	state => ({
-		creations: state.pages.creations
-	}),
-	dispatch => ({
-		doCreate: (page, title, contents) =>
-			dispatch(createPage(page, title, contents)),
-		showPopup: popup => dispatch(showPopupWithTimeout(popup))
-	})
-)(ConnectedPageCreator);
+export const PageCreator = withText({
+	popupTitle: 'admin.pages.create.popup-title'
+})(
+	connect(
+		state => ({
+			creations: state.pages.creations
+		}),
+		dispatch => ({
+			doCreate: (page, title, contents) =>
+				dispatch(createPage(page, title, contents)),
+			showPopup: popup => dispatch(showPopupWithTimeout(popup))
+		})
+	)(ConnectedPageCreator)
+);

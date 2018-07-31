@@ -100,5 +100,30 @@
 	},
 	"profile": {
 		"title": "Profile"
+	},
+	"admin": {
+		"title": "Administration",
+		"subtitle": "View and edit administrative settings for this XMC instance.",
+		"pages": {
+			"title": "Pages",
+			"subtitle": "Add, edit and remove pages written in XMCML.",
+			"modify-page": "Modify page",
+			"new-page": "New page",
+			"create": {
+				"popup-title": "Page created successfully",
+				"popup-body": "Click here to see the new page",
+				"path": "Path",
+				"title": "Title",
+				"submit": "Create"
+			}
+		},
+		"users": {
+			"title": "Users and Roles",
+			"subtitle": "Manage users and assign roles"
+		},
+		"task-lists": {
+			"title": "Contests and Task Lists",
+			"subtitle": "Manage contests and task lists"
+		}
 	}
 }
